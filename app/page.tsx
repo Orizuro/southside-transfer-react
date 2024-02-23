@@ -1,10 +1,71 @@
+'use client';
 import Image from "next/image";
 import NavBar from "./components/navbar";
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/pagination';
+import './styles.css'
+import { EffectCoverflow, Pagination } from "swiper/modules";
+
+const slideImages = [
+
+]
 
 export default function Home() {
   return (
     <>
-      <h1>Hi from home</h1>
+      <div className="container border-2 flex justify-between items-center">
+        <div className="first-container box-content">
+          <h1 className="font-bold text-6xl py-4 flex-none">We help you get anywhere YOU want in Algarve.</h1>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vehicula massa in enim luctus. Rutrum arcu.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vehicula massa in enim luctus. Rutrum arcu.
+          </p>
+        </div>
+
+        <div className="grow"></div>
+
+        <Swiper
+          effect={'coverflow'}
+          grabCursor={true}
+          centeredSlides={true}
+          slidesPerView={'auto'}
+          loop={true}
+          coverflowEffect={{
+            rotate: 0,
+            stretch: 0,
+            depth: 100,
+            modifier: 2,
+            slideShadows: true,
+          }}
+          pagination={true}
+          modules={[EffectCoverflow/* , Pagination */]}
+          className="swiper-container flex-none"
+        >
+          <div className="swiper-slide">
+            <SwiperSlide>
+              <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
+            </SwiperSlide>
+            <SwiperSlide>
+              <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
+            </SwiperSlide>
+            <SwiperSlide>
+              <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
+            </SwiperSlide>
+            <SwiperSlide>
+              <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
+            </SwiperSlide>
+            <SwiperSlide>
+              <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
+            </SwiperSlide>
+          </div>
+
+        </Swiper>
+
+      </div>
       {/*<main className="flex min-h-screen flex-col items-center justify-between p-24">
 
         <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
