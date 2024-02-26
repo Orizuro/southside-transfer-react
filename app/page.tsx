@@ -17,8 +17,8 @@ const slideImages = [
 export default function Home() {
   return (
     <>
-      <div className="container border-2 flex justify-between items-center">
-        <div className="first-container box-content">
+      <div className="grid container border-2 flex justify-center items-center">
+        <div className="box-content">
           <h1 className="font-bold text-6xl py-4 flex-none">We help you get anywhere YOU want in Algarve.</h1>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vehicula massa in enim luctus. Rutrum arcu.
