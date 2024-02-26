@@ -1,7 +1,10 @@
 import { Bars3Icon } from "@heroicons/react/16/solid";
 import {
-  Link
+  Link,
 } from "@nextui-org/react";
+
+import CtnButton from "./myButton";
+
 
 interface Props {
   href: string;
@@ -20,7 +23,7 @@ export default function NavBar() {
   fixed flex w-full h-20 justify-between px-6 items-center text-xl
   flex gap-x-8 justify-between
   */ }
-  return <div className="flex navbar border-b-2 border-black px-12 sticky bg-white">
+  return <div className="navbar border-b-2 border-black px-12 sticky">
     {/* Where the icons goes*/}
 
     <div className="navbar-start">
@@ -40,10 +43,8 @@ export default function NavBar() {
 
     </div>
 
-    <div className="hidden sm:flex navbar-end">
-      <button className="w-fit btn btn-primary">
-        Book your ride
-      </button>
+    <div className="navbar-end">
+      <CtnButton />
     </div>
 
     <div className="sm:hidden">

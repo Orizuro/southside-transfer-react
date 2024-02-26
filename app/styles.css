@@ -1,16 +1,48 @@
 .swiper-container {
-  width: 50%;
-  padding-top: 50px;
-  padding-bottom: 50px;
+  width: 80%;
+  /* padding-top: 50px; */
+  /* padding-bottom: 50px; */
 }
 
 .swiper-slide {
   background-position: center;
   background-size: cover;
-  width: 50%;
+  width: 10%;
+  filter: blur(6px);
   /* height: 400px; */
+}
+
+
+.swiper-slide-active {
+  filter: blur(0px);
 }
 
 .first-container {
   width: 40%;
+}
+
+[data-theme="light"] .btn-ctn {
+  border-width: 2px;
+  border-color: black;
+  background-color: pink;
+}
+
+.carrousel-container {
+
+  width: 90%;
+
+  >div {
+    position: unset !important;
+  }
+
+  .carrousel-image {
+    object-fit: contain;
+    width: 100% !important;
+    position: relative !important;
+    height: unset !important;
+  }
+}
+
+.allImages {
+  width: 100%;
 }

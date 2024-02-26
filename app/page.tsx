@@ -8,25 +8,32 @@ import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 import './styles.css'
-import { EffectCoverflow, Pagination } from "swiper/modules";
+import { Autoplay, EffectCoverflow } from "swiper/modules";
+import CtnButton from "./components/myButton";
 
-const slideImages = [
-
-]
 
 export default function Home() {
+
+  const slideImages = [
+    { id: 1, src: "/images/image-1.jpg" },
+    { id: 2, src: "/images/image-2.jpg" },
+    { id: 3, src: "/images/image-3.jpg" },
+    { id: 4, src: "/images/image-4.jpg" },
+    { id: 5, src: "/images/image-5.jpg" }
+  ]
   return (
     <>
-      <div className="grid container border-2 flex justify-center items-center">
-        <div className="box-content">
-          <h1 className="font-bold text-6xl py-4 flex-none">We help you get anywhere YOU want in Algarve.</h1>
-          <p>
+      <div className="sm:flex container justify-between items-center">
+        <div className="box-content px-8 justify-center">
+          <h1 className="font-bold text-6xl">We help you get anywhere YOU want in Algarve.</h1>
+          <p className="py-7">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vehicula massa in enim luctus. Rutrum arcu.
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vehicula massa in enim luctus. Rutrum arcu.
           </p>
+
+          <CtnButton />
         </div>
 
-        <div className="grow"></div>
 
         <Swiper
           effect={'coverflow'}
@@ -37,30 +44,30 @@ export default function Home() {
           coverflowEffect={{
             rotate: 0,
             stretch: 0,
-            depth: 100,
+            depth: 150,
             modifier: 2,
             slideShadows: true,
           }}
           pagination={true}
-          modules={[EffectCoverflow/* , Pagination */]}
-          className="swiper-container flex-none"
+          modules={[Autoplay, EffectCoverflow/* , Pagination */]}
+          autoplay={{
+            delay: 2500,
+            disableOnInteraction: false,
+          }}
+          className="swiper-container"
         >
-          <div className="swiper-slide">
-            <SwiperSlide>
-              <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
-            </SwiperSlide>
+          <div className="container">
+            {
+              slideImages.map((image) => (
+                <SwiperSlide key={image.id + 1} className='carrousel-container'>
+                  <Image key={image.id} src={image.src}
+                    alt=""
+                    fill={true}
+                    className={"carrousel-image rounded-lg"}
+                  />
+                </SwiperSlide>
+              ))
+            }
           </div>
 
         </Swiper>
