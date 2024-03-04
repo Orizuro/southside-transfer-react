@@ -1,0 +1,205 @@
+{
+    "cities": [
+        {
+            "name": "Albufeira e Olhos de Água"
+        },
+        {
+            "name": "Ferreiras"
+        },
+        {
+            "name": "Guia"
+        },
+        {
+            "name": "Paderne"
+        },
+        {
+            "name": "Alcoutim e Pereiro"
+        },
+        {
+            "name": "Giões"
+        },
+        {
+            "name": "Martim Longo"
+        },
+        {
+            "name": "Vaqueiros"
+        },
+        {
+            "name": "Aljezur"
+        },
+        {
+            "name": "Bordeira"
+        },
+        {
+            "name": "Odeceixe"
+        },
+        {
+            "name": "Rogil"
+        },
+        {
+            "name": "Altura"
+        },
+        {
+            "name": "Azinhal"
+        },
+        {
+            "name": "Castro Marim"
+        },
+        {
+            "name": "Odeleite"
+        },
+        {
+            "name": "Conceição e Estoi"
+        },
+        {
+            "name": "Faro"
+        },
+        {
+            "name": "Montenegro"
+        },
+        {
+            "name": "Santa Bárbara de Nexe"
+        },
+        {
+            "name": "Estômbar e Parchal"
+        },
+        {
+            "name": "Ferragudo"
+        },
+        {
+            "name": "Lagoa e Carvoeiro"
+        },
+        {
+            "name": "Porches"
+        },
+        {
+            "name": "Bensafrim e Barão de São João"
+        },
+        {
+            "name": "São Gonçalo de Lagos"
+        },
+        {
+            "name": "Luz"
+        },
+        {
+            "name": "Odiáxere"
+        },
+        {
+            "name": "Almancil"
+        },
+        {
+            "name": "Alte"
+        },
+        {
+            "name": "Ameixial"
+        },
+        {
+            "name": "Boliqueime"
+        },
+        {
+            "name": "Quarteira"
+        },
+        {
+            "name": "Querença, Tôr e Benafim"
+        },
+        {
+            "name": "Salir"
+        },
+        {
+            "name": "Loulé (São Clemente)"
+        },
+        {
+            "name": "Loulé (São Sebastião)"
+        },
+        {
+            "name": "Alferce"
+        },
+        {
+            "name": "Marmelete"
+        },
+        {
+            "name": "Monchique"
+        },
+        {
+            "name": "Moncarapacho e Fuseta"
+        },
+        {
+            "name": "Olhão"
+        },
+        {
+            "name": "Pechão"
+        },
+        {
+            "name": "Quelfes"
+        },
+        {
+            "name": "Alvor"
+        },
+        {
+            "name": "Mexilhoeira Grande"
+        },
+        {
+            "name": "Portimão"
+        },
+        {
+            "name": "São Brás de Alportel"
+        },
+        {
+            "name": "Alcantarilha e Pêra"
+        },
+        {
+            "name": "Algoz e Tunes"
+        },
+        {
+            "name": "Armação de Pêra"
+        },
+        {
+            "name": "São Bartolomeu de Messines"
+        },
+        {
+            "name": "São Marcos da Serra"
+        },
+        {
+            "name": "Silves"
+        },
+        {
+            "name": "Cachopo"
+        },
+        {
+            "name": "Conceição e Cabanas de Tavira"
+        },
+        {
+            "name": "Luz de Tavira e Santo Estêvão"
+        },
+        {
+            "name": "Santa Catarina da Fonte do Bispo"
+        },
+        {
+            "name": "Santa Luzia"
+        },
+        {
+            "name": "Tavira"
+        },
+        {
+            "name": "Barão de São Miguel"
+        },
+        {
+            "name": "Budens"
+        },
+        {
+            "name": "Sagres"
+        },
+        {
+            "name": "Vila do Bispo e Raposeira"
+        },
+        {
+            "name": "Monte Gordo"
+        },
+        {
+            "name": "Vila Nova de Cacela"
+        },
+        {
+            "name": "Vila Real de Santo António"
+        }
+    ]
+}
