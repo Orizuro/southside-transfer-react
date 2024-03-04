@@ -23,8 +23,8 @@ export default function RootLayout({
         <main className="container mx-auto pt-12 min-h-screen">
           {children}
         </main>
+        <Footer />
       </body>
-      <Footer />
     </html>
   );
 }
