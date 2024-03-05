@@ -1,5 +1,6 @@
 'use client';
 import Image from "next/image";
+import NavBar from "./components/navbar";
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
@@ -22,9 +23,9 @@ export default function Home() {
   ]
   return (
     <>
-      <div className="container justify-between items-center flex-row">
-        <div className="px-8">
-          <h1 className="font-bold text-5xl sm:text-6xl">We help you get anywhere YOU want in Algarve.</h1>
+      <div className="sm:flex container justify-between items-center">
+        <div className="box-content px-8 justify-center">
+          <h1 className="font-bold text-6xl">We help you get anywhere YOU want in Algarve.</h1>
           <p className="py-7">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vehicula massa in enim luctus. Rutrum arcu.
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vehicula massa in enim luctus. Rutrum arcu.
@@ -33,12 +34,43 @@ export default function Home() {
           <CtnButton />
         </div>
 
-        <div className="py-8 bg-black">
 
+        <Swiper
+          effect={'coverflow'}
+          grabCursor={true}
+          centeredSlides={true}
+          slidesPerView={'auto'}
+          loop={true}
+          coverflowEffect={{
+            rotate: 0,
+            stretch: 0,
+            depth: 150,
+            modifier: 2,
+            slideShadows: true,
+          }}
+          pagination={true}
+          modules={[Autoplay, EffectCoverflow/* , Pagination */]}
+          autoplay={{
+            delay: 2500,
+            disableOnInteraction: false,
+          }}
+          className="swiper-container"
+        >
+          <div className="container">
+            {
+              slideImages.map((image) => (
+                <SwiperSlide key={image.id + 1} className='carrousel-container'>
+                  <Image key={image.id} src={image.src}
+                    alt=""
+                    fill={true}
+                    className={"carrousel-image rounded-lg"}
+                  />
+                </SwiperSlide>
+              ))
+            }
+          </div>
 
-
-        </div>
-
+        </Swiper>
 
       </div>
 
