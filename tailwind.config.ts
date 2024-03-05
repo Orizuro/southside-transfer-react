@@ -20,7 +20,7 @@ const config: Config = {
       whiteBg: "#FFFAFF",
       black: "#08090A",
       accent: "#F0803C",
-      terciary: "#3F97B2",
+      terciary: "#98C8D7",
     },
   },
   plugins: [
