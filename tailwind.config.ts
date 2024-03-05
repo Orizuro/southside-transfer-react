@@ -27,7 +27,10 @@ const config: Config = {
     },
   },
   plugins: [
-    require("daisyui")
+    require("daisyui"),
+    require("tailwindcss/nesting"),
+    require('autoprefixer'),
+    require('tailwindcss'),
   ],
 
   daisyui: {

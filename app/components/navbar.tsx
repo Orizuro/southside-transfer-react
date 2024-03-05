@@ -4,6 +4,7 @@ import {
 } from "@nextui-org/react";
 
 import CtnButton from "./myButton";
+import Image from "next/image";
 
 
 interface Props {
@@ -23,12 +24,16 @@ export default function NavBar() {
   fixed flex w-full h-20 justify-between px-6 items-center text-xl
   flex gap-x-8 justify-between
   */ }
-  return <div className="navbar border-b-2 border-black px-12 sticky">
+  return <div className="navbar border-b-2 border-black px-12 sticky bg-black text-whiteBg">
     {/* Where the icons goes*/}
 
     <div className="navbar-start">
       <Link href="/">
-        LOGO
+        <Image src={"logo.svg"}
+          alt=""
+          width={56}
+          height={56}
+        />
       </Link>
     </div>
 

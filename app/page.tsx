@@ -101,7 +101,7 @@ export default function Home() {
             <div className=" container absolute bg-whiteBg btn-circle flex ">
               <p className=" text-center m-auto font-bold"> 2</p>
             </div>
-            <div className="p-4 flex container ">
+            <div className="p-4 container ">
               <div className=" container bg-neutral-200 p-4 rounded-xl ">
                 <div className="image-container flex justify-center items-center mb-10 mt-10">
                   <img src="/icons/shield.png " width={120} height={120} />
@@ -113,11 +113,12 @@ export default function Home() {
               </div>
             </div>
           </div>
+
           <div>
             <div className=" container absolute bg-whiteBg btn-circle flex ">
               <p className=" text-center m-auto font-bold"> 3</p>
             </div>
-            <div className="p-4 flex container overlay">
+            <div className="p-4 container overlay">
               <div className=" container bg-neutral-200 p-4 rounded-xl ">
                 <div className="image-container flex justify-center items-center mb-10 mt-10">
                   <img src="/icons/happy.png " width={120} height={120} />
