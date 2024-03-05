@@ -75,12 +75,12 @@ export default function Home() {
       </div>
 
       <br />
-      <div className="bg-primary p-8">
+      <div className="bg-blue p-8">
         <p className=" text-4xl font-semibold text-whiteBg"> How it works ? </p>
 
-        <div className="sm:columns-3 columns-1 p-8" >
+        <div className="sm:columns-3 columns-1 p-8 flex" >
           <div>
-            <div className=" container absolute btn-circle flex  ">
+            <div className=" container absolute bg-whiteBg btn-circle flex  ">
               <p className=" text-center m-auto font-bold"> 1</p>
             </div>
             <div className="p-4 container  ">

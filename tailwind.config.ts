@@ -19,8 +19,10 @@ const config: Config = {
       // white: "#FFFAFF",
       whiteBg: "#FFFAFF",
       black: "#08090A",
-      accent: "#F0803C",
-      terciary: "#3F97B2",
+      blue: "#3e8ba3",
+      blueLight: "#97c9d8",
+      green: "#c8f18b",
+      greenDark: "#8dda1b",
 
     },
   },
