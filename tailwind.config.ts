@@ -21,6 +21,7 @@ const config: Config = {
       black: "#08090A",
       accent: "#F0803C",
       terciary: "#3F97B2",
+
     },
   },
   plugins: [
