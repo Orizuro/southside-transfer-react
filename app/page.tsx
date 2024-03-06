@@ -1,6 +1,7 @@
 'use client';
 import Image from "next/image";
 import NavBar from "./components/navbar";
+import HowItWorks from "./components/howItWorksElement";
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
@@ -73,67 +74,33 @@ export default function Home() {
         </Swiper>
 
       </div>
-
       <br />
-      <div className="bg-blue p-8">
-        <p className=" text-4xl font-semibold text-whiteBg"> How it works ? </p>
+      <div className=" bg-gradient-to-r from-blue to-green lg:p-6 p-2">
+        <p className=" text-4xl font-semibold text-whiteBg mb-4"> How it works ? </p>
 
-        <div className="sm:columns-3 columns-1 p-8 flex" >
-          <div>
-            <div className=" container absolute bg-whiteBg btn-circle flex  ">
-              <p className=" text-center m-auto font-bold"> 1</p>
-            </div>
-            <div className="p-4 container  ">
-              <div className=" container bg-neutral-200 p-4 rounded-xl ">
-                <div className="image-container flex justify-center items-center">
-                  <img src="/icons/car.png " width={170} height={170} />
-                </div >
-                <p className=" text-center text-2xl font-extrabold"> You book your ride </p>
-                <div className="container p-4 rounded-xl text-center ">
-                  <p className=" text-center text-lg font-medium mb-5"> You can call us or schedule the ride,  we make sure everything will go smoothly with our professional drivers. </p>
-
-                  <CtnButton />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className=" container absolute bg-whiteBg btn-circle flex ">
-              <p className=" text-center m-auto font-bold"> 2</p>
-            </div>
-            <div className="p-4 container ">
-              <div className=" container bg-neutral-200 p-4 rounded-xl ">
-                <div className="image-container flex justify-center items-center mb-10 mt-10">
-                  <img src="/icons/shield.png " width={120} height={120} />
-                </div >
-                <p className=" text-center text-2xl font-extrabold"> Safe Payment </p>
-                <div className="container p-4 rounded-xl">
-                  <p className=" text-center text-lg font-medium"> You can pay here safely online or at the end of the ride directly to your designated driver. </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <div className=" container absolute bg-whiteBg btn-circle flex ">
-              <p className=" text-center m-auto font-bold"> 3</p>
-            </div>
-            <div className="p-4 container overlay">
-              <div className=" container bg-neutral-200 p-4 rounded-xl ">
-                <div className="image-container flex justify-center items-center mb-10 mt-10">
-                  <img src="/icons/happy.png " width={120} height={120} />
-                </div >
-                <p className=" text-center text-2xl font-extrabold"> Relax and enjoy your ride</p>
-                <div className="container p-4 rounded-xl">
-                  <p className=" text-center text-lg font-medium">Let worries fade, our drivers will take care of everything. </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-
+        <div className=" lg:flex-row flex-col items-stretch justify-center flex" >
+          <HowItWorks
+            num="1"
+            title="You book your ride"
+            text="You can call us or schedule the ride,  we make sure everything will go smoothly with our professional drivers. "
+            image="/icons/car.png"
+            button={<CtnButton />}
+          />
+          <HowItWorks
+            num="2"
+            title="Safe Payment"
+            text="You can pay here safely online or at the end of the ride directly to your designated driver."
+            image="/icons/shield.png" />
+          <HowItWorks
+            num="3"
+            title="Relax and enjoy your ride"
+            text="Let worries fade, our drivers will take care of everything. "
+            image="/icons/happy.png"
+          />
         </div >
       </div >
+      <br />
+
     </>
   );
 }

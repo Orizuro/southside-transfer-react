@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en" className="bg-whiteBg">
       <body className={inter.className}>
         <NavBar />
-        <main className="container mx-auto pt-12 min-h-screen">
+        <main className="container mx-auto pt-4 min-h-screen">
           {children}
         </main>
         <Footer />

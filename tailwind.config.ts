@@ -17,7 +17,7 @@ const config: Config = {
 
     colors: {
       // white: "#FFFAFF",
-      whiteBg: "#FFFAFF",
+      whiteBg: "#FFFFFF",
       black: "#08090A",
       blue: "#3e8ba3",
       blueLight: "#97c9d8",
@@ -28,6 +28,9 @@ const config: Config = {
   },
   plugins: [
     require("daisyui"),
+    require("@stripe/react-stripe-js"),
+    require("@stripe/stripe-js"),
+    require('@tailwindcss/forms'),
     require("tailwindcss/nesting"),
     require('autoprefixer'),
     require('tailwindcss'),

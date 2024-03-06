@@ -13,7 +13,7 @@ interface Props {
 }
 
 function ItemLink({ href, text }: Props) {
-  return <Link href={href}>
+  return <Link href={href} className="hover:bg-neutral-800 flex px-4 py-2">
     <p>{text}</p>
   </Link>
 }
@@ -24,38 +24,39 @@ export default function NavBar() {
   fixed flex w-full h-20 justify-between px-6 items-center text-xl
   flex gap-x-8 justify-between
   */ }
-  return <div className="navbar border-b-2 border-black px-12 sticky bg-black text-whiteBg">
-    {/* Where the icons goes*/}
+  return <nav className="  bg-black text-whiteBg">
+    <div className="sm:px-10 px-3 py-5 flex items-center justify-between  ">
+      {/* Where the icons goes*/}
 
-    <div className="navbar-start">
-      <Link href="/">
-        <Image src={"logo.svg"}
-          alt=""
-          width={56}
-          height={56}
-        />
-      </Link>
+      <div className="flex items-center ">
+        <Link href="/">
+          <Image src={"logo.svg"}
+            alt=""
+            width={56}
+            height={56}
+          />
+        </Link>
+      </div>
+
+
+      <div className="hidden sm:flex  gap-x-2">
+
+        <ItemLink href="/how-it-works" text="How it works" />
+
+        <ItemLink href="/checkout" text="Pricing" />
+
+        <ItemLink href="/about" text="About" />
+
+      </div>
+
+      <div className="">
+        <CtnButton />
+      </div>
+
+      <div className="sm:hidden ml-2">
+        <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+      </div>
+
     </div>
-
-    <div className="grow sm:"></div>
-    <div className="hidden sm:flex navbar-center gap-x-8">
-
-      <ItemLink href="/how-it-works" text="How it works" />
-
-      <ItemLink href="/pricing" text="Pricing" />
-
-      <ItemLink href="/about" text="About" />
-
-    </div>
-
-    <div className="navbar-end">
-      <CtnButton />
-    </div>
-
-    <div className="sm:hidden">
-      <Bars3Icon className="h-6 w-6" aria-hidden="true" />
-    </div>
-
-
-  </div >
+  </nav >
 }

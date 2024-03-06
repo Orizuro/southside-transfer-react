@@ -48,9 +48,9 @@ export default function Pay() {
 
     render() {
       return <div className="py-5">
-        <label className='text-xl'> {this.state.labelText} </label>
+        <label className='text-2xl font-semibold '> {this.state.labelText} </label>
 
-        <select className="select bg-terciary rounded w-full font-semibold" value={this.state.stateValue} onChange={e => this.state.setStateValue(e.target.value)}>
+        <select className="select bg-blueLight rounded w-full font-medium mt-2" value={this.state.stateValue} onChange={e => this.state.setStateValue(e.target.value)}>
           {getCities().map((citie) =>
             <option key={citie}>{citie}</option>
           )}
@@ -80,8 +80,8 @@ export default function Pay() {
 
 
     return <div className="py-6">
-      <label className='text-xl' > {labelText} </label>
-      <select className="select bg-terciary rounded w-full font-semibold"
+      <label className='text-2xl font-semibold' > {labelText} </label>
+      <select className="select bg-blueLight rounded w-full font-medium mt-2"
         value={selectedQuatity}
         onChange={e => {
           var value = parseFloat(e.target.value);
@@ -115,22 +115,22 @@ export default function Pay() {
   }
 
   return <>
-    <div className="justify-center items-center flex-col">
+    <div className="justify-center items-center flex-col m-5">
       <ErrorAlert />
 
-      <Selection labelText='Tranfer from:' stateValue={origin} setStateValue={setOrigin} />
+      <Selection labelText='Transfer from:' stateValue={origin} setStateValue={setOrigin} />
 
       <Selection labelText='To:' stateValue={destination} setStateValue={setDestination} />
 
       <OptionsWithNumbers maxPassengers={16} labelText='Quantity of passengers:' />
 
-      <div className="flex-none">
-        <text className='text-lg'>Price: {price.toFixed(2)}€</text>
+      <div className="flex-none text-center mt-5">
+        <text className='text-3xl font-semibold'>Price: {price.toFixed(2)}€</text>
       </div>
     </div>
 
-    <div className='flex justify-center py-8' >
-      <button className='btn btn-active bg-black text-whiteBg w-[20%]' onClick={checkValues} disabled={isButtonDisable}>Book now!</button>
+    <div className='flex justify-center py-3' >
+      <button className='btn btn-active bg-black text-whiteBg w-[30%]' onClick={checkValues} disabled={isButtonDisable}>Book now!</button>
     </div>
   </>
 }
