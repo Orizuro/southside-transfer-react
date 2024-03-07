@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "lib": [
+      "es2016",
       "dom",
       "dom.iterable",
       "esnext"
@@ -31,7 +32,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "app/stripe/api/route.jsx",
   ],
   "exclude": [
     "app/stripe/page.js",

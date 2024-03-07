@@ -5,13 +5,17 @@ import data from '../../public/cities.json' assert { type: 'json' };
 import { Dispatch, SetStateAction, useState } from 'react';
 import React from 'react';
 import FormElement from '../components/forms';
-
+import '@googlemaps/extended-component-library/place_picker.js';
+import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import { PlacePicker } from '@googlemaps/extended-component-library/react';
+import * as GMPX from '@googlemaps/extended-component-library/react';
 
 export default function CheckOut() {
 
 
 
   function Payment() {
+
     return <fieldset>
 
       <div className="mt-6 space-y-6">
@@ -59,6 +63,8 @@ export default function CheckOut() {
       for (var i = 1; i <= 16; i++)
         options.push(<option key={i}>{i}</option>);
       return <form action={"post"} >
+        <GMPX.APILoader apiKey={"AIzaSyAt5idFArVSd46-m2i6TS7L4wiONUzUYwI"} />
+
         <div className="border-b border-gray-900/10 pb-12">
           <h2 className="text-base font-semibold leading-7 text-gray-900">Personal Information</h2>
 
@@ -74,11 +80,25 @@ export default function CheckOut() {
         </div>
         <div className="border-b border-gray-900/10 pb-12">
           <h2 className="text-base font-semibold leading-7 text-gray-900">Trip details</h2>
+          <br />
+          <div>
+            <PlacePicker placeholder='Address departure' id='addressDeparture' style={{ width: "100%" }} country={["pt"]} locationBias={{ lat: 37.0880433, lng: -8.1330529 }} radius={60000}>
+              <input name="address" type="hidden" id="selected-address" />
+            </PlacePicker>
 
+          </div>
+          <br />
+          <div>
+
+            <PlacePicker placeholder='Address arrival' id='addressArrival' style={{ width: "100%" }} country={["pt"]} locationBias={{ lat: 37.0880433, lng: -8.1330529 }} radius={60000}>
+              <input name="address" type="hidden" id="selected-address" />
+
+            </PlacePicker>
+          </div>
           <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-            <FormElement htmlFor='addressPickUp' label='Address of pickup' type='text' name='addressPickUp' id='addressPickUp' colSpan='3' />
 
-            <FormElement htmlFor='addressArrival' label='Address of arrival' type='text' name='addressArrival' id='addressArrival' colSpan='3' />
+
+
 
             <FormElement htmlFor='date' label='Date of pickup' type='date' name='date' id='date' colSpan='2' />
 
@@ -161,6 +181,7 @@ export default function CheckOut() {
   return (
     <>
       <div className=' m-3'>
+        <script type="module" src="https://unpkg.com/@googlemaps/extended-component-library"></script>
         <h1 className=' font-semibold text-2xl'> Final steps</h1>
         <br />
         <p className=' border-b border-gray-900/10 pb-4'> We just need some more information to finish the reservation.</p>

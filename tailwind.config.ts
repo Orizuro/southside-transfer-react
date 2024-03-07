@@ -34,6 +34,7 @@ const config: Config = {
     require("tailwindcss/nesting"),
     require('autoprefixer'),
     require('tailwindcss'),
+    //require("@googlemaps/extended-component-library"),
   ],
 
   daisyui: {

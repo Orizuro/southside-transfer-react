@@ -12,7 +12,7 @@ interface Props {
   required?: boolean;
 }
 export default function FormElement({ htmlFor, label, type, name, id, autoComplete, colSpan, placeholder, required }: Props) {
-  const colSpanClass = 'sm:col-span-' + colSpan;
+  const colSpanClass = 'sm:col-span-4';
   const requiredClass = required ? required : true;
   return <div className={colSpanClass}>
     <label
