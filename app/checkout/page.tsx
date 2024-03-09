@@ -8,8 +8,8 @@ import FormElement from '../components/forms';
 import '@googlemaps/extended-component-library/place_picker.js';
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 import { PlacePicker } from '@googlemaps/extended-component-library/react';
-import * as GMPX from '@googlemaps/extended-component-library/react';
 
+import * as GMPX from '@googlemaps/extended-component-library/react';
 export default function CheckOut() {
 
 
@@ -63,8 +63,8 @@ export default function CheckOut() {
       for (var i = 1; i <= 16; i++)
         options.push(<option key={i}>{i}</option>);
       return <form action={"post"} >
-        <GMPX.APILoader apiKey={"AIzaSyAt5idFArVSd46-m2i6TS7L4wiONUzUYwI"} />
 
+        <GMPX.APILoader apiKey={"AIzaSyAt5idFArVSd46-m2i6TS7L4wiONUzUYwI"} />
         <div className="border-b border-gray-900/10 pb-12">
           <h2 className="text-base font-semibold leading-7 text-gray-900">Personal Information</h2>
 
@@ -82,6 +82,7 @@ export default function CheckOut() {
           <h2 className="text-base font-semibold leading-7 text-gray-900">Trip details</h2>
           <br />
           <div>
+
             <PlacePicker placeholder='Address departure' id='addressDeparture' style={{ width: "100%" }} country={["pt"]} locationBias={{ lat: 37.0880433, lng: -8.1330529 }} radius={60000}>
               <input name="address" type="hidden" id="selected-address" />
             </PlacePicker>

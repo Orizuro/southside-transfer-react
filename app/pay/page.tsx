@@ -1,136 +1,99 @@
 "use client";
+import React, { useState } from 'react';
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+import { GoogleMap, DistanceMatrixService } from "@react-google-maps/api";
+import LocationSearchInput from './LocationSearch';
+//import DistanceMatrixService from './DistanceMatrixService';
 
-import '.././styles.css'
-import data from '../../public/cities.json' assert { type: 'json' };
-import { Dispatch, SetStateAction, useState } from 'react';
-import React from 'react';
+interface MapComponentProps { }
 
-interface SelectionProps {
-  labelText?: string;
-  stateValue?: string;
-  setStateValue?: Dispatch<SetStateAction<any>>;
-}
-
-function getCities() {
-  // var obj = JSON.parse(JSON.stringify(data.cities));
-  // obj = JSON.stringify(data.cities);
-  //
-  var names = [];
-  for (var i = 0; i < data.cities.length; i++) {
-    names[i] = data.cities[i].name;
-  }
-  return names;
-}
-
-export default function Pay() {
-
-  const [origin, setOrigin] = useState("");
-  const [destination, setDestination] = useState("");
-
-  const [showError, setShowError] = useState(false);
-  const [price, setPrice] = useState(0.0);
-  const [selectedQuatity, setSelectedQuantity] = useState(0);
-  const [isButtonDisable, setIsButtonDisable] = useState(true);
-
-  const pricePerPerson = 22.6; // In €
-
-  class Selection extends React.Component<SelectionProps, any> {
-    // const string labelText;
-
-    constructor(props: any) {
-      super(props);
-      this.state = {
-        labelText: props.labelText,
-        stateValue: props.stateValue,
-        setStateValue: props.setStateValue,
-      }
-    }
-
-    render() {
-      return <div className="py-5">
-        <label className='text-2xl font-semibold '> {this.state.labelText} </label>
-
-        <select className="select bg-blueLight rounded w-full font-medium mt-2" value={this.state.stateValue} onChange={e => this.state.setStateValue(e.target.value)}>
-          {getCities().map((citie) =>
-            <option key={citie}>{citie}</option>
-          )}
-        </select>
-      </div>
-    }
-  }
-
-  // A function to check if the checkValues
-  // are passed correctly
-  function checkValues() {
-    console.log(origin);
-    console.log(destination);
-
-    // Check if the conselhos are differents
-    // if (origin === destination)
-    //   setShowError(true);
-    // else
-    //   setShowError(false);
-  }
-
-  function OptionsWithNumbers({ maxPassengers, labelText }: any) {
-
-    var options = [<option defaultValue={"--"} >--</option>];
-    for (var i = 1; i <= Number(maxPassengers); i++)
-      options.push(<option key={i}>{i}</option>);
+const MapComponent: React.FC<MapComponentProps> = () => {
 
 
-    return <div className="py-6">
-      <label className='text-2xl font-semibold' > {labelText} </label>
-      <select className="select bg-blueLight rounded w-full font-medium mt-2"
-        value={selectedQuatity}
-        onChange={e => {
-          var value = parseFloat(e.target.value);
+    const [origin, setOrigin] = useState<string>('');
+    const [destination, setDestination] = useState<string>('');
+    const [distance, setDistance] = useState<string>('');
+    const [selectedQuatity, setSelectedQuantity] = useState(0);
+    const [isButtonDisable, setIsButtonDisable] = useState(true);
+    const [price, setPrice] = useState(0.0);
+    const pricePerKilometer = 0.7;
 
-          if (isNaN(value)) {
-            setIsButtonDisable(true);
-            setPrice(0);
-            setSelectedQuantity(0);
-          }
-          else {
-            setIsButtonDisable(false);
-            setPrice(parseFloat(e.target.value) * pricePerPerson);
-            setSelectedQuantity(Number(e.target.value));
-          }
+    function calculatePricePerson(numPassengersStr: string): number {
+        const numPassengers = parseFloat(numPassengersStr);
+        const basePriceUpTo5 = 20;
+        const basePriceUpTo10 = 30;
+        const pricePerPassenger = 10; // Assuming 10€ for each additional passenger beyond 8
+
+        if (numPassengers <= 4) {
+            return basePriceUpTo5;
+        } else if (numPassengers <= 8) {
+            return basePriceUpTo10;
+        } else {
+            return basePriceUpTo10 + pricePerPassenger * (numPassengers - 8);
         }
-        }>
-        {options}
-      </select>
-    </div>
-  }
+    }
 
-  function ErrorAlert() {
-    if (showError)
-      return <div role="alert" className="alert alert-error">
-        <button className="" onClick={() => setShowError(false)}>
-          <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-        </button>
-        <span>Please, select diferrent cities</span>
-      </div>
-    return null;
-  }
+    function OptionsWithNumbers({ maxPassengers, labelText }: any) {
 
-  return <>
-    <div className="justify-center items-center flex-col m-5">
-      <ErrorAlert />
+        var options = [<option defaultValue={"--"} >--</option>];
+        for (var i = 1; i <= Number(maxPassengers); i++)
+            options.push(<option key={i}>{i}</option>);
 
-      <Selection labelText='Transfer from:' stateValue={origin} setStateValue={setOrigin} />
 
-      <Selection labelText='To:' stateValue={destination} setStateValue={setDestination} />
+        return <div className="py-6">
+            <label className='text-2xl font-semibold' > {labelText} </label>
+            <select className="select bg-blueLight rounded w-full font-medium mt-2"
+                value={selectedQuatity}
+                onChange={e => {
+                    var value = parseFloat(e.target.value);
 
-      <OptionsWithNumbers maxPassengers={16} labelText='Quantity of passengers:' />
+                    if (isNaN(value)) {
+                        setIsButtonDisable(true);
+                        setPrice(0);
+                        setSelectedQuantity(0);
+                    }
+                    else {
+                        setIsButtonDisable(false);
+                        setPrice(calculatePricePerson(e.target.value) + (parseFloat(distance) / 1000) * pricePerKilometer);
+                        setSelectedQuantity(Number(e.target.value));
+                    }
+                }
+                }>
+                {options}
+            </select>
+        </div>
+    }
+    const secretKey = process.env.GOOGLE_SECRET_KEY;
+    const scriptText: string = "https://maps.googleapis.com/maps/api/js?key=" + secretKey + "&libraries=places"
 
-      <div className="flex-none text-center mt-5">
-        <text className='text-3xl font-semibold'>Price: {price.toFixed(2)}€</text>
-      </div>
-    </div>
+    return (
+        <div className='justify-center items-center flex-col m-5'>
+            <script src={scriptText}></script>
+            <h1>Map Component</h1>
+            <div className=''>
+                <LocationSearchInput label={"From :"} placeHolder={"Type your address or location "} onSelectAddress={(address: string) => setOrigin(address)} />
 
-    <div className='flex justify-center py-3' >
-      <button className='btn btn-active bg-black text-whiteBg w-[30%]' onClick={checkValues} disabled={isButtonDisable}>Book now!</button>
-    </div>
-  </>
-}
+            </div>
+            <LocationSearchInput onSelectAddress={(address: string) => setDestination(address)} />
+            <p>Selected Origin: {origin}</p>
+            <p>Selected Destination: {destination}</p>
+
+            <DistanceMatrixService
+
+                options={{
+                    destinations: [origin],
+                    origins: [destination],
+                    travelMode: 'DRIVING'
+                }}
+                callback={(response: any) => { setDistance(response.rows[0].elements[0].distance.value) }}
+            />
+            <p>Distance: {distance}</p>
+            <OptionsWithNumbers maxPassengers={16} labelText='Quantity of passengers:'></OptionsWithNumbers>
+            <div className="flex-none text-center mt-5">
+                <text className='text-3xl font-semibold'>Price: {price.toFixed(2)}€</text>
+            </div>
+        </div>
+    );
+};
+
+export default MapComponent;
