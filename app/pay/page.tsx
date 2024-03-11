@@ -3,34 +3,89 @@ import React, { useState } from 'react';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import { GoogleMap, DistanceMatrixService } from "@react-google-maps/api";
 import LocationSearchInput from './LocationSearch';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+
 //import DistanceMatrixService from './DistanceMatrixService';
 
 interface MapComponentProps { }
 
 const MapComponent: React.FC<MapComponentProps> = () => {
 
-
+    const router = useRouter();
     const [origin, setOrigin] = useState<string>('');
     const [destination, setDestination] = useState<string>('');
-    const [distance, setDistance] = useState<string>('');
+    const [distance, setDistance] = useState<number>(0);
     const [selectedQuatity, setSelectedQuantity] = useState(0);
     const [isButtonDisable, setIsButtonDisable] = useState(true);
     const [price, setPrice] = useState(0.0);
-    const pricePerKilometer = 0.7;
+    var pricePerKilometer = 1.15;
+    //price kilometer > 4 = 1.6
 
-    function calculatePricePerson(numPassengersStr: string): number {
-        const numPassengers = parseFloat(numPassengersStr);
-        const basePriceUpTo5 = 20;
-        const basePriceUpTo10 = 30;
-        const pricePerPassenger = 10; // Assuming 10€ for each additional passenger beyond 8
-
-        if (numPassengers <= 4) {
-            return basePriceUpTo5;
-        } else if (numPassengers <= 8) {
-            return basePriceUpTo10;
+    function minprice(num: string): string {
+        var realnum = parseFloat(num);
+        if (realnum < 32.00) {
+            return "32"
         } else {
-            return basePriceUpTo10 + pricePerPassenger * (numPassengers - 8);
+            return num
         }
+
+    }
+
+
+    function calculatePricePerson(numPassengers: number): number {
+        const basePriceUpTo5 = 7;
+        const basePriceUpTo10 = 12;
+        const basePriceUpTo12 = 19;
+        var mult = 0.86
+
+        const pricePerPassenger = 10; // Assuming 10€ for each additional passenger beyond 8
+        var num = 0;
+        if (numPassengers <= 4) {
+            pricePerKilometer = 1.2;
+            num = basePriceUpTo5;
+        } else if (numPassengers <= 8) {
+            pricePerKilometer = 1.7;
+            num = basePriceUpTo10;
+        } else if (numPassengers <= 12) {
+            num = basePriceUpTo12
+            pricePerKilometer = 2.8;
+        } else {
+            num = 20
+            pricePerKilometer = 3.4
+            //num = basePriceUpTo10 + pricePerPassenger * (numPassengers - 8);
+        }
+        //pricePerKilometer = pricePerKilometer * mult
+        var checkifmin = num + (distance / 1000) * pricePerKilometer
+        if (checkifmin < 32) {
+            return 32
+        } else {
+            return checkifmin
+        }
+
+    }
+    function DistanceMatrix() {
+        var service = new google.maps.DistanceMatrixService();
+        if (origin != '' && destination != '' && selectedQuatity != 0) {
+
+            service.getDistanceMatrix({
+                avoidTolls: true,
+                destinations: [origin],
+                origins: [destination],
+                travelMode: 'DRIVING',
+
+            },
+                callback)
+
+            setPrice(calculatePricePerson(selectedQuatity));
+        }
+    }
+
+    function callback(response: google.maps.DistanceMatrixResponse, status: google.maps.DistanceMatrixStatus) {
+        setDistance(response.rows[0].elements[0].distance.value);
+        console.log(response.rows[0].elements[0].distance)
+
+
     }
 
     function OptionsWithNumbers({ maxPassengers, labelText }: any) {
@@ -54,7 +109,7 @@ const MapComponent: React.FC<MapComponentProps> = () => {
                     }
                     else {
                         setIsButtonDisable(false);
-                        setPrice(calculatePricePerson(e.target.value) + (parseFloat(distance) / 1000) * pricePerKilometer);
+                        setPrice(calculatePricePerson(Number(e.target.value)));
                         setSelectedQuantity(Number(e.target.value));
                     }
                 }
@@ -69,29 +124,29 @@ const MapComponent: React.FC<MapComponentProps> = () => {
     return (
         <div className='justify-center items-center flex-col m-5'>
             <script src={scriptText}></script>
-            <h1>Map Component</h1>
+            <h1>Effortlessly plan your journeys and we will create a seamless and cost-effective transfer experience.</h1>
             <div className=''>
-                <LocationSearchInput label={"From :"} placeHolder={"Type your address or location "} onSelectAddress={(address: string) => setOrigin(address)} />
+                <LocationSearchInput label={"From :"} placeHolder={"Type your address or location "} onSelectAddress={(address: string) => { setOrigin(address); DistanceMatrix() }} onChangeAddress={(address: string) => DistanceMatrix} />
 
             </div>
-            <LocationSearchInput onSelectAddress={(address: string) => setDestination(address)} />
-            <p>Selected Origin: {origin}</p>
-            <p>Selected Destination: {destination}</p>
+            <LocationSearchInput label={"To :"} placeHolder={"Type your address or location "} onSelectAddress={(address: string) => { setDestination(address); DistanceMatrix() }} onChangeAddress={(address: string) => DistanceMatrix} />
 
-            <DistanceMatrixService
-
-                options={{
-                    destinations: [origin],
-                    origins: [destination],
-                    travelMode: 'DRIVING'
-                }}
-                callback={(response: any) => { setDistance(response.rows[0].elements[0].distance.value) }}
-            />
-            <p>Distance: {distance}</p>
             <OptionsWithNumbers maxPassengers={16} labelText='Quantity of passengers:'></OptionsWithNumbers>
             <div className="flex-none text-center mt-5">
                 <text className='text-3xl font-semibold'>Price: {price.toFixed(2)}€</text>
             </div>
+            <Link
+                href={{
+                    pathname: '/checkout',
+                    query: {
+                        origin: origin,
+                        destination: destination,
+                        price: price
+                    }
+                }}
+            >
+                Go to another page
+            </Link>
         </div>
     );
 };

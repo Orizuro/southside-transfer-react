@@ -7,10 +7,11 @@ import React from 'react';
 import FormElement from '../components/forms';
 import { Button } from '@nextui-org/react';
 import axios from 'axios';
+import { useSearchParams } from 'next/navigation'
 
 
 export default function Stripe() {
-
+    const searchParams = useSearchParams()
     async function checkout() {
 
         const { data } = await axios.post(
