@@ -42,7 +42,7 @@ class LocationSearchInput extends React.Component {
               {...getInputProps({
 
                 placeholder: this.props.placeHolder,
-                className: 'select bg-blueLight rounded w-[60%] font-medium mt-2 text-black ',
+                className: 'select rounded-xl w-full font-medium mt-2 text-black ',
               })}
             />
             <div className="autocomplete-dropdown-container ">
