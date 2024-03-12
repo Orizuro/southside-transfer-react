@@ -63,6 +63,7 @@ class LocationSearchInput extends React.Component {
                   : { backgroundColor: '#ffffff', cursor: 'pointer' };
                 return (
                   <div
+                    key={suggestion}
                     {...getSuggestionItemProps(suggestion, {
                       className,
                       style,
