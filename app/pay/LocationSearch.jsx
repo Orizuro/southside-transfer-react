@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import { GoogleMap, DistanceMatrixService } from "@react-google-maps/api";
 
@@ -9,6 +9,7 @@ class LocationSearchInput extends React.Component {
     this.state = { address: '' };
     this.label = { label: '' }
     this.placeHolder = { placeHolder: "" }
+    this.destination = '';
   }
 
   handleChange = address => {
@@ -22,12 +23,17 @@ class LocationSearchInput extends React.Component {
       .then(latLng => {
         console.log('Success', address);
         this.props.onSelectAddress(address); // Pass the selected address to the parent component
+        this.destination = address;
+        if (this.props.onAfterSelect) {
+          this.props.onAfterSelect(address, this.destination); // Call the callback after address selection with both address and destination
+        }
       })
       .catch(error => console.error('Error', error));
   };
 
 
   render() {
+
     return (
       <PlacesAutocomplete
         value={this.state.address}
