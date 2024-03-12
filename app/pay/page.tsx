@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import { GoogleMap, DistanceMatrixService } from "@react-google-maps/api";
 import LocationSearchInput from './LocationSearch';
@@ -15,25 +15,27 @@ const MapComponent: React.FC<MapComponentProps> = () => {
   const router = useRouter();
   const [origin, setOrigin] = useState<string>('');
   const [destination, setDestination] = useState<string>('');
-  const [distance, setDistance] = useState<number>(0);
   const [selectedQuatity, setSelectedQuantity] = useState(0);
+  const [distance, setDistance] = useState<number>(0);
+
+  useEffect(() => { DistanceMatrix() }, [destination]);
+  useEffect(() => { DistanceMatrix() }, [origin]);
+  useEffect(() => { calculatePrice() }, [selectedQuatity]);
+  useEffect(() => { calculatePrice() }, [distance]);
+
   const [isButtonDisable, setIsButtonDisable] = useState(true);
   const [price, setPrice] = useState(0.0);
   var pricePerKilometer = 1.15;
   //price kilometer > 4 = 1.6
 
-  function minprice(num: string): string {
-    var realnum = parseFloat(num);
-    if (realnum < 32.00) {
-      return "32"
-    } else {
-      return num
+  function calculatePrice() {
+    var numPassengers = selectedQuatity;
+    if (origin == '' || destination == '') {
+      return
     }
-
-  }
-
-
-  function calculatePricePerson(numPassengers: number): number {
+    if (numPassengers == 0) {
+      return
+    }
     const basePriceUpTo5 = 7;
     const basePriceUpTo10 = 12;
     const basePriceUpTo12 = 19;
@@ -55,33 +57,36 @@ const MapComponent: React.FC<MapComponentProps> = () => {
       pricePerKilometer = 3.4
       //num = basePriceUpTo10 + pricePerPassenger * (numPassengers - 8);
     }
+    console.log("Distance :" + distance)
     //pricePerKilometer = pricePerKilometer * mult
-    var checkifmin = num + (distance / 1000) * pricePerKilometer
+    var checkifmin = num + ((distance / 1000) * pricePerKilometer)
+    console.log("Price :" + checkifmin)
     if (checkifmin < 32) {
-      return 32
+      setPrice(32)
     } else {
-      return checkifmin
+      setPrice(checkifmin)
     }
 
   }
   function DistanceMatrix() {
-    var service = new google.maps.DistanceMatrixService();
-    if (origin != '' && destination != '' && selectedQuatity != 0) {
-
-      service.getDistanceMatrix({
-        avoidTolls: true,
-        destinations: [origin],
-        origins: [destination],
-        travelMode: 'DRIVING',
-
-      },
-        callback)
-
-      setPrice(calculatePricePerson(selectedQuatity));
+    if (origin == '' || destination == '') {
+      return
     }
+    var service = new google.maps.DistanceMatrixService();
+    console.log("ORI: " + origin)
+    console.log("DES: " + destination)
+    console.log("QNT: " + selectedQuatity)
+
+    service.getDistanceMatrix({
+      avoidTolls: true,
+      destinations: [origin],
+      origins: [destination],
+      travelMode: google.maps.TravelMode.DRIVING,
+    },
+      callback)
   }
 
-  function callback(response: google.maps.DistanceMatrixResponse, status: google.maps.DistanceMatrixStatus) {
+  function callback(response: any, status: google.maps.DistanceMatrixStatus) {
     setDistance(response.rows[0].elements[0].distance.value);
     console.log(response.rows[0].elements[0].distance)
 
@@ -90,7 +95,7 @@ const MapComponent: React.FC<MapComponentProps> = () => {
 
   function OptionsWithNumbers({ maxPassengers, labelText }: any) {
 
-    var options = [<option defaultValue={"--"} >--</option>];
+    var options = [<option key={0} defaultValue={"--"} >--</option>];
     for (var i = 1; i <= Number(maxPassengers); i++)
       options.push(<option key={i}>{i}</option>);
 
@@ -109,7 +114,6 @@ const MapComponent: React.FC<MapComponentProps> = () => {
           }
           else {
             setIsButtonDisable(false);
-            setPrice(calculatePricePerson(Number(e.target.value)));
             setSelectedQuantity(Number(e.target.value));
           }
         }
@@ -129,29 +133,25 @@ const MapComponent: React.FC<MapComponentProps> = () => {
         <h1 className='text-3xl'>Get a ride!</h1>
         <h2 className='text-xl font-bold'>Effortlessly plan your journeys and we will create a seamless and cost-effective transfer experience.</h2>
         <div className='flex flex-row gap-4'>
-          <LocationSearchInput label={"From :"} placeHolder={"Type your address or location "} onSelectAddress={(address: string) => { setOrigin(address); DistanceMatrix() }} onChangeAddress={(address: string) => DistanceMatrix} />
-          <LocationSearchInput label={"To :"} placeHolder={"Type your address or location "} onSelectAddress={(address: string) => { setDestination(address); DistanceMatrix() }} onChangeAddress={(address: string) => DistanceMatrix} />
+          <LocationSearchInput label={"From :"} placeHolder={"Type your address or location "}
+            onSelectAddress={(address: string) => {
+              setOrigin(address);
+            }}
+          />
+
         </div>
-        <OptionsWithNumbers maxPassengers={16} labelText='Quantity of passengers:'></OptionsWithNumbers>
-        <div className="flex-none text-center my-6">
-          <text className='text-3xl font-semibold'>Price: {price.toFixed(2)}€</text>
-        </div>
-        <Link
-          className='bg-gradient-to-tr from-blue to-green hover:bg-gradient-radial rounded-full px-10 py-3 font-bold mt-96'
-          href={{
-            pathname: '/checkout',
-            query: {
-              origin: origin,
-              destination: destination,
-              price: price
-            }
+        <LocationSearchInput label={"To :"} placeHolder={"Type your address or location "}
+          onSelectAddress={(address: string) => {
+            setDestination(address);
           }}
-        >
-          Next
-        </Link>
+        />
       </div>
-    </div>
-  );
-};
+      <OptionsWithNumbers maxPassengers={16} labelText='Quantity of passengers:'></OptionsWithNumbers>
+      <div className="flex-none text-center my-6">
+        <text className='text-3xl font-semibold'>Price: {price.toFixed(2)}€</text>
+      </div>
+    </div>)
+
+}
 
 export default MapComponent;
