@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import NavBar from "./components/navbar";
 import Footer from "./components/footer";
-import ImagesContainer from "./components/imagesContainer";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,12 +17,18 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+
+  const secretKey = process.env.GOOGLE_SECRET_KEY;
+  const scriptText: string = "https://maps.googleapis.com/maps/api/js?key=" + secretKey + "&libraries=places"
+
+
   return (
     <html lang="en" className="bg-whiteBg">
       <body className={inter.className}>
         <NavBar />
-        <ImagesContainer />
         <main className="container mx-auto pt-4 min-h-screen">
+          <Script src={scriptText} strategy="beforeInteractive" />
           {children}
         </main>
         <Footer />

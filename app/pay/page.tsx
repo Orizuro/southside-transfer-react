@@ -5,6 +5,7 @@ import { GoogleMap, DistanceMatrixService } from "@react-google-maps/api";
 import LocationSearchInput from './LocationSearch';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Script from 'next/script';
 
 //import DistanceMatrixService from './DistanceMatrixService';
 
@@ -27,6 +28,11 @@ const MapComponent: React.FC<MapComponentProps> = () => {
   const [price, setPrice] = useState(0.0);
   var pricePerKilometer = 1.15;
   //price kilometer > 4 = 1.6
+  //
+
+  const fetchGoogleApi = async () => {
+    console.log("");
+  }
 
   function calculatePrice() {
     var numPassengers = selectedQuatity;
@@ -122,13 +128,12 @@ const MapComponent: React.FC<MapComponentProps> = () => {
       </select>
     </div>
   }
-  const secretKey = process.env.GOOGLE_SECRET_KEY;
-  const scriptText: string = "https://maps.googleapis.com/maps/api/js?key=" + secretKey + "&libraries=places"
+
+  if (false)
+    return null;
 
   return (
     <div className='justify-center items-center flex-col m-5'>
-      <script src={scriptText}></script>
-
       <div className='w-full bg-blueLight rounded-lg p-8'>
         <h1 className='text-3xl'>Get a ride!</h1>
         <h2 className='text-xl font-bold'>Effortlessly plan your journeys and we will create a seamless and cost-effective transfer experience.</h2>
@@ -145,12 +150,28 @@ const MapComponent: React.FC<MapComponentProps> = () => {
             setDestination(address);
           }}
         />
+
+        <OptionsWithNumbers maxPassengers={16} labelText='Quantity of passengers:'></OptionsWithNumbers>
+        <div className="flex-none text-center my-6">
+          <text className='text-3xl font-semibold'>Price: {price.toFixed(2)}€</text>
+        </div>
+
+        <Link
+          className='font-bold bg-gradient-to-tr from-blue to-green hover:bg-gradient-radial rounded-full px-8 py-4'
+          href={{
+            pathname: '/checkout',
+            query: {
+              origin: origin,
+              destination: destination,
+              price: price
+            }
+          }}
+        >
+          Next
+        </Link>
       </div>
-      <OptionsWithNumbers maxPassengers={16} labelText='Quantity of passengers:'></OptionsWithNumbers>
-      <div className="flex-none text-center my-6">
-        <text className='text-3xl font-semibold'>Price: {price.toFixed(2)}€</text>
-      </div>
-    </div>)
+    </div>
+  )
 
 }
 

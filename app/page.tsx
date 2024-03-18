@@ -26,6 +26,7 @@ export default function Home() {
   return (
     <>
 
+      <ImagesContainer />
       <div className="sm:flex container justify-between items-center">
         {
           // <div className="box-content px-8 justify-center">
