@@ -1,7 +1,7 @@
 "use client";
 
 import '.././styles.css'
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import React from 'react';
 import FormElement from '../components/forms';
 import { redirect, useSearchParams } from 'next/navigation'
@@ -13,13 +13,19 @@ import 'react-phone-input-2/lib/high-res.css'
 
 
 const PaymentPage = () => {
-  const searchParams = useSearchParams()
-  const origin = searchParams.get("origin");
-  const destination = searchParams.get("destination");
-  console.log("another page")
-  console.log(searchParams.get('origin'))
-  console.log(searchParams.get('destination'))
-  console.log(searchParams.get('price'))
+  var data;
+  if (typeof window !== 'undefined') {
+    data = localStorage.getItem("paymentInfo") ? JSON.parse(localStorage.getItem("paymentInfo")) : null;
+  } else
+    data = {}
+
+  const origin = data.origin; // searchParams.get("origin");
+  const destination = data.destination //searchParams.get("destination");
+  // const searchParams = useSearchParams()
+  // console.log("another page")
+  // console.log(searchParams.get('origin'))
+  // console.log(searchParams.get('destination'))
+  // console.log(searchParams.get('price'))
   const [nameFirst, setNameFirst] = useState<string>('');
   const [nameLast, setNameLast] = useState<string>('');
   const [email, setEmail] = useState<string>('');
@@ -29,7 +35,20 @@ const PaymentPage = () => {
   const [payment, setPayment] = useState<string>('');
   const [phoneNumber, setPhoneNumber] = useState<string>();
 
-  const [inputValue2, setInputValue2] = useState<string>('');
+  const [isNameValid, setIsNameValid] = useState(true);
+
+  // const [inputValue2, setInputValue2] = useState<string>('');
+
+  const formInfo = {
+    "fistName": nameFirst,
+    "lastName": nameLast,
+    "email": email,
+    "pickupDate": date,
+    "pickupTime": time,
+    "totalLuggage": numberLuggage,
+    "paymentType": payment,
+    "additionalInfo": "",
+  }
 
   var options = [<option key={0} defaultValue={"--"} >--</option>];
   for (var i = 1; i <= 16; i++)
@@ -44,6 +63,11 @@ const PaymentPage = () => {
     console.log('Input value 5:', time);
     console.log('Input value 6:', numberLuggage);
     console.log('Input value 7:', payment);
+
+    checkIfIsNameValid();
+
+    localStorage.clear();
+    checkout();
   };
 
   async function checkout() {
@@ -80,6 +104,14 @@ const PaymentPage = () => {
     return redirect("/pay");
   }
 
+  function isEmailValid() { }
+
+  function checkIfIsNameValid() {
+
+    if (!/\d/.test(nameFirst))
+      setIsNameValid(false);
+  }
+
   return (
     <>
       <div className=' m-3'>
@@ -99,6 +131,8 @@ const PaymentPage = () => {
                 label='First Name'
                 type='text'
                 autoComplete='given-name'
+                errorMessage='Invalid Name'
+                showError={!isNameValid}
               />
 
               <FormElement
@@ -143,12 +177,12 @@ const PaymentPage = () => {
             <br />
             <div>
               <h1> From:</h1>
-              <p> {searchParams.get('origin')}</p>
+              <p> {origin}</p>
             </div>
             <br />
             <div>
               <h1> To: </h1>
-              <p> {searchParams.get('destination')}</p>
+              <p> {destination}</p>
             </div>
             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
@@ -277,7 +311,6 @@ const PaymentPage = () => {
             </button>
             <button
               type="submit"
-              onClick={checkout}
               className="btn btn-success rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-whiteBg shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               Continue

@@ -24,11 +24,17 @@ const MapComponent: React.FC<MapComponentProps> = () => {
   useEffect(() => { calculatePrice() }, [selectedQuatity]);
   useEffect(() => { calculatePrice() }, [distance]);
 
+
   const [isButtonDisable, setIsButtonDisable] = useState(true);
   const [price, setPrice] = useState(0.0);
   var pricePerKilometer = 1.15;
   //price kilometer > 4 = 1.6
-  //
+
+  const locationData = {
+    "origin": origin,
+    "destination": destination,
+    "price": price,
+  }
 
   const fetchGoogleApi = async () => {
     console.log("");
@@ -157,14 +163,10 @@ const MapComponent: React.FC<MapComponentProps> = () => {
         </div>
 
         <Link
+          onClick={() => localStorage.setItem("paymentInfo", JSON.stringify(locationData))}
           className='font-bold bg-gradient-to-tr from-blue to-green hover:bg-gradient-radial rounded-full px-8 py-4'
           href={{
             pathname: '/checkout',
-            query: {
-              origin: origin,
-              destination: destination,
-              price: price
-            }
           }}
         >
           Next
