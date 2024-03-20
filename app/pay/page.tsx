@@ -135,9 +135,6 @@ const MapComponent: React.FC<MapComponentProps> = () => {
     </div>
   }
 
-  if (false)
-    return null;
-
   return (
     <div className='justify-center items-center flex-col m-5'>
       <div className='w-full bg-blueLight rounded-lg p-8'>

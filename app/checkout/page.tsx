@@ -1,11 +1,12 @@
 "use client";
 
 import '.././styles.css'
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import React from 'react';
 import FormElement from '../components/forms';
-import { redirect, useSearchParams } from 'next/navigation'
+import { redirect, useRouter, useSearchParams } from 'next/navigation'
 import axios from 'axios';
+
 
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/high-res.css'
@@ -19,13 +20,17 @@ const PaymentPage = () => {
   } else
     data = {}
 
+
+  // const { register, handleSubmit } = useForm({ shouldUseNativeValidation: true });
+
+  const router = useRouter();
+  const cancel = useCallback(() => {
+    router.push("/pay");
+  }, [router]);
+
   const origin = data.origin; // searchParams.get("origin");
   const destination = data.destination //searchParams.get("destination");
   // const searchParams = useSearchParams()
-  // console.log("another page")
-  // console.log(searchParams.get('origin'))
-  // console.log(searchParams.get('destination'))
-  // console.log(searchParams.get('price'))
   const [nameFirst, setNameFirst] = useState<string>('');
   const [nameLast, setNameLast] = useState<string>('');
   const [email, setEmail] = useState<string>('');
@@ -48,14 +53,17 @@ const PaymentPage = () => {
     "totalLuggage": numberLuggage,
     "paymentType": payment,
     "additionalInfo": "",
+    "origin": origin,
+    "destination": destination,
   }
 
   var options = [<option key={0} defaultValue={"--"} >--</option>];
   for (var i = 1; i <= 16; i++)
     options.push(<option key={i}>{i}</option>);
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     // Do something with the input value stored in 'inputValue1'
+    e.preventDefault();
     console.log('Input value 1:', nameFirst);
     console.log('Input value 2:', nameLast);
     console.log('Input value 3:', email);
@@ -64,10 +72,12 @@ const PaymentPage = () => {
     console.log('Input value 6:', numberLuggage);
     console.log('Input value 7:', payment);
 
-    checkIfIsNameValid();
+    if (checkIfIsNameValid()) {
+      localStorage.clear();
+      localStorage.setItem("formInfo", JSON.stringify(formInfo));
+      checkout();
+    }
 
-    localStorage.clear();
-    checkout();
   };
 
   async function checkout() {
@@ -88,6 +98,8 @@ const PaymentPage = () => {
       console.log(data);
       window.location.assign(data);
     }
+    return redirect("/sucess");
+
 
     // const data = await fetch('/stripe/api', {
 
@@ -99,6 +111,11 @@ const PaymentPage = () => {
     // ).then((data) => data.json());
   }
 
+  function cancelForm() {
+    cancel();
+    localStorage.clear();
+  }
+
   if (!origin || !destination) {
     // Redirect to payment page
     return redirect("/pay");
@@ -107,9 +124,9 @@ const PaymentPage = () => {
   function isEmailValid() { }
 
   function checkIfIsNameValid() {
-
-    if (!/\d/.test(nameFirst))
-      setIsNameValid(false);
+    var isValid = !/\d/.test(nameFirst);
+    setIsNameValid(isValid);
+    return isValid;
   }
 
   return (
@@ -306,7 +323,7 @@ const PaymentPage = () => {
             </div>
           </div>
           <div className="mt-6 flex items-center justify-end gap-x-6">
-            <button type="button" className="btn btn-error text-sm font-semibold leading-6 text-whiteBg" onClick={handleSubmit}>
+            <button type="button" className="btn btn-error text-sm font-semibold leading-6 text-whiteBg" onClick={cancelForm}>
               Cancel
             </button>
             <button

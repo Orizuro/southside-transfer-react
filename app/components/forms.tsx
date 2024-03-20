@@ -1,5 +1,3 @@
-import { Component, useState } from "react";
-import PhoneInput from "react-phone-input-2";
 
 interface Props {
   label: string;
@@ -14,6 +12,7 @@ interface Props {
   onSubmit: () => void;
 }
 const FormElement: React.FC<Props> = ({ label, type, placeholder, autoComplete, required, onInputChange, onSubmit, errorMessage, showError = false }) => {
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onInputChange(e.target.value);
   };
@@ -32,6 +31,7 @@ const FormElement: React.FC<Props> = ({ label, type, placeholder, autoComplete, 
     </label>
     <div className="mt-2">
       <input
+        autoFocus={!showError}
         required={requiredClass}
         onChange={handleInputChange}
         type={type}
