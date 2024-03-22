@@ -12,6 +12,9 @@ import './styles.css'
 import { Autoplay, EffectCoverflow } from "swiper/modules";
 import CtnButton from "./components/myButton";
 import ImagesContainer from "./components/imagesContainer";
+import MapComponent from "./pay/page";
+import { motion, useAnimation, useInView } from "framer-motion"
+import { useEffect, useRef } from "react";
 
 
 export default function Home() {
@@ -23,88 +26,51 @@ export default function Home() {
     { id: 4, src: "/images/image-4.jpg" },
     { id: 5, src: "/images/image-5.jpg" }
   ]
+
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+  const mainControls = useAnimation();
+
+  useEffect(() => {
+    if (isInView) {
+      console.log(isInView);
+      mainControls.start("visible");
+    }
+  }, [isInView]);
+
   return (
-    <>
-
+    <div>
       <ImagesContainer />
-      <div className="sm:flex container justify-between items-center">
-        {
-          // <div className="box-content px-8 justify-center">
-          //   <h1 className="font-bold text-6xl">We help you get anywhere YOU want in Algarve.</h1>
-          //   <p className="py-7">
-          //     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vehicula massa in enim luctus. Rutrum arcu.
-          //     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vehicula massa in enim luctus. Rutrum arcu.
-          //   </p>
-          //
-          //   <CtnButton />
-          // </div>
+      <br />
+      <div className="container mx-auto pt-4 min-h-screen">
 
-          // <Swiper
-          //   effect={'coverflow'}
-          //   grabCursor={true}
-          //   centeredSlides={true}
-          //   slidesPerView={'auto'}
-          //   loop={true}
-          //   coverflowEffect={{
-          //     rotate: 0,
-          //     stretch: 0,
-          //     depth: 150,
-          //     modifier: 2,
-          //     slideShadows: true,
-          //   }}
-          //   pagination={true}
-          //   modules={[Autoplay, EffectCoverflow/* , Pagination */]}
-          //   autoplay={{
-          //     delay: 2500,
-          //     disableOnInteraction: false,
-          //   }}
-          //   className="swiper-container"
-          // >
-          //   <div className="container">
-          //     {
-          //       slideImages.map((image) => (
-          //         <SwiperSlide key={image.id + 1} className='carrousel-container'>
-          //           <Image key={image.id} src={image.src}
-          //             alt=""
-          //             fill={true}
-          //             className={"carrousel-image rounded-lg"}
-          //           />
-          //         </SwiperSlide>
-          //       ))
-          //     }
-          //   </div>
-          //
-          // </Swiper>
-        }
+        <div className=" bg-gradient-to-r from-blue to-green lg:p-6 p-2">
+          <p className=" text-4xl font-semibold text-whiteBg mb-4"> How it works ? </p>
 
+          <div className=" lg:flex-row flex-col items-stretch justify-center flex" >
+            <HowItWorks
+              num="1"
+              title="You book your ride"
+              text="You can call us or schedule the ride,  we make sure everything will go smoothly with our professional drivers. "
+              image="/icons/car.png"
+              button={<CtnButton />}
+            />
+            <HowItWorks
+              num="2"
+              title="Safe Payment"
+              text="You can pay here safely online or at the end of the ride directly to your designated driver."
+              image="/icons/shield.png" />
+            <HowItWorks
+              num="3"
+              title="Relax and enjoy your ride"
+              text="Let worries fade, our drivers will take care of everything. "
+              image="/icons/happy.png"
+            />
+          </div >
+        </div >
       </div>
       <br />
-      <div className=" bg-gradient-to-r from-blue to-green lg:p-6 p-2">
-        <p className=" text-4xl font-semibold text-whiteBg mb-4"> How it works ? </p>
 
-        <div className=" lg:flex-row flex-col items-stretch justify-center flex" >
-          <HowItWorks
-            num="1"
-            title="You book your ride"
-            text="You can call us or schedule the ride,  we make sure everything will go smoothly with our professional drivers. "
-            image="/icons/car.png"
-            button={<CtnButton />}
-          />
-          <HowItWorks
-            num="2"
-            title="Safe Payment"
-            text="You can pay here safely online or at the end of the ride directly to your designated driver."
-            image="/icons/shield.png" />
-          <HowItWorks
-            num="3"
-            title="Relax and enjoy your ride"
-            text="Let worries fade, our drivers will take care of everything. "
-            image="/icons/happy.png"
-          />
-        </div >
-      </div >
-      <br />
-
-    </>
+    </div>
   );
 }
