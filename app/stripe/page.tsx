@@ -15,7 +15,7 @@ export default function Stripe() {
     async function checkout() {
 
         const { data } = await axios.post(
-            "/stripe/api",
+            "/api/",
             {
                 priceId: 100
             },
