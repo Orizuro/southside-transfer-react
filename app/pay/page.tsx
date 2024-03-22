@@ -1,11 +1,10 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
-import { GoogleMap, DistanceMatrixService } from "@react-google-maps/api";
+// import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+// import { GoogleMap, DistanceMatrixService } from "@react-google-maps/api";
 import LocationSearchInput from './LocationSearch';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import Script from 'next/script';
 
 //import DistanceMatrixService from './DistanceMatrixService';
 
@@ -24,11 +23,17 @@ const MapComponent: React.FC<MapComponentProps> = () => {
   useEffect(() => { calculatePrice() }, [selectedQuatity]);
   useEffect(() => { calculatePrice() }, [distance]);
 
+
   const [isButtonDisable, setIsButtonDisable] = useState(true);
   const [price, setPrice] = useState(0.0);
   var pricePerKilometer = 1.15;
   //price kilometer > 4 = 1.6
-  //
+
+  const locationData = {
+    "origin": origin,
+    "destination": destination,
+    "price": price,
+  }
 
   const fetchGoogleApi = async () => {
     console.log("");
@@ -107,7 +112,7 @@ const MapComponent: React.FC<MapComponentProps> = () => {
 
 
     return <div className="py-6">
-      <label className='text-2xl font-semibold' > {labelText} </label>
+      <label className='text-xl font-semibold' > {labelText} </label>
       <select className="select rounded w-full font-medium mt-2"
         value={selectedQuatity}
         onChange={e => {
@@ -129,14 +134,11 @@ const MapComponent: React.FC<MapComponentProps> = () => {
     </div>
   }
 
-  if (false)
-    return null;
-
   return (
-    <div className='justify-center items-center flex-col m-5'>
-      <div className='w-full bg-blueLight rounded-lg p-8'>
+    <div className='justify-center items-center flex-col my-5'>
+      <div className='w-full bg-blueLight rounded-lg p-8 opacity-95'>
         <h1 className='text-3xl'>Get a ride!</h1>
-        <h2 className='text-xl font-bold'>Effortlessly plan your journeys and we will create a seamless and cost-effective transfer experience.</h2>
+        {/*<h2 className='text-xl font-bold'>Effortlessly plan your journeys and we will create a seamless and cost-effective transfer experience.</h2>*/}
         <div className='flex flex-row gap-4'>
           <LocationSearchInput label={"From :"} placeHolder={"Type your address or location "}
             onSelectAddress={(address: string) => {
@@ -144,12 +146,12 @@ const MapComponent: React.FC<MapComponentProps> = () => {
             }}
           />
 
+          <LocationSearchInput label={"To :"} placeHolder={"Type your address or location "}
+            onSelectAddress={(address: string) => {
+              setDestination(address);
+            }}
+          />
         </div>
-        <LocationSearchInput label={"To :"} placeHolder={"Type your address or location "}
-          onSelectAddress={(address: string) => {
-            setDestination(address);
-          }}
-        />
 
         <OptionsWithNumbers maxPassengers={16} labelText='Quantity of passengers:'></OptionsWithNumbers>
         <div className="flex-none text-center my-6">
@@ -157,14 +159,10 @@ const MapComponent: React.FC<MapComponentProps> = () => {
         </div>
 
         <Link
+          onClick={() => localStorage.setItem("paymentInfo", JSON.stringify(locationData))}
           className='font-bold bg-gradient-to-tr from-blue to-green hover:bg-gradient-radial rounded-full px-8 py-4'
           href={{
             pathname: '/checkout',
-            query: {
-              origin: origin,
-              destination: destination,
-              price: price
-            }
           }}
         >
           Next

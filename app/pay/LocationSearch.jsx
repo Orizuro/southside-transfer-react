@@ -42,20 +42,20 @@ class LocationSearchInput extends React.Component {
         searchOptions={{ componentRestrictions: { country: "pt" } }}
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-          <div className='py-5'>
-            <label className="text-2xl font-semibold "> {this.props.label} </label>
+          <div className='py-4'>
+            <label className="text-xl font-semibold "> {this.props.label} </label>
             <input
               {...getInputProps({
 
                 placeholder: this.props.placeHolder,
-                className: 'select rounded-xl w-full font-medium mt-2 text-black ',
+                className: 'select rounded-xl font-medium mt-2 text-black',
               })}
             />
             <div className="autocomplete-dropdown-container ">
               {loading && <div>Loading...</div>}
               {suggestions.map(suggestion => {
                 const className = suggestion.active
-                  ? 'suggestion-item--active  p-3 border '
+                  ? 'suggestion-item--activep-3 border '
                   : 'suggestion-item p-3 border';
                 // inline style for demonstration purpose
                 const style = suggestion.active

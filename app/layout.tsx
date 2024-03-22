@@ -4,6 +4,7 @@ import "./globals.css";
 import NavBar from "./components/navbar";
 import Footer from "./components/footer";
 import Script from "next/script";
+import ImagesContainer from "./components/imagesContainer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,7 +28,8 @@ export default function RootLayout({
     <html lang="en" className="bg-whiteBg">
       <body className={inter.className}>
         <NavBar />
-        <main className="container mx-auto pt-4 min-h-screen">
+        {/*className="container mx-auto pt-4 min-h-screen"*/}
+        <main >
           <Script src={scriptText} strategy="beforeInteractive" />
           {children}
         </main>
