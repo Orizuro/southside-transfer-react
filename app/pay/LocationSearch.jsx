@@ -21,7 +21,6 @@ class LocationSearchInput extends React.Component {
     geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
       .then(latLng => {
-        console.log('Success', address);
         this.props.onSelectAddress(address); // Pass the selected address to the parent component
         this.destination = address;
         if (this.props.onAfterSelect) {
@@ -44,18 +43,21 @@ class LocationSearchInput extends React.Component {
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
           <div className='py-4'>
             <label className="text-xl font-semibold "> {this.props.label} </label>
-            <input
-              {...getInputProps({
+            <div>
+              <input
+                {...getInputProps({
 
-                placeholder: this.props.placeHolder,
-                className: 'select rounded-xl font-medium mt-2 text-black',
-              })}
-            />
-            <div className="autocomplete-dropdown-container ">
+                  placeholder: this.props.placeHolder,
+                  className: 'rounded-xl font-medium mt-2 text-black ',
+                })}
+              />
+
+            </div>
+            <div className="autocomplete-dropdown-container absolute">
               {loading && <div>Loading...</div>}
               {suggestions.map(suggestion => {
                 const className = suggestion.active
-                  ? 'suggestion-item--activep-3 border '
+                  ? 'suggestion-item--active p-3 border '
                   : 'suggestion-item p-3 border';
                 // inline style for demonstration purpose
                 const style = suggestion.active
@@ -63,7 +65,8 @@ class LocationSearchInput extends React.Component {
                   : { backgroundColor: '#ffffff', cursor: 'pointer' };
                 return (
                   <div
-                    key={suggestion}
+                    //key={suggestion}  
+                    key={suggestion.placeId}
                     {...getSuggestionItemProps(suggestion, {
                       className,
                       style,
