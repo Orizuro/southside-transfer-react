@@ -4,13 +4,14 @@ import '.././styles.css'
 import { useCallback } from 'react';
 import React from 'react';
 // import FormElement from '../components/forms';
-import { redirect, useRouter, useSearchParams } from 'next/navigation'
+import { redirect, useRouter } from 'next/navigation'
 import axios from 'axios';
 import { useForm, SubmitHandler, Path, UseFormRegister, ValidationRule, UseFormRegisterReturn } from "react-hook-form";
 
 
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/high-res.css'
+import Sucess from '../sucess/page';
 // import { RadioProps } from '@nextui-org/react';
 // import { on } from 'events';
 // import { register } from 'module';
@@ -105,6 +106,8 @@ const PaymentPage = () => {
 
   const onSubmit: SubmitHandler<IFormValues> = (data) => {
     alert(JSON.stringify(data))
+    if (data.Payment !== "Pay online")
+      document.getElementById('my_modal_1').showModal();
   }
 
   async function checkout(data: IFormValues) {
@@ -401,20 +404,21 @@ const PaymentPage = () => {
               Cancel
             </button>
             <button
+              // onClick={}
               type="submit"
               className="btn btn-success rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-whiteBg shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               Continue
             </button>
+
           </div>
         </form >
+
+        <Sucess />
       </div>
 
     </>
   )
 }
-export default PaymentPage;
-function setFocus(arg0: string) {
-  throw new Error('Function not implemented.');
-}
 
+export default PaymentPage;
