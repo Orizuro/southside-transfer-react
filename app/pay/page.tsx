@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import LocationSearchInput from './LocationSearch';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { Button } from '@nextui-org/react';
 
 //import DistanceMatrixService from './DistanceMatrixService';
 
@@ -17,11 +18,10 @@ const MapComponent: React.FC<MapComponentProps> = () => {
   const [destination, setDestination] = useState<string>('');
   const [selectedQuatity, setSelectedQuantity] = useState(0);
   const [distance, setDistance] = useState<number>(0);
+  const [time, setTime] = useState<string>('---');
 
-  useEffect(() => { DistanceMatrix() }, [destination]);
-  useEffect(() => { DistanceMatrix() }, [origin]);
-  useEffect(() => { calculatePrice() }, [selectedQuatity]);
-  useEffect(() => { calculatePrice() }, [distance]);
+  useEffect(() => { DistanceMatrix() }, [destination, origin]);
+  useEffect(() => { calculatePrice() }, [selectedQuatity, distance, time]);
 
 
   const [isButtonDisable, setIsButtonDisable] = useState(true);
@@ -33,6 +33,7 @@ const MapComponent: React.FC<MapComponentProps> = () => {
     "origin": origin,
     "destination": destination,
     "price": price,
+    "time": time
   }
 
   const fetchGoogleApi = async () => {
@@ -96,11 +97,19 @@ const MapComponent: React.FC<MapComponentProps> = () => {
     },
       callback)
   }
+  function reset() {
+    setOrigin("");
+    setDestination("");
+    setSelectedQuantity(0);
+    setDistance(0);
+    setTime("---");
+    setPrice(0);
+  }
 
   function callback(response: any, status: google.maps.DistanceMatrixStatus) {
     setDistance(response.rows[0].elements[0].distance.value);
-    console.log(response.rows[0].elements[0].distance)
-
+    setTime(response.rows[0].elements[0].duration.text);
+    console.log(response.rows[0].elements[0].duration.text);
 
   }
 
@@ -141,9 +150,12 @@ const MapComponent: React.FC<MapComponentProps> = () => {
         {/*<h2 className='text-xl font-bold'>Effortlessly plan your journeys and we will create a seamless and cost-effective transfer experience.</h2>*/}
         <div className='flex flex-row gap-4'>
           <LocationSearchInput label={"From :"} placeHolder={"Type your address or location "}
+
             onSelectAddress={(address: string) => {
               setOrigin(address);
-            }}
+            }
+
+            }
           />
 
           <LocationSearchInput label={"To :"} placeHolder={"Type your address or location "}
@@ -154,19 +166,24 @@ const MapComponent: React.FC<MapComponentProps> = () => {
         </div>
 
         <OptionsWithNumbers maxPassengers={16} labelText='Quantity of passengers:'></OptionsWithNumbers>
-        <div className="flex-none text-center my-6">
+        <div className='flex justify-center'>{(distance / 1000).toFixed(2)} Km   / {time}</div>
+        <div className="(flex-none text-center my-6">
           <text className='text-3xl font-semibold'>Price: {price.toFixed(2)}€</text>
         </div>
-
-        <Link
-          onClick={() => localStorage.setItem("paymentInfo", JSON.stringify(locationData))}
-          className='font-bold bg-gradient-to-tr from-blue to-green hover:bg-gradient-radial rounded-full px-8 py-4'
-          href={{
-            pathname: '/checkout',
-          }}
-        >
-          Next
-        </Link>
+        <div className=' flex justify-between'>
+          <Button onClick={() => reset()} className='font-bold bg-gradient-to-tr from-blue to-green hover:bg-gradient-radial rounded-full px-8 py-4'>
+            Reset
+          </Button>
+          <Link
+            onClick={() => localStorage.setItem("paymentInfo", JSON.stringify(locationData))}
+            className='font-bold bg-gradient-to-tr from-blue to-green hover:bg-gradient-radial rounded-full px-8 py-4'
+            href={{
+              pathname: '/checkout',
+            }}
+          >
+            Next
+          </Link>
+        </div>
       </div>
     </div>
   )

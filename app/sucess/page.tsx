@@ -1,17 +1,35 @@
+"use client";
+import { Button } from "@nextui-org/react";
+import axios from "axios";
+import Script from "next/script";
 
 export default function Sucess() {
-  return <div>
-    <dialog id="my_modal_1" className="modal">
-      <div className="modal-box">
-        <h1 className="flex font-bold text-xl justify-center">Sucess!</h1>
-        <p className="py-4">Press ESC key or click the button below to close</p>
-        <div className="modal-action">
-          <form method="dialog">
-            {/* if there is a button in form, it will close the modal */}
-            <button className="btn" onClick={() => { }}>Close</button>
-          </form>
-        </div>
-      </div>
-    </dialog>
-  </div>
+    var component;
+
+
+    async function checkout() {
+
+        await axios.post(
+            "/sucess/api/",
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            }
+        ).then(function (response) {
+
+            component = <div className=""> Success </div>
+            console.log(response);
+        }).catch(function (error) {
+            component = <div className=""> Error </div>
+            console.log(error);
+        });
+
+
+    }
+    return <div>
+        <Script> checkout</Script>
+        <h1> Sucess</h1>
+        <Button onClick={checkout}> Click </Button>
+    </div>
 }
