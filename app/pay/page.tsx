@@ -13,13 +13,13 @@ interface MapComponentProps { }
 
 const MapComponent: React.FC<MapComponentProps> = () => {
 
+
   const router = useRouter();
   const [origin, setOrigin] = useState<string>('');
   const [destination, setDestination] = useState<string>('');
   const [selectedQuatity, setSelectedQuantity] = useState(0);
   const [distance, setDistance] = useState<number>(0);
   const [time, setTime] = useState<string>('---');
-
   useEffect(() => { DistanceMatrix() }, [destination, origin]);
   useEffect(() => { calculatePrice() }, [selectedQuatity, distance, time]);
 
@@ -170,6 +170,7 @@ const MapComponent: React.FC<MapComponentProps> = () => {
         <div className="(flex-none text-center my-6">
           <text className='text-3xl font-semibold'>Price: {price.toFixed(2)}€</text>
         </div>
+
         <div className=' flex justify-between'>
           <Button onClick={() => reset()} className='font-bold bg-gradient-to-tr from-blue to-green hover:bg-gradient-radial rounded-full px-8 py-4'>
             Reset

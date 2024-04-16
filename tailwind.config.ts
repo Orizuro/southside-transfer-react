@@ -13,8 +13,10 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
 
-        'image-container1': "url('/images/image-1.jpg')",
+        'image-container1': "url('/images/main.jpg')",
+        'image-test': "url('/images/main3.jpg')",
         'footer-texture': "url('/img/footer-texture.png')",
+        'image-2': "url('/images/main5.jpg')",
       },
     },
 
