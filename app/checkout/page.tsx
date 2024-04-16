@@ -5,7 +5,7 @@ import { ChangeEventHandler, useCallback, useState } from 'react';
 import React from 'react';
 import { redirect, useRouter } from 'next/navigation'
 import axios from 'axios';
-import { useForm, Path, ValidationRule, UseFormRegisterReturn, FieldError, Merge, FieldErrorsImpl } from "react-hook-form";
+import { useForm, Path, ValidationRule, UseFormRegisterReturn, FieldError, Merge, FieldErrorsImpl, Controller } from "react-hook-form";
 import { valibotResolver } from '@hookform/resolvers/valibot';
 
 import { minLength, string, object } from 'valibot';
@@ -35,6 +35,8 @@ const PaymentPage = () => {
   } else
     data = {}
 
+  const today = new Date().toISOString().slice(0, 10)
+
   const formSchema = object({
     firstName: string([
       minLength(1, 'Please enter your first name')
@@ -44,23 +46,31 @@ const PaymentPage = () => {
       minLength(1, 'Please enter your last name')
     ]),
 
+    numSuitcases: v.coerce(
+      v.number([v.toMinValue(0)]),
+      Number,
+    ),
+
     email: string([
       minLength(1, 'Please enter your email.'),
       v.email('The email address is badly formatted.'),
     ]),
 
-    // phoneNumber: string([
-    //   minLength(1, "Please enter the pickup Date")
-    // ]),
-
-    pickupDate: v.date("Please enter the pickup Date"),
-
-    pickupTime: string([
+    phoneNumber: string([
       minLength(1, "Please enter the pickup Date")
     ]),
 
+    pickupDate: v.string([
+      v.minValue(today),
+      minLength(1, "Please enter the pickup Time")
+    ]),
+
+    pickupTime: string([
+      minLength(1, "Please enter the pickup Time")
+    ]),
+
     payment: string([
-      minLength(1, "Please enter the pickup Date")
+      minLength(1, "Please enter the payment method")
     ]),
 
     additionalInformation: v.optional(v.string()),
@@ -75,6 +85,7 @@ const PaymentPage = () => {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm<FormSchemaType>({
     resolver: valibotResolver(formSchema),
@@ -91,7 +102,7 @@ const PaymentPage = () => {
 
 
   const luggageOptions = [<option key={0} defaultValue={"--"} >--</option>];
-  for (var i = 1; i <= 16; i++)
+  for (var i = 0; i <= 16; i++)
     luggageOptions.push(<option key={i}>{i}</option>);
 
 
@@ -269,16 +280,23 @@ const PaymentPage = () => {
                   className="block text-sm font-medium leading-6 text-gray-900">
                   Phone Number
                 </label>
-
-                <PhoneInput
-                  // {...register("")}
-                  inputProps={{
-                    className: 'block w-full rounded-md border-0 px-14 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6',
-                    required: true,
-                  }}
-                  country={'pt'}
-                  onChange={setPhoneNumber}
-                  enableSearch={true}
+                <Controller
+                  control={control}
+                  name="phoneNumber"
+                  render={({ field: { onChange, onBlur, value, ref } }) => (
+                    <PhoneInput
+                      // {...register("")}
+                      inputProps={{
+                        className: 'block w-full rounded-md border-0 px-14 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6',
+                        required: true,
+                      }}
+                      country={'pt'}
+                      onChange={onChange}
+                      enableSearch={true}
+                      value={value}
+                      onBlur={onBlur}
+                    />
+                  )}
                 />
               </div>
 
@@ -313,7 +331,9 @@ const PaymentPage = () => {
                   htmlFor="number"
                   className="block text-sm font-medium leading-6 text-gray-900">Number of Suitcases</label>
                 <div className="mt-2">
-                  <select className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                  <select
+                    {...register("numSuitcases")}
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                   >
                     {luggageOptions}
                   </select>
@@ -326,6 +346,7 @@ const PaymentPage = () => {
                   className="block text-sm font-medium leading-6 text-gray-900"> Any additional information </label>
                 <div className="mt-2">
                   <textarea
+                    {...register("additionalInformation")}
                     id="aboutLuggage"
                     name="aboutLuggage"
                     rows={2}
