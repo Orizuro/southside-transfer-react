@@ -107,16 +107,18 @@ const PaymentPage = () => {
 
 
   const onSubmit = (data: FormSchemaType) => {
-    alert(JSON.stringify(data))
-    console.log(data)
+    // alert(JSON.stringify(data))
+
+    checkout(data);
   }
 
-  async function checkout(data: IFormValues) {
+  async function checkout(data: FormSchemaType) {
+    console.log("On checkout");
 
-    if (data["Payment"] == "online") {
+    if (data["payment"] == "Pay online") {
 
       const { data } = await axios.post(
-        "/stripe/api",
+        "/api/",
         {
           priceId: 100
         },
@@ -129,7 +131,7 @@ const PaymentPage = () => {
       console.log(data);
       window.location.assign(data);
     }
-    return redirect("/sucess");
+    return router.push("/sucess");
 
 
     // const data = await fetch('/stripe/api', {
@@ -247,7 +249,8 @@ const PaymentPage = () => {
       register: register("pickupDate"),
       label: "Date of pickup",
       type: "date",
-      name: "pickupDate"
+      name: "pickupDate",
+      error: errors.pickupDate,
       // onChange: (e) => setLastName(e.target.value)
     }),
 
@@ -255,7 +258,8 @@ const PaymentPage = () => {
       register: register("pickupTime"),
       label: "Time of pickup",
       type: "time",
-      name: "pickupTime"
+      name: "pickupTime",
+      error: errors.pickupTime,
       // onChange: (e) => set(e.target.value)
     })
 
