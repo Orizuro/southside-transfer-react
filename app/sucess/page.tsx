@@ -1,7 +1,6 @@
 "use client";
 import { Button } from "@nextui-org/react";
 import axios from "axios";
-import Script from "next/script";
 import { useEffect } from "react";
 
 export default function Sucess() {
@@ -27,22 +26,11 @@ export default function Sucess() {
 
   }
 
-  // const [data, setData] = useState(null)
-  // const [isLoading, setLoading] = useState(true)
-
-  // useEffect(() => {
-  //   fetch('/api/profile-data')
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setData(data)
-  //       setLoading(false)
-  //     })
-  // }, [])
-
-  useEffect(() => { checkout() })
+  useEffect(() => {
+    checkout()
+  }, [])
 
   return <div>
-    {/*<Script>checkout</Script>*/}
     <h1>{component}</h1>
     <Button onClick={checkout}> Click </Button>
   </div>
