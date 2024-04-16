@@ -16,18 +16,18 @@ interface Props {
 
 }
 export default function HowItWorks({ title, text, image, num, button }: Props) {
-  return <div className="basis-1/3 " >
+  return <div className=" " >
     <div className=" absolute bg-[#E8871E] btn-circle flex ">
       <p className=" text-center m-auto font-bold text-xl"> {num}</p>
     </div>
-    <div className="p-4 container h-full flex">
-      <div className=" shadow-2xl shadow-black/80 bg-whiteBg p-4 rounded-xl ">
+    <div className="p-5 container h-full flex">
+      <div className=" shadow-2xl shadow-black/80 bg-whiteBg p-5 rounded-xl ">
         <div className="image-container flex justify-center  my-10">
           <img src={image} width={130} height={130} />
         </div >
         <p className=" text-center text-2xl font-extrabold"> {title} </p>
-        <div className=" p-4 rounded-xl text-center">
-          <p className="  text-lg font-medium mb-5"> {text} </p>
+        <div className=" p-2 rounded-xl text-justify">
+          <p className="  text-lg font-medium " > {text} </p>
           {button}
         </div>
       </div>
