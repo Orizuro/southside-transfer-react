@@ -16,6 +16,7 @@ import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/high-res.css'
 import Sucess from '../sucess/page';
 import {costumerDetails, tripInfo} from "@/app/module";
+import No_ssr from "@/app/components/no_ssr";
 
 
 
@@ -23,6 +24,7 @@ import {costumerDetails, tripInfo} from "@/app/module";
  * TODO add a better error for date, and make so it is impossible to book on the same day
  * TODO add a link to terms & conditions page
  */
+
 
 const PaymentPage = () => {
   let data: tripInfo;
@@ -106,7 +108,7 @@ const PaymentPage = () => {
 
   const onSubmit = (data: FormSchemaType) => {
     // alert(JSON.stringify(data))
-    localStorage.setItem("travelInfo", JSON.stringify(data))
+    localStorage.setItem("costumerDetails", JSON.stringify(data))
     checkout(data);
   }
 
@@ -153,7 +155,7 @@ const PaymentPage = () => {
   // }
 
   type InputProps = {
-    label: Path< costumerDetails >;
+    label: string;
     register: UseFormRegisterReturn;
     name: string;
     type: string;
@@ -219,7 +221,7 @@ const PaymentPage = () => {
     Input({
       register: register('firstName'),
       name: "firstName",
-      label: "firstName",
+      label: "First Name",
       type: "text",
       error: errors["firstName"],
       // showError: errors.firstName ? true : false,
@@ -228,7 +230,7 @@ const PaymentPage = () => {
     Input({
       register: register('lastName'),
       name: "lastName",
-      label: "lastName",
+      label: "Last Name",
       type: "text",
       error: errors.lastName,
     }),
@@ -236,7 +238,7 @@ const PaymentPage = () => {
     Input({
       register: register("email"),
       name: "email",
-      label: "emailAddress",
+      label: "Email Address",
       type: "email",
       error: errors.email
     })
@@ -245,7 +247,7 @@ const PaymentPage = () => {
   const tripDetailsInfo = [
     Input({
       register: register("pickupDate"),
-      label: "dateOfPickup",
+      label: "Date Of Pickup",
       type: "date",
       name: "pickupDate",
       error: errors.pickupDate,
@@ -254,7 +256,7 @@ const PaymentPage = () => {
 
     Input({
       register: register("pickupTime"),
-      label: "timeOfPickup",
+      label: "Time Of Pickup",
       type: "time",
       name: "pickupTime",
       error: errors.pickupTime,
@@ -265,6 +267,7 @@ const PaymentPage = () => {
 
   return (
     <>
+
       <div className=' mx-4 my-4 lg:mx-48 lg:my-16'>
         <h1 className=' font-semibold text-2xl'> Final steps</h1>
         <br />
@@ -304,7 +307,7 @@ const PaymentPage = () => {
 
             </div>
           </div>
-
+          <No_ssr>
           <div className="border-b border-gray-900/10 pb-12">
             <h2 className="text-base font-semibold leading-7 text-gray-900">Trip details</h2>
             <br />
@@ -323,6 +326,7 @@ const PaymentPage = () => {
 
             </div>
           </div>
+          </No_ssr>
 
           <div className="border-b border-gray-900/10 pb-12">
             <h2 className="text-base font-semibold leading-7 text-gray-900">Luggage</h2>
@@ -415,13 +419,13 @@ const PaymentPage = () => {
           </div>
         </form >
 
-        <Sucess />
+
       </div >
 
     </>
   )
 }
-
+//Misas10 wtf ??? <Sucess /> line 420
 export default PaymentPage;
 // function SafeParse(LoginSchema: v.ObjectSchema<{ firstName: v.StringSchema<string>; lastName: v.StringSchema<string>; email: v.StringSchema<string>; password: v.StringSchema<string>; }, undefined, { firstName: string; lastName: string; email: string; password: string; }>, arg1: { firstName: string; lastName: string; email: string; password: string; }) {
 //   throw new Error('Function not implemented.');

@@ -3,10 +3,12 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import ProductQuantity from '../components/numberselector';
 import {tripInfo} from "@/app/module";
+import No_ssr from "@/app/components/no_ssr";
 
 interface MapComponentProps { }
 
 const MapComponent: React.FC<MapComponentProps> = () => {
+
 
     let data: tripInfo;
     if (typeof window !== 'undefined') {
@@ -38,13 +40,17 @@ const MapComponent: React.FC<MapComponentProps> = () => {
     return (
 
 
+
+
         <div className='justify-center justify-items-center  grid grid-flow-row auto-rows-max '>
             <div className=' '>
                 <div className='text-3xl p-5 text-center font-medium'> We just need some more details about your tripe</div>
             </div>
+            <No_ssr>
             <div className='border rounded-xl w-3/5 p-5 '>
                 <div className='text-4xl text-center font-bold'> {data.price} €</div>
             </div>
+            </No_ssr>
             <div className='mt-6'>
                 <div className='text-xl text-center '> Select the options bellow, all of them are free of charge</div>
             </div>
@@ -153,6 +159,7 @@ const MapComponent: React.FC<MapComponentProps> = () => {
 
 
         </div>
+
 
     )
 
