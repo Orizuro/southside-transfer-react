@@ -13,7 +13,7 @@ const MapComponent: React.FC<MapComponentProps> = () => {
 
   let data: tripInfo;
   if (typeof window !== 'undefined') {
-    const item = localStorage.getItem("tripInfo")
+    const item = localStorage.getItem("tripInfo");
     data = item ? JSON.parse(item) : { destination: "", nPassenger: 0, origin: "", time: "", price: 0 }
   } else {
     data = { destination: "", nPassenger: 0, origin: "", time: "", price: 0 }
@@ -25,6 +25,9 @@ const MapComponent: React.FC<MapComponentProps> = () => {
   const [passagetSum, setPassagetSum] = useState<number>(0);
   const [meetAndGreet, setMeet] = useState<boolean>(false);
   useEffect(() => { setPassagetSum(adult + child + infant) }, [adult, child, infant]);
+
+  const [dateTime, setDateTime] = useState("");
+  const [totalSuicases, setTotalSuicases] = useState(0);
 
 
   function OptionsWithNumbers(maxPassengers: any) {
@@ -122,6 +125,7 @@ const MapComponent: React.FC<MapComponentProps> = () => {
         className={nameInputClassName}
         type='datetime-local'
         name='dateTimePickup'
+        onChange={(e) => setDateTime(e.target.value)}
       />
       <div>
 
@@ -146,6 +150,7 @@ const MapComponent: React.FC<MapComponentProps> = () => {
       <div> Number of suitcases</div>
       <select
         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+        onChange={(e) => setTotalSuicases(Number(e.target.value))}
       >
         {OptionsWithNumbers(16)}
       </select>
@@ -153,7 +158,12 @@ const MapComponent: React.FC<MapComponentProps> = () => {
       <div className=' flex justify-between'>
 
         <Link
-          onClick={() => localStorage.setItem("tripInfo", JSON.stringify(data))}
+          onClick={() => {
+            data.time = dateTime
+            // Adicionar o total de suitcases
+            localStorage.setItem("tripInfo", JSON.stringify(data))
+          }
+          }
           className='font-bold bg-gradient-to-tr from-blue to-green hover:bg-gradient-radial rounded-full px-8 py-4'
           href={{
             pathname: '/checkout',

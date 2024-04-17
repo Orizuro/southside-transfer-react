@@ -15,7 +15,7 @@ import * as v from 'valibot';
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/high-res.css'
 import Sucess from '../sucess/page';
-import {costumerDetails, tripInfo} from "@/app/module";
+import { costumerDetails, tripInfo } from "@/app/module";
 import No_ssr from "@/app/components/no_ssr";
 
 
@@ -30,9 +30,9 @@ const PaymentPage = () => {
   let data: tripInfo;
   if (typeof window !== 'undefined') {
     const item = localStorage.getItem("tripInfo")
-    data = item ? JSON.parse(item) : {destination: "", nPassenger: 0, origin: "", time: "", price: 0}
+    data = item ? JSON.parse(item) : { destination: "", nPassenger: 0, origin: "", time: "", price: 0 }
   } else {
-    data = {destination: "", nPassenger: 0, origin: "", time: "", price: 0}
+    data = { destination: "", nPassenger: 0, origin: "", time: "", price: 0 }
   }
 
   const today = new Date().toISOString().slice(0, 10)
@@ -239,27 +239,6 @@ const PaymentPage = () => {
     })
   ];
 
-  const tripDetailsInfo = [
-    Input({
-      register: register("pickupDate"),
-      label: "Date Of Pickup",
-      type: "date",
-      name: "pickupDate",
-      error: errors.pickupDate,
-      // onChange: (e) => setLastName(e.target.value)
-    }),
-
-    Input({
-      register: register("pickupTime"),
-      label: "Time Of Pickup",
-      type: "time",
-      name: "pickupTime",
-      error: errors.pickupTime,
-      // onChange: (e) => set(e.target.value)
-    })
-
-  ]
-
   return (
     <>
 
@@ -303,48 +282,28 @@ const PaymentPage = () => {
             </div>
           </div>
           <No_ssr>
-          <div className="border-b border-gray-900/10 pb-12">
-            <h2 className="text-base font-semibold leading-7 text-gray-900">Trip details</h2>
-            <br />
-            <div>
-              <h1> From:</h1>
-              <p> {origin}</p>
+            <div className="border-b border-gray-900/10 pb-12">
+              <h2 className="text-base font-semibold leading-7 text-gray-900">Trip details</h2>
+              <br />
+              <div>
+                <h1> From:</h1>
+                <p> {origin}</p>
+              </div>
+              <br />
+              <div>
+                <h1> To: </h1>
+                <p> {destination}</p>
+              </div>
             </div>
-            <br />
-            <div>
-              <h1> To: </h1>
-              <p> {destination}</p>
-            </div>
-            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-
-              {tripDetailsInfo.map(input => input)}
-
-            </div>
-          </div>
           </No_ssr>
 
           <div className="border-b border-gray-900/10 pb-12">
-            <h2 className="text-base font-semibold leading-7 text-gray-900">Luggage</h2>
+            <h2 className="text-base font-semibold leading-7 text-gray-900">Additional information </h2>
             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3">
-
-              <div className="sm:col-span-1">
-                <label
-                  htmlFor="number"
-                  className="block text-sm font-medium leading-6 text-gray-900">Number of Suitcases</label>
-                <div className="mt-2">
-                  <select
-                    {...register("numSuitcases")}
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                  >
-                    {luggageOptions}
-                  </select>
-                </div>
-              </div>
-
               <div className="col-span-full">
                 <label
                   htmlFor="about"
-                  className="block text-sm font-medium leading-6 text-gray-900"> Any additional information </label>
+                  className="block text-sm font-medium leading-6 text-gray-900"> </label>
                 <div className="mt-2">
                   <textarea
                     {...register("additionalInformation")}
@@ -359,9 +318,8 @@ const PaymentPage = () => {
           </div>
 
           <div className="border-b border-gray-900/10 pb-12">
-            <h2 className="text-base font-semibold leading-7 text-gray-900">Payment</h2>
+            <h2 className="text-base font-semibold leading-7 text-gray-900">Payment method</h2>
             <fieldset>
-
               <div className="mt-6 space-y-6">
                 <div className="flex items-center gap-x-3">
                   <RadioInput value="Pay to the driver" />
@@ -380,7 +338,6 @@ const PaymentPage = () => {
                   </label>
                 </div>
               </div>
-
             </fieldset>
           </div>
           <div className="relative flex gap-x-3">
