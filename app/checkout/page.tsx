@@ -15,25 +15,25 @@ import * as v from 'valibot';
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/high-res.css'
 import Sucess from '../sucess/page';
+import {costumerDetails, tripInfo} from "@/app/module";
+import No_ssr from "@/app/components/no_ssr";
 
 
-interface IFormValues {
-  'First Name': string
-  'Last Name': string
-  'Email Address': string
-  'Date of pickup': string
-  'Time of pickup': string
-  'Total Luggage': number
-  'Payment': string
-  'PhoneNumber': string
-}
+
+/**
+ * TODO add a better error for date, and make so it is impossible to book on the same day
+ * TODO add a link to terms & conditions page
+ */
+
 
 const PaymentPage = () => {
-  var data;
+  let data: tripInfo;
   if (typeof window !== 'undefined') {
-    data = localStorage.getItem("paymentInfo") ? JSON.parse(localStorage.getItem("paymentInfo")) : null;
-  } else
-    data = {}
+    const item = localStorage.getItem("tripInfo")
+    data = item ? JSON.parse(item) : {destination: "", nPassenger: 0, origin: "", time: "", price: 0}
+  } else {
+    data = {destination: "", nPassenger: 0, origin: "", time: "", price: 0}
+  }
 
   const today = new Date().toISOString().slice(0, 10)
 
@@ -108,9 +108,7 @@ const PaymentPage = () => {
 
   const onSubmit = (data: FormSchemaType) => {
     // alert(JSON.stringify(data))
-
-    localStorage.setItem("travelInfo", JSON.stringify(data));
-
+    localStorage.setItem("costumerDetails", JSON.stringify(data))
     checkout(data);
   }
 
@@ -157,7 +155,7 @@ const PaymentPage = () => {
   // }
 
   type InputProps = {
-    label: Path<IFormValues>;
+    label: string;
     register: UseFormRegisterReturn;
     name: string;
     type: string;
@@ -244,7 +242,7 @@ const PaymentPage = () => {
   const tripDetailsInfo = [
     Input({
       register: register("pickupDate"),
-      label: "Date of pickup",
+      label: "Date Of Pickup",
       type: "date",
       name: "pickupDate",
       error: errors.pickupDate,
@@ -253,7 +251,7 @@ const PaymentPage = () => {
 
     Input({
       register: register("pickupTime"),
-      label: "Time of pickup",
+      label: "Time Of Pickup",
       type: "time",
       name: "pickupTime",
       error: errors.pickupTime,
@@ -264,7 +262,8 @@ const PaymentPage = () => {
 
   return (
     <>
-      <div className=' mx-48 my-16'>
+
+      <div className=' mx-4 my-4 lg:mx-48 lg:my-16'>
         <h1 className=' font-semibold text-2xl'> Final steps</h1>
         <br />
         <p className=' border-b border-gray-900/10 pb-4'> We just need some more information to finish the reservation.</p>
@@ -303,7 +302,7 @@ const PaymentPage = () => {
 
             </div>
           </div>
-
+          <No_ssr>
           <div className="border-b border-gray-900/10 pb-12">
             <h2 className="text-base font-semibold leading-7 text-gray-900">Trip details</h2>
             <br />
@@ -322,6 +321,7 @@ const PaymentPage = () => {
 
             </div>
           </div>
+          </No_ssr>
 
           <div className="border-b border-gray-900/10 pb-12">
             <h2 className="text-base font-semibold leading-7 text-gray-900">Luggage</h2>
@@ -414,13 +414,13 @@ const PaymentPage = () => {
           </div>
         </form >
 
-        <Sucess />
+
       </div >
 
     </>
   )
 }
-
+//Misas10 wtf ??? <Sucess /> line 420
 export default PaymentPage;
 // function SafeParse(LoginSchema: v.ObjectSchema<{ firstName: v.StringSchema<string>; lastName: v.StringSchema<string>; email: v.StringSchema<string>; password: v.StringSchema<string>; }, undefined, { firstName: string; lastName: string; email: string; password: string; }>, arg1: { firstName: string; lastName: string; email: string; password: string; }) {
 //   throw new Error('Function not implemented.');
