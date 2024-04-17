@@ -5,7 +5,7 @@ import {useEffect} from "react";
 import {tripInfo, costumerDetails} from "@/app/module";
 
 export default function Sucess() {
-    var component;
+    let component;
     let infoData: tripInfo;
     let infoCustumer: costumerDetails;
 
@@ -52,8 +52,8 @@ export default function Sucess() {
     }
 
     useEffect(() => {
-        checkout(infoData, infoCustumer)
-    }, [])
+        checkout(infoData, infoCustumer)//.then(r => {})
+    }, [checkout, infoCustumer, infoData])
 
     return <div>
         <h1>{component}</h1>
