@@ -8,23 +8,22 @@ import Link from 'next/link';
 import HowItWorks from "./components/howItWorksElement";
 import CtnButton from "./components/myButton";
 import WhatWeOffer from "./components/whtaweoffer";
+import {tripInfo} from "@/app/module";
 
 //<text className="text-7xl font-bold justify-center justify-items-center "> Where you want to go ?</text>
 //items-center
 export default function Home() {
-
-
     const [origin, setOrigin] = useState<string>('');
     const [destination, setDestination] = useState<string>('');
-    const [selectedQuatity, setSelectedQuantity] = useState(0);
+    const [nPassenger, setSelectedQuantity] = useState(0);
     const [distance, setDistance] = useState<number>(0);
     const [time, setTime] = useState<string>('---');
     const [price, setPrice] = useState(0.0);
     useEffect(() => { DistanceMatrix() }, [destination, origin]);
-    useEffect(() => { calculatePrice() }, [selectedQuatity, distance, time]);
+    useEffect(() => { calculatePrice() }, [nPassenger, distance, time]);
     var pricePerKilometer = 1.15;
     function calculatePrice() {
-        var numPassengers = selectedQuatity;
+        var numPassengers = nPassenger;
         if (origin == '' || destination == '') {
             return
         }
@@ -69,7 +68,7 @@ export default function Home() {
         var service = new google.maps.DistanceMatrixService();
         console.log("ORI: " + origin)
         console.log("DES: " + destination)
-        console.log("QNT: " + selectedQuatity)
+        console.log("QNT: " + nPassenger)
 
         service.getDistanceMatrix({
             avoidTolls: true,
@@ -86,13 +85,12 @@ export default function Home() {
 
     }
 
-
-    const locationData = {
-        "origin": origin,
-        "destination": destination,
-        "price": price,
-        "time": time,
-        "selectedQuatity": selectedQuatity,
+    const data: tripInfo = {
+        origin: origin,
+        destination: destination,
+        price: price,
+        time: time,
+        nPassenger: nPassenger,
     }
 
     function OptionsWithNumbers({ maxPassengers, labelText }: any) {
@@ -105,7 +103,7 @@ export default function Home() {
         return <div className="w-full ">
             <label className='text-xl font-semibold ' > {labelText} </label>
             <select className=" rounded-xl font-medium text-black w-full"
-                value={selectedQuatity}
+                value={nPassenger}
                 onChange={e => {
                     var value = parseFloat(e.target.value);
 
@@ -167,7 +165,7 @@ export default function Home() {
 
                             <div className="flex items-center justify-center md:col-span-2">
                                 <Link
-                                    onClick={() => localStorage.setItem("calculator", JSON.stringify(locationData))}
+                                    onClick={() => localStorage.setItem("tripInfo", JSON.stringify(data))}
                                     className='font-medium bg-blueLight hover:bg-blueLight/60 rounded-2xl p-3 '
                                     href={{
                                         pathname: '/precheckout',

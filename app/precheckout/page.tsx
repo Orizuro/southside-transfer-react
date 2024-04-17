@@ -1,39 +1,19 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-// import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
-// import { GoogleMap, DistanceMatrixService } from "@react-google-maps/api";
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Button } from '@nextui-org/react';
 import ProductQuantity from '../components/numberselector';
-import { Radio } from '@material-tailwind/react';
-
-
-//import DistanceMatrixService from './DistanceMatrixService';
+import {tripInfo} from "@/app/module";
 
 interface MapComponentProps { }
 
 const MapComponent: React.FC<MapComponentProps> = () => {
 
-    var data;
+    let data: tripInfo;
     if (typeof window !== 'undefined') {
-        data = localStorage.getItem("calculator") ? JSON.parse(localStorage.getItem("calculator")) : null;
-        console.log(data)
+        const item = localStorage.getItem("tripInfo")
+        data = item ? JSON.parse(item) : {destination: "", nPassenger: 0, origin: "", time: "", price: 0}
     } else {
-        data = {}
-    }
-    const origin = data.origin; // searchParams.get("origin");
-    const destination = data.destination //searchParams.get("destination");
-    const price = data.price
-    const time = data.price
-    const selectedQuatity = data.selectedQuatity
-
-    const locationData = {
-        "origin": origin,
-        "destination": destination,
-        "price": price,
-        "time": time,
-        "selectedQuatity": selectedQuatity,
+        data = {destination: "", nPassenger: 0, origin: "", time: "", price: 0}
     }
 
     const [adult, setAdultN] = useState<number>(0);
@@ -63,7 +43,7 @@ const MapComponent: React.FC<MapComponentProps> = () => {
                 <div className='text-3xl p-5 text-center font-medium'> We just need some more details about your tripe</div>
             </div>
             <div className='border rounded-xl w-3/5 p-5 '>
-                <div className='text-4xl text-center font-bold'> {price} €</div>
+                <div className='text-4xl text-center font-bold'> {data.price} €</div>
             </div>
             <div className='mt-6'>
                 <div className='text-xl text-center '> Select the options bellow, all of them are free of charge</div>
@@ -141,23 +121,35 @@ const MapComponent: React.FC<MapComponentProps> = () => {
                 <div className='text-xl '> Select the passenger so we can bring the right seats</div>
 
             </div>
-            <button className='  text-gray-600 transition hover:opacity-75 px-4 ml-5 border rounded-lg shadow-xl' onClick={() => { setAdultN(selectedQuatity), setChildN(0), setInfantN(0) }}> All adults</button>
+            <button className='  text-gray-600 transition hover:opacity-75 px-4 ml-5 border rounded-lg shadow-xl' onClick={() => { setAdultN(data.nPassenger), setChildN(0), setInfantN(0) }}> All adults</button>
 
             <div className='carousel  w-full lg:w-3/4 gap-2 py-5  '>
                 <div className='carousel-item pl-2 '>
-                    <ProductQuantity productQuantity={adult} setProductQuantity={setAdultN} age={"older then 13 years"} title={'Adults'} max={selectedQuatity} total={passagetSum} image="/icons/man.png" scale={'100'} ></ProductQuantity>
+                    <ProductQuantity productQuantity={adult} setProductQuantity={setAdultN} age={"older then 13 years"} title={'Adults'} max={data.nPassenger} total={passagetSum} image="/icons/man.png" scale={'100'} ></ProductQuantity>
                 </div>
                 <div className='carousel-item'>
-                    <ProductQuantity productQuantity={child} setProductQuantity={setChildN} age={"less then 13 years"} title={'Children'} max={selectedQuatity} total={passagetSum} image="/icons/child.png" scale={'75'} ></ProductQuantity>
+                    <ProductQuantity productQuantity={child} setProductQuantity={setChildN} age={"less then 13 years"} title={'Children'} max={data.nPassenger} total={passagetSum} image="/icons/child.png" scale={'75'} ></ProductQuantity>
                 </div>
                 <div className='carousel-item pr-2'>
-                    <ProductQuantity productQuantity={infant} setProductQuantity={setInfantN} age={"less then 3 years"} title={'Infants'} max={selectedQuatity} total={passagetSum} image="/icons/infante.png" scale={'75'}></ProductQuantity>
+                    <ProductQuantity productQuantity={infant} setProductQuantity={setInfantN} age={"less then 3 years"} title={'Infants'} max={data.nPassenger} total={passagetSum} image="/icons/infante.png" scale={'75'}></ProductQuantity>
                 </div>
 
             </div>
 
             <div> Number of suitcases</div>
             <div> Other information</div>
+            <div className=' flex justify-between'>
+
+                <Link
+                    onClick={() => localStorage.setItem("tripInfo", JSON.stringify(data))}
+                    className='font-bold bg-gradient-to-tr from-blue to-green hover:bg-gradient-radial rounded-full px-8 py-4'
+                    href={{
+                        pathname: '/checkout',
+                    }}
+                >
+                    Next
+                </Link>
+            </div>
 
 
         </div>
