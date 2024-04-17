@@ -78,7 +78,7 @@ const PaymentPage = () => {
     terms: v.literal(true, "Please accept our terms."),
   });
 
-  const [phoneNumber, setPhoneNumber] = useState("");
+  // const [phoneNumber, setPhoneNumber] = useState("");
 
   type FormSchemaType = v.Output<typeof formSchema>
 
@@ -108,6 +108,8 @@ const PaymentPage = () => {
 
   const onSubmit = (data: FormSchemaType) => {
     // alert(JSON.stringify(data))
+
+    localStorage.setItem("travelInfo", JSON.stringify(data));
 
     checkout(data);
   }
@@ -162,16 +164,11 @@ const PaymentPage = () => {
     autoComplete?: string;
     placeholder?: string;
     error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>>;
-    required?: boolean;
-    inputValue?: string;
-    showError?: boolean;
-    pattern?: ValidationRule<RegExp>;
     className?: string;
     value?: string;
-    onChange?: ChangeEventHandler<HTMLInputElement>;
   }
 
-  var _nameInputClassName = "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6";
+  const _nameInputClassName = "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6";
 
   const Input = (props: InputProps) => {
     return (
