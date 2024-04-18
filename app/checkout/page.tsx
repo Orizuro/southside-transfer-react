@@ -1,16 +1,17 @@
 "use client";
 
 import '.././styles.css'
-import { ChangeEventHandler, useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import React from 'react';
 import { redirect, useRouter } from 'next/navigation'
 import axios from 'axios';
-import { useForm, Path, ValidationRule, UseFormRegisterReturn, FieldError, Merge, FieldErrorsImpl, Controller } from "react-hook-form";
+import { useForm, UseFormRegisterReturn, FieldError, Merge, FieldErrorsImpl, Controller } from "react-hook-form";
 import { valibotResolver } from '@hookform/resolvers/valibot';
 
 import { minLength, string, object } from 'valibot';
 import * as v from 'valibot';
 
+import { TbInfoTriangleFilled } from "react-icons/tb";
 
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/high-res.css'
@@ -35,8 +36,6 @@ const PaymentPage = () => {
     data = { destination: "", nPassenger: 0, origin: "", time: "", price: 0 }
   }
 
-  const today = new Date().toISOString().slice(0, 10)
-
   const formSchema = object({
     firstName: string([
       minLength(1, 'Please enter your first name')
@@ -46,11 +45,6 @@ const PaymentPage = () => {
       minLength(1, 'Please enter your last name')
     ]),
 
-    numSuitcases: v.coerce(
-      v.number([v.toMinValue(0)]),
-      Number,
-    ),
-
     email: string([
       minLength(1, 'Please enter your email.'),
       v.email('The email address is badly formatted.'),
@@ -58,15 +52,6 @@ const PaymentPage = () => {
 
     phoneNumber: string([
       minLength(1, "Please enter the pickup Date")
-    ]),
-
-    pickupDate: v.string([
-      v.minValue(today),
-      minLength(1, "Please enter the pickup Time")
-    ]),
-
-    pickupTime: string([
-      minLength(1, "Please enter the pickup Time")
     ]),
 
     payment: string([
@@ -135,6 +120,7 @@ const PaymentPage = () => {
 
 
     // const data = await fetch('/stripe/api', {
+    // 
 
     //     method: "POST",
     //     headers: {
@@ -166,7 +152,7 @@ const PaymentPage = () => {
     value?: string;
   }
 
-  const _nameInputClassName = "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6";
+  const nameInputClassName = "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6";
 
   const Input = (props: InputProps) => {
     return (
@@ -180,14 +166,19 @@ const PaymentPage = () => {
           <div className="mt-2">
             <input
               {...props.register}
-              className={_nameInputClassName}
+              className={props.error ? nameInputClassName + " ring-error" : nameInputClassName}
               name={props.name}
               type={props.type}
               autoComplete='given-name'
             // onChange={props.onChange}
             />
 
-            {props.error && (<p>{props.error.message?.toString()}</p>)}
+            {props.error && (
+              <div className='text-error font-bold  flex gap-2 py-1'>
+                <TbInfoTriangleFilled className='text-lg' />
+                <p className='text-sm'> {props.error.message?.toString()}</p>
+              </div>
+            )}
 
           </div>
         </div>
@@ -241,7 +232,6 @@ const PaymentPage = () => {
 
   return (
     <>
-
       <div className=' mx-4 my-4 lg:mx-48 lg:my-16'>
         <h1 className=' font-semibold text-2xl'> Final steps</h1>
         <br />
