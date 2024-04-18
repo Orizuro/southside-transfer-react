@@ -19,9 +19,9 @@ const MapComponent: React.FC<MapComponentProps> = () => {
   let data: tripInfo;
   if (typeof window !== 'undefined') {
     const item = localStorage.getItem("tripInfo");
-    data = item ? JSON.parse(item) : { destination: "", nPassenger: 0, origin: "", time: "", price: 0 }
+    data = item ? JSON.parse(item) : null
   } else {
-    data = { destination: "", nPassenger: 0, origin: "", time: "", price: 0 }
+    data = { destination: "", nPassenger: 0, origin: "", time: "", price: 0,adult:0,child:0,infant:0, dateOfPickup :"", timeOfPickup:"", TotalLuggage:0, additionInfo:"" }
   }
 
   const [adult, setAdultN] = useState<number>(0);
@@ -36,8 +36,6 @@ const MapComponent: React.FC<MapComponentProps> = () => {
 
   const today = new Date().toISOString().slice(0, 10)
   const formSchema = object({
-
-
       numSuitcases: v.coerce(
           v.number([v.toMinValue(0)]),
           Number,
@@ -51,31 +49,11 @@ const MapComponent: React.FC<MapComponentProps> = () => {
           minLength(1, "Please enter the pickup Time")
       ]),
       additionalInformation: v.optional(v.string()),
-
       /*
-       children:  number([
-          minValue(0),
-      ]),
       greatAndMeet: string([
           minLength(1)
       ]),
- adults:  string([
-          minLength(0)
-      ]),
-
-      infant:  string([
-          minLength(0)
-      ]),
        */
-
-      children: any(),
-
-
-
-
-
-
-
   })
     type FormSchemaType = v.Output<typeof formSchema>
     const router = useRouter();
@@ -95,9 +73,15 @@ const MapComponent: React.FC<MapComponentProps> = () => {
         luggageOptions.push(<option key={i}>{i}</option>);
 
 
-    const onSubmit = (data: FormSchemaType) => {
-        alert(JSON.stringify(data))
-        localStorage.setItem("costumerDetails", JSON.stringify(data))
+    const onSubmit = (newdata: FormSchemaType) => {
+        data.additionInfo = newdata.additionalInformation;
+        data.dateOfPickup = newdata.pickupDate;
+        data.timeOfPickup = newdata.pickupTime;
+        data.TotalLuggage = newdata.numSuitcases;
+        data.infant = infant;
+        data.child = child;
+        data.adult = adult;
+        localStorage.setItem("tripInfo", JSON.stringify(data))
     }
     function cancelForm() {
         cancel();
@@ -290,28 +274,23 @@ const MapComponent: React.FC<MapComponentProps> = () => {
                           title={'Adults'} max={data.nPassenger}
                           total={passagetSum}
                           image="/icons/man.png"
-                          scale={'100'}
-                          props={register("adults")}
-                          name={"adults"}>
+                          scale={'100'}>
                       </ProductQuantity>
                   </div>
                   <div className='carousel-item'>
-                      {ProductQuantity({
-                          props: register("children"),
-                          productQuantity: child,
-                          setProductQuantity: setChildN,
-                          age: "less then 13 years",
-                          title: 'Children',
-                          max: data.nPassenger,
-                          total: passagetSum,
-                          image: "/icons/child.png",
-                          scale: '75',
-                          name: "children"
-                  })}
+                      <ProductQuantity
+                          productQuantity={child}
+                          setProductQuantity={setChildN}
+                          age={"less then 13 years"}
+                          title={'Children'}
+                          max={data.nPassenger}
+                          total={passagetSum}
+                          image="/icons/child.png"
+                          scale={'75'}>
+                      </ProductQuantity>
                   </div>
                   <div className='carousel-item pr-2'>
                       <ProductQuantity
-                          props={register("infant")}
                           productQuantity={infant}
                           setProductQuantity={setInfantN}
                           age={"less then 3 years"}
@@ -319,7 +298,7 @@ const MapComponent: React.FC<MapComponentProps> = () => {
                           max={data.nPassenger}
                           total={passagetSum}
                           image="/icons/infante.png"
-                          scale={'75'} name={"infant"}>
+                          scale={'75'}>
                       </ProductQuantity>
                   </div>
 

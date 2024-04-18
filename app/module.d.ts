@@ -4,19 +4,23 @@ import {ChangeEventHandler} from "react";
 
 interface tripInfo {
     destination: string,
-    origin: string,
+    origin: string,olddata
     price: number,
     nPassenger: number,
+    adult: number
+    child: number,
+    infant: number,
     time: string
+    dateOfPickup: string
+    timeOfPickup: string
+    TotalLuggage: number
+    additionInfo: string | undefined
 }
 
 interface costumerDetails {
     firstName: string
     lastName: string
     emailAddress: string
-    dateOfPickup: string
-    timeOfPickup: string
-    TotalLuggage: number
     Payment: string
     PhoneNumber: string
 }
