@@ -1,4 +1,6 @@
 import {string} from "valibot";
+import { useForm, Path, ValidationRule, UseFormRegisterReturn, FieldError, Merge, FieldErrorsImpl, Controller } from "react-hook-form";
+import {ChangeEventHandler} from "react";
 
 interface tripInfo {
     destination: string,
@@ -18,3 +20,4 @@ interface costumerDetails {
     Payment: string
     PhoneNumber: string
 }
+
