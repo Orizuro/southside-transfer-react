@@ -19,9 +19,9 @@ const MapComponent: React.FC<MapComponentProps> = () => {
   let data: tripInfo;
   if (typeof window !== 'undefined') {
     const item = localStorage.getItem("tripInfo");
-    data = item ? JSON.parse(item) : null
+    data = item ? JSON.parse(item) : { destination: "", nPassenger: 0, origin: "", time: "", price: 0 }
   } else {
-    data = { destination: "", nPassenger: 0, origin: "", time: "", price: 0,adult:0,child:0,infant:0, dateOfPickup :"", timeOfPickup:"", TotalLuggage:0, additionInfo:"" }
+    data = { destination: "", nPassenger: 0, origin: "", time: "", price: 0 }
   }
 
   const [adult, setAdultN] = useState<number>(0);
