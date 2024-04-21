@@ -64,14 +64,10 @@ class LocationSearchInput extends React.Component {
                     ? { backgroundColor: '#f2f3fa', cursor: 'pointer' }
                     : { backgroundColor: '#ffffff', cursor: 'pointer' };
                   return (
-                    <div className=' p-2'>
-
+                    <div className='p-2' key={suggestion.placeId}> {/* Add key prop here */}
                       <div
-                        //key={suggestion}  
-                        key={suggestion.placeId}
                         {...getSuggestionItemProps(suggestion, {
                           className,
-
                         })}
                       >
                         <span className=''>{suggestion.description}</span>

@@ -33,7 +33,7 @@ const PaymentPage = () => {
     const item = localStorage.getItem("tripInfo")
     dataTripInfo = item ? JSON.parse(item) : { destination: "", nPassenger: 0, origin: "", time: "", price: 0 }
   } else {
-    dataTripInfo = { destination: "", nPassenger: 0, origin: "", time: "", price: 0 }
+    dataTripInfo = { destination: "", nPassenger: 0, origin: "", time: "", price: 0, timeOfPickup: "", dateOfPickup: "", child: 0, additionInfo: "", adult: 0, infant: 0, olddata: "", TotalLuggage: 0 }
   }
 
   const formSchema = object({

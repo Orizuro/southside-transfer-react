@@ -1,8 +1,8 @@
 "use client";
-import {Button} from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 import axios from "axios";
-import {useEffect} from "react";
-import {tripInfo, costumerDetails} from "@/app/module";
+import { useEffect } from "react";
+import { tripInfo, costumerDetails } from "@/app/module";
 
 export default function Sucess() {
     let component;
@@ -16,16 +16,14 @@ export default function Sucess() {
         infoCustumer = item2 ? JSON.parse(item2) : ""
 
     } else {
-        infoData = {destination: "", nPassenger: 0, origin: "", time: "", price: 0}
+        infoData = { destination: "", nPassenger: 0, origin: "", time: "", price: 0, timeOfPickup: "", dateOfPickup: "", child: 0, additionInfo: "", adult: 0, infant: 0, olddata: "", TotalLuggage: 0 }
+
         infoCustumer = {
             firstName: "",
             lastName: "",
-            dateOfPickup: "",
             Payment: "",
-            timeOfPickup: "",
             emailAddress: "",
             PhoneNumber: "",
-            TotalLuggage: 0
         }
     }
 
@@ -37,10 +35,10 @@ export default function Sucess() {
                 infoData: infoData,
                 infoCustumer: infoCustumer
             }, {
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            }
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }
         ).then(function (response) {
             component = <div className=""> Success </div>
             console.log(response);

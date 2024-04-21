@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from "next/server"
 import nodemailer from "nodemailer"
 import Mail from "nodemailer/lib/mailer"
 import HTML_TEMPLATE from "./email_client";
-import {costumerDetails, tripInfo} from "@/app/module";
+import { costumerDetails, tripInfo } from "@/app/module";
 
 export async function POST(request: NextRequest) {
 
@@ -28,14 +28,14 @@ export async function POST(request: NextRequest) {
       to: "sansasha707@gmail.com",//${client.emailAddress},
       subject: `Your trip with South Side Transfers`,
       text: `Message from (${client.emailAddress})`,
-      html: HTML_TEMPLATE(client.firstName, client.lastName, trip.origin, trip.destination, client.dateOfPickup, client.timeOfPickup)
+      html: HTML_TEMPLATE(client.firstName, client.lastName, trip.origin, trip.destination,)
     };
     const mailOptionsOwner: Mail.Options = {
       from: process.env.NODEMAILER_EMAIL,
       to: process.env.NODEMAILER_EMAIL,
       subject: `Message from ()`,
       text: `Message from (${client.emailAddress})`,
-      html: HTML_TEMPLATE(client.firstName, client.lastName, trip.origin, trip.destination, client.dateOfPickup, client.timeOfPickup)
+      html: HTML_TEMPLATE(client.firstName, client.lastName, trip.origin, trip.destination,)
     };
     await transport.sendMail(mailOptionsClient)
     await transport.sendMail(mailOptionsOwner)

@@ -8,7 +8,7 @@ import Link from 'next/link';
 import HowItWorks from "./components/howItWorksElement";
 import CtnButton from "./components/myButton";
 import WhatWeOffer from "./components/whtaweoffer";
-import {tripInfo} from "@/app/module";
+import { tripInfo } from "@/app/module";
 
 //<text className="text-7xl font-bold justify-center justify-items-center "> Where you want to go ?</text>
 //items-center
@@ -91,6 +91,14 @@ export default function Home() {
         price: price,
         time: time,
         nPassenger: nPassenger,
+        olddata: undefined,
+        adult: 0,
+        child: 0,
+        infant: 0,
+        dateOfPickup: "",
+        timeOfPickup: "",
+        TotalLuggage: 0,
+        additionInfo: undefined
     }
 
     function OptionsWithNumbers({ maxPassengers, labelText }: any) {
