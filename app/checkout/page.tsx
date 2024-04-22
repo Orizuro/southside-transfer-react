@@ -92,9 +92,9 @@ const PaymentPage = () => {
 
 
   const onSubmit = (data: FormSchemaType) => {
-    // alert(JSON.stringify(data))
-    localStorage.setItem("costumerDetails", JSON.stringify(data))
-    checkout(data);
+    alert(JSON.stringify(data))
+    // localStorage.setItem("costumerDetails", JSON.stringify(data))
+    // checkout(data);
   }
 
   async function checkout(data: FormSchemaType) {
@@ -267,6 +267,12 @@ const PaymentPage = () => {
                     />
                   )}
                 />
+                {errors.phoneNumber &&
+                  <small className="text-error font-bold flex gap-2 py-1">
+                    <TbInfoTriangleFilled className='text-lg' />
+                    {errors.phoneNumber?.message}
+                  </small>
+                }
               </div>
 
             </div>
@@ -303,7 +309,6 @@ const PaymentPage = () => {
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
                 </div>
               </div>
-
             </div>
           </div>
 
@@ -361,8 +366,7 @@ const PaymentPage = () => {
           </div>
         </form >
 
-
-      </div >
+      </div>
 
     </>
   )

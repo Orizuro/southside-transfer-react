@@ -70,13 +70,8 @@ adults:  string([
 
     children: any(),
 
+  });
 
-
-
-
-
-
-  })
   type FormSchemaType = v.Output<typeof formSchema>
   const router = useRouter();
   const cancel = useCallback(() => {
