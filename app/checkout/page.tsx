@@ -28,12 +28,12 @@ import No_ssr from "@/app/components/no_ssr";
 
 
 const PaymentPage = () => {
-  let data: tripInfo;
+  let dataTripInfo: tripInfo;
   if (typeof window !== 'undefined') {
     const item = localStorage.getItem("tripInfo")
-    data = item ? JSON.parse(item) : { destination: "", nPassenger: 0, origin: "", time: "", price: 0 }
+    dataTripInfo = item ? JSON.parse(item) : { destination: "", nPassenger: 0, origin: "", time: "", price: 0 }
   } else {
-    data = { destination: "", nPassenger: 0, origin: "", time: "", price: 0 }
+    dataTripInfo = { destination: "", nPassenger: 0, origin: "", time: "", price: 0, timeOfPickup: "", dateOfPickup: "", child: 0, additionInfo: "", adult: 0, infant: 0, olddata: "", TotalLuggage: 0 }
   }
 
   const formSchema = object({
@@ -81,8 +81,8 @@ const PaymentPage = () => {
     router.push("/pay");
   }, [router]);
 
-  const origin = data.origin; // searchParams.get("origin");
-  const destination = data.destination //searchParams.get("destination");
+  const origin = dataTripInfo.origin; // searchParams.get("origin");
+  const destination = dataTripInfo.destination //searchParams.get("destination");
   // const searchParams = useSearchParams()
 
 
@@ -97,15 +97,15 @@ const PaymentPage = () => {
     // checkout(data);
   }
 
-  async function checkout(data: FormSchemaType) {
+  async function checkout(dataform: FormSchemaType) {
     console.log("On checkout");
 
-    if (data["payment"] == "Pay online") {
+    if (dataform["payment"] == "Pay online") {
 
       const { data } = await axios.post(
         "/api/",
         {
-          priceId: 100
+          priceId: dataTripInfo.price
         },
         {
           headers: {
@@ -113,7 +113,6 @@ const PaymentPage = () => {
           },
         }
       );
-      console.log(data);
       window.location.assign(data);
     }
     return router.push("/sucess");

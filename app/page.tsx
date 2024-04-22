@@ -68,10 +68,20 @@ export default function Home() {
       setPrice(+checkifmin.toFixed(2))
     }
 
-  }
-  function DistanceMatrix() {
-    if (origin == '' || destination == '') {
-      return
+    const data: tripInfo = {
+        origin: origin,
+        destination: destination,
+        price: price,
+        time: time,
+        nPassenger: nPassenger,
+        olddata: undefined,
+        adult: 0,
+        child: 0,
+        infant: 0,
+        dateOfPickup: "",
+        timeOfPickup: "",
+        TotalLuggage: 0,
+        additionInfo: undefined
     }
     var service = new google.maps.DistanceMatrixService();
     console.log("ORI: " + origin)
