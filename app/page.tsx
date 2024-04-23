@@ -1,12 +1,10 @@
 'use client';
 
 import React, { useEffect, useState } from "react";
-import ImagesContainer from "./components/imagesContainer";
 import LocationSearchInput from "./pay/LocationSearch";
-import { useRouter } from 'next/navigation'
+import { redirect, useRouter } from 'next/navigation'
 import Link from 'next/link';
 import HowItWorks from "./components/howItWorksElement";
-import CtnButton from "./components/myButton";
 import WhatWeOffer from "./components/whtaweoffer";
 import { tripInfo } from "@/app/module";
 
@@ -19,16 +17,12 @@ export default function Home() {
   const [distance, setDistance] = useState<number>(0);
   const [time, setTime] = useState<string>('---');
   const [price, setPrice] = useState(0.0);
-  useEffect(() => { DistanceMatrix() }, [destination, origin]);
-  useEffect(() => { calculatePrice() }, [nPassenger, distance, time]);
-
-  const { router } = useRouter();
-
-  useEffect(() => {
-    push('/precheckout');
-  });
-
+  useEffect(() => { DistanceMatrix() });
+  useEffect(() => { calculatePrice() });
   var pricePerKilometer = 1.15;
+
+  const router = useRouter();
+
   function calculatePrice() {
     var numPassengers = nPassenger;
     if (origin == '' || destination == '') {
@@ -41,7 +35,6 @@ export default function Home() {
     const basePriceUpTo10 = 12;
     const basePriceUpTo12 = 19;
     var mult = 0.86
-
 
     const pricePerPassenger = 10; // Assuming 10€ for each additional passenger beyond 8
     var num = 0;
@@ -68,20 +61,10 @@ export default function Home() {
       setPrice(+checkifmin.toFixed(2))
     }
 
-    const data: tripInfo = {
-        origin: origin,
-        destination: destination,
-        price: price,
-        time: time,
-        nPassenger: nPassenger,
-        olddata: undefined,
-        adult: 0,
-        child: 0,
-        infant: 0,
-        dateOfPickup: "",
-        timeOfPickup: "",
-        TotalLuggage: 0,
-        additionInfo: undefined
+  }
+  function DistanceMatrix() {
+    if (origin == '' || destination == '') {
+      return
     }
     var service = new google.maps.DistanceMatrixService();
     console.log("ORI: " + origin)
@@ -107,8 +90,18 @@ export default function Home() {
     origin: origin,
     destination: destination,
     price: price,
-    time: time,
+    travelTime: time,
     nPassenger: nPassenger,
+    olddata: undefined,
+    adult: 0,
+    child: 0,
+    infant: 0,
+    dateOfPickup: "",
+    timeOfPickup: "",
+    totalLuggage: 0,
+    additionInfo: undefined,
+    flightNumber: "",
+    displayedName: "",
   }
 
   function OptionsWithNumbers({ maxPassengers, labelText }: any) {
@@ -138,16 +131,12 @@ export default function Home() {
     </div>
   }
 
-  function validateInput() {
+  function submit() {
+    if (nPassenger == 0) return null
 
-    alert(`${origin} -> ${destination} ${nPassenger}`);
-    // console.log()
+    localStorage.setItem("tripInfo", JSON.stringify(data))
+    router.push("/precheckout");
 
-    if (destination && origin && nPassenger != 0) {
-      alert(`${origin} -> ${destination} ${nPassenger}`)
-      localStorage.setItem("tripInfo", JSON.stringify(data));
-      return redirect("/precheckout");
-    }
   }
 
   return (
@@ -195,7 +184,7 @@ export default function Home() {
 
               <div className="flex items-center justify-center md:col-span-2">
                 <button
-                  onClick={validateInput}
+                  onClick={submit}
                   className='font-medium bg-blueLight hover:bg-blueLight/60 rounded-2xl p-3 '
                 >
                   Next {"->"}
