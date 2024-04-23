@@ -57,12 +57,6 @@ const MapComponent: React.FC<MapComponentProps> = () => {
         ]),
         additionalInformation: v.optional(v.string()),
 
-
-        /*
-        greatAndMeet: string([
-            minLength(1)
-        ]),
-         */
     })
 
     type FormSchemaType = v.Output<typeof formSchema>
@@ -177,22 +171,34 @@ const MapComponent: React.FC<MapComponentProps> = () => {
             <div className='justify-center justify-items-center  grid grid-flow-row auto-rows-max '>
 
                 <div className=' '>
-                    <div className='text-3xl p-5 text-center font-medium'> We just need some more details about your tripe
+                    <div className='text-3xl p-5 text-center font-medium'> We just need some more details about your
+                        tripe
                     </div>
                 </div>
                 <No_ssr>
-                    <div className='border rounded-xl w-3/5 p-5 '>
+                    <div className='border rounded-xl w-3/5 p-3 '>
+                        <div className={' font-light text-center pb-1 '}> Your trip will cost</div>
                         <div className='text-4xl text-center font-bold'> {data.price} €</div>
                     </div>
                 </No_ssr>
-                <div className='mt-6'>
-                    <div className='text-xl text-center '> Select the options bellow, all of them are free of charge</div>
+                <div className={'p-5 w-full'}>
+                    <div> Please select date and time of pick up</div>
+                    <div className=" mt-2 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6">
+                        {tripDetailsInfo.map(input => input)}
+
+                    </div>
                 </div>
 
-
-                <div className='my-6'>
-                    <div className='text-xl'> Would you like a meet and great service?</div>
-                    <div className='grid grid-cols-2 justify-items-center my-2'>
+                <div>
+                    <div className='p-5 bg-blueLight'>
+                        <div className=' text-lg font-light '> Included in the price are all of the options below so
+                            feel free to select what you need
+                        </div>
+                    </div>
+                </div>
+                <div className='p-5 w-full'>
+                    <div className='text-lg'> Would you like a meet and great service?</div>
+                    <div className='grid grid-cols-2 justify-items-center py-5'>
                         <div className="flex">
                             <div>
                                 <label
@@ -203,11 +209,11 @@ const MapComponent: React.FC<MapComponentProps> = () => {
                                         <p className="text-gray-700">Yes</p>
                                     </div>
                                     <input className='sr-only'
-                                        type="radio"
-                                        id="DeliveryStandard"
-                                        value="DeliveryStandard"
-                                        checked={meetAndGreet}
-                                        onChange={() => setMeet(true)}
+                                           type="radio"
+                                           id="DeliveryStandard"
+                                           value="DeliveryStandard"
+                                           checked={meetAndGreet}
+                                           onChange={() => setMeet(true)}
                                     >
                                     </input>
                                 </label>
@@ -224,11 +230,11 @@ const MapComponent: React.FC<MapComponentProps> = () => {
                                         <p className="text-gray-700">No</p>
                                     </div>
                                     <input className='sr-only'
-                                        type="radio"
-                                        id="option1"
-                                        value="option1"
-                                        checked={!meetAndGreet}
-                                        onChange={() => setMeet(false)}>
+                                           type="radio"
+                                           id="option1"
+                                           value="option1"
+                                           checked={!meetAndGreet}
+                                           onChange={() => setMeet(false)}>
                                     </input>
                                 </label>
                             </div>
@@ -242,13 +248,13 @@ const MapComponent: React.FC<MapComponentProps> = () => {
                             <div className=''>
                                 <label>Number of flight</label>
                                 <input type="text" name=""
-                                    className="block w-full rounded-md border-0 px-14 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                       className="block w-full rounded-md border-0 px-14 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                             </div>
                             <div>
                                 <div className=''>
                                     <label>Name to be displayed</label>
                                     <input type="text" name=""
-                                        className="block w-full rounded-md border-0 px-14 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                           className="block w-full rounded-md border-0 px-14 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                 </div>
                             </div>
                         </div>
@@ -256,22 +262,15 @@ const MapComponent: React.FC<MapComponentProps> = () => {
                     }
 
                 </div>
-
-                <div> Date and time of pick up</div>
-                <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-
-                    {tripDetailsInfo.map(input => input)}
-
+                <div className={"p-5"}>
+                    <div className='text-xl
+                     text-center '> Please specify the passenger so we can bring the proper seats.</div>
                 </div>
-                <div>
 
-                    <div className='text-xl '> Select the passenger so we can bring the right seats</div>
-
-                </div>
                 <button className='  text-gray-600 transition hover:opacity-75 px-4 ml-5 border rounded-lg shadow-xl'
-                    onClick={() => {
-                        setAdultN(data.nPassenger), setChildN(0), setInfantN(0)
-                    }}> All adults
+                        onClick={() => {
+                            setAdultN(data.nPassenger), setChildN(0), setInfantN(0)
+                        }}> All adults
                 </button>
 
                 <div className='carousel  w-full lg:w-3/4 gap-2 py-5  '>
@@ -330,7 +329,8 @@ const MapComponent: React.FC<MapComponentProps> = () => {
                 <div className="col-span-full">
                     <label
                         htmlFor="about"
-                        className="block text-sm font-medium leading-6 text-gray-900"> Any additional information </label>
+                        className="block text-sm font-medium leading-6 text-gray-900"> Any additional
+                        information </label>
                     <div className="mt-2">
                         <textarea
                             {...register("additionalInformation")}
@@ -360,7 +360,7 @@ const MapComponent: React.FC<MapComponentProps> = () => {
                 </div>
                 <div className="mt-6 flex items-center justify-end gap-x-6">
                     <button type="button" className="btn btn-error text-sm font-semibold leading-6 text-whiteBg"
-                        onClick={cancelForm}>
+                            onClick={cancelForm}>
                         Cancel
                     </button>
                     <button
@@ -372,6 +372,7 @@ const MapComponent: React.FC<MapComponentProps> = () => {
 
                 </div>
             </div>
+
         </form>
 
 
