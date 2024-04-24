@@ -3,7 +3,7 @@
 import '.././styles.css'
 import { useCallback } from 'react';
 import React from 'react';
-import { redirect, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import axios from 'axios';
 import { useForm, UseFormRegisterReturn, FieldError, Merge, FieldErrorsImpl, Controller } from "react-hook-form";
 import { valibotResolver } from '@hookform/resolvers/valibot';
@@ -15,8 +15,7 @@ import { TbInfoTriangleFilled } from "react-icons/tb";
 
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/high-res.css'
-import Sucess from '../sucess/page';
-import { costumerDetails, tripInfo } from "@/app/module";
+import { tripInfo } from "@/app/module";
 import No_ssr from "@/app/components/no_ssr";
 
 
@@ -28,12 +27,26 @@ import No_ssr from "@/app/components/no_ssr";
 
 
 const PaymentPage = () => {
-  let dataTripInfo: tripInfo;
+  let dataTripInfo: {
+    travelTime: string;
+    timeOfPickup: string;
+    dateOfPickup: string;
+    origin: string;
+    destination: string;
+    totalLuggage: number;
+    infant: number;
+    additionInfo: string;
+    price: number;
+    nPassenger: number;
+    adult: number;
+    olddata: string;
+    child: number
+  };
   if (typeof window !== 'undefined') {
     const item = localStorage.getItem("tripInfo")
     dataTripInfo = item ? JSON.parse(item) : { destination: "", nPassenger: 0, origin: "", time: "", price: 0 }
   } else {
-    dataTripInfo = { destination: "", nPassenger: 0, origin: "", time: "", price: 0, timeOfPickup: "", dateOfPickup: "", child: 0, additionInfo: "", adult: 0, infant: 0, olddata: "", TotalLuggage: 0 }
+    dataTripInfo = { destination: "", nPassenger: 0, origin: "", travelTime: "", price: 0, timeOfPickup: "", dateOfPickup: "", child: 0, additionInfo: "", adult: 0, infant: 0, olddata: "", totalLuggage: 0 }
   }
 
   const formSchema = object({

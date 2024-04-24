@@ -16,7 +16,7 @@ export default function Sucess() {
         infoCustumer = item2 ? JSON.parse(item2) : ""
 
     } else {
-        infoData = { destination: "", nPassenger: 0, origin: "", time: "", price: 0, timeOfPickup: "", dateOfPickup: "", child: 0, additionInfo: "", adult: 0, infant: 0, olddata: "", TotalLuggage: 0 }
+        infoData = { destination: "", nPassenger: 0, origin: "", price: 0, timeOfPickup: "", dateOfPickup: "", child: 0, additionInfo: "", adult: 0, infant: 0, olddata: "", totalLuggage: 0,travelTime: "", displayedName: "", flightNumber:"" }
 
         infoCustumer = {
             firstName: "",
