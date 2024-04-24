@@ -13,6 +13,7 @@ export async function POST(request) {
                     unit_amount: priceId * 100,
                     product_data: {
                         name: "Trip",
+
                     },
                 },
                 quantity: 1
