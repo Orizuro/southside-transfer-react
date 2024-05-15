@@ -80,10 +80,17 @@ export default function Home() {
       callback)
   }
   function callback(response: any, status: google.maps.DistanceMatrixStatus) {
-    setDistance(response.rows[0].elements[0].distance.value);
-    setTime(response.rows[0].elements[0].duration.text);
-    console.log(response.rows[0].elements[0].duration.text);
+    // if (response == undefined)
+    //   alert("Response undefined");
 
+    try {
+      console.log(response.rows[0].elements[0].duration.text);
+      setDistance(response.rows[0].elements[0].distance.value);
+      setTime(response.rows[0].elements[0].duration.text);
+
+    } catch (e) {
+      console.log("ERRO ENCONTRADO: " + e);
+    }
   }
 
   const data: tripInfo = {
@@ -132,7 +139,7 @@ export default function Home() {
   }
 
   function submit() {
-    if (nPassenger == 0) return null
+    if (nPassenger == 0 || distance == 0) return null
 
     localStorage.setItem("tripInfo", JSON.stringify(data))
     router.push("/precheckout");
