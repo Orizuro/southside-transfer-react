@@ -1,0 +1,24 @@
+User-agent: *
+Disallow: /pay
+
+User-agent: *
+Disallow: /api
+
+User-agent: *
+Disallow: /checkout
+
+User-agent: *
+Disallow: /stripe
+
+User-agent: *
+Disallow: /components
+
+User-agent: *
+Disallow: /precheckout
+
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+Sitemap: https://southsidetransfers.com/sitemap.xml
+Sitemap: https://www.southsidetransfers.com/sitemap.xml
