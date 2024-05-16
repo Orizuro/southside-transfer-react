@@ -7,6 +7,7 @@ import Link from 'next/link';
 import HowItWorks from "./components/howItWorksElement";
 import WhatWeOffer from "./components/whtaweoffer";
 import { tripInfo } from "@/app/module";
+import Head from "next/head";
 
 //<text className="text-7xl font-bold justify-center justify-items-center "> Where you want to go ?</text>
 //items-center
@@ -141,6 +142,18 @@ export default function Home() {
 
   return (
     <div>
+
+      <Head>
+        <title>
+          Southsidetransfers - South Side Transfers
+        </title>
+        <meta
+          name="description"
+          content="Discover reliable transportation services in Algarve, Portugal. Our premium fleet offers seamless transfers from anywhere to explore the stunning Algarve region. Enjoy comfort, punctuality, and competitive rates with our professional drivers. Book now for an unforgettable journey through Algarve’s beautiful landscapes and attractions."
+          key="desc"
+        />
+      </Head>
+
       <div className="w-full h-[440vh] bg-image-test bg-cover bg-bottom">
 
         <div className="flex justify-center p-5 lg:py-16   ">

@@ -49,9 +49,11 @@ export default function NavBar() {
 
       </div>
 
-      <div className="">
-        <CtnButton />
-      </div>
+      {
+        // <div className="">
+        //   <CtnButton />
+        // </div>
+      }
 
       <div className="sm:hidden ml-2">
         <Bars3Icon className="h-6 w-6" aria-hidden="true" />
