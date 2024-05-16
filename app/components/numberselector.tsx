@@ -6,7 +6,7 @@ interface ProductQuantityProps {
   age: string;
   max: number;
   title: string;
-  total: number;
+total: number;
   image?: string;
   scale: string;
   

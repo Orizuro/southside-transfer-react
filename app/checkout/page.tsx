@@ -3,7 +3,7 @@
 import '.././styles.css'
 import { useCallback } from 'react';
 import React from 'react';
-import { redirect, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import axios from 'axios';
 import { useForm, UseFormRegisterReturn, FieldError, Merge, FieldErrorsImpl, Controller } from "react-hook-form";
 import { valibotResolver } from '@hookform/resolvers/valibot';
@@ -15,8 +15,7 @@ import { TbInfoTriangleFilled } from "react-icons/tb";
 
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/high-res.css'
-import Sucess from '../sucess/page';
-import { costumerDetails, tripInfo } from "@/app/module";
+import { tripInfo } from "@/app/module";
 import No_ssr from "@/app/components/no_ssr";
 
 
@@ -28,12 +27,26 @@ import No_ssr from "@/app/components/no_ssr";
 
 
 const PaymentPage = () => {
-  let dataTripInfo: tripInfo;
+  let dataTripInfo: {
+    travelTime: string;
+    timeOfPickup: string;
+    dateOfPickup: string;
+    origin: string;
+    destination: string;
+    totalLuggage: number;
+    infant: number;
+    additionInfo: string;
+    price: number;
+    nPassenger: number;
+    adult: number;
+    olddata: string;
+    child: number
+  };
   if (typeof window !== 'undefined') {
     const item = localStorage.getItem("tripInfo")
     dataTripInfo = item ? JSON.parse(item) : { destination: "", nPassenger: 0, origin: "", time: "", price: 0 }
   } else {
-    dataTripInfo = { destination: "", nPassenger: 0, origin: "", time: "", price: 0, timeOfPickup: "", dateOfPickup: "", child: 0, additionInfo: "", adult: 0, infant: 0, olddata: "", TotalLuggage: 0 }
+    dataTripInfo = { destination: "", nPassenger: 0, origin: "", travelTime: "", price: 0, timeOfPickup: "", dateOfPickup: "", child: 0, additionInfo: "", adult: 0, infant: 0, olddata: "", totalLuggage: 0 }
   }
 
   const formSchema = object({
@@ -51,7 +64,7 @@ const PaymentPage = () => {
     ]),
 
     phoneNumber: string([
-      minLength(1, "Please enter the pickup Date")
+      minLength(1, "Number is invalid")
     ]),
 
     payment: string([
@@ -94,19 +107,18 @@ const PaymentPage = () => {
   const onSubmit = (data: FormSchemaType) => {
     alert(JSON.stringify(data))
     // localStorage.setItem("costumerDetails", JSON.stringify(data))
-    // checkout(data);
+    checkout(data);
   }
 
   async function checkout(dataform: FormSchemaType) {
+
     console.log("On checkout");
 
-    if (dataform["payment"] == "Pay online") {
+    if (dataform.payment == "Pay online") {
 
       const { data } = await axios.post(
         "/api/",
-        {
-          priceId: dataTripInfo.price
-        },
+        dataTripInfo,
         {
           headers: {
             "Content-Type": "application/json",
@@ -115,7 +127,7 @@ const PaymentPage = () => {
       );
       window.location.assign(data);
     }
-    return router.push("/sucess");
+    // return router.push("/sucess");
 
 
     // const data = await fetch('/stripe/api', {
@@ -229,6 +241,8 @@ const PaymentPage = () => {
     })
   ];
 
+  const phoneInputClassName = "block w-full rounded-md border-0 px-14 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6";
+
   return (
     <>
       <div className=' mx-4 my-4 lg:mx-48 lg:my-16'>
@@ -255,7 +269,8 @@ const PaymentPage = () => {
                     <PhoneInput
                       // {...register("")}
                       inputProps={{
-                        className: 'block w-full rounded-md border-0 px-14 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6',
+                        // className: 'block w-full rounded-md border-0 px-14 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6',
+                        className: errors?.phoneNumber ? phoneInputClassName + " ring-error" : phoneInputClassName,
                         required: true,
                       }}
                       country={'pt'}
@@ -266,7 +281,8 @@ const PaymentPage = () => {
                     />
                   )}
                 />
-                {errors.phoneNumber &&
+                {
+                  errors.phoneNumber &&
                   <small className="text-error font-bold flex gap-2 py-1">
                     <TbInfoTriangleFilled className='text-lg' />
                     {errors.phoneNumber?.message}

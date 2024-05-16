@@ -1,10 +1,7 @@
 "use client";
 
 import '.././styles.css'
-import data from '../../public/cities.json' assert { type: 'json' };
-import { Dispatch, SetStateAction, useState } from 'react';
 import React from 'react';
-import FormElement from '../components/forms';
 import { Button } from '@nextui-org/react';
 import axios from 'axios';
 
