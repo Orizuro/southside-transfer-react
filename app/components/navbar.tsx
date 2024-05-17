@@ -49,6 +49,13 @@ export default function NavBar() {
 
       </div>
 
+
+      {/*
+        To put the letters in the middle
+        Else it would be in the right
+      */}
+      <div></div>
+
       {
         // <div className="">
         //   <CtnButton />
