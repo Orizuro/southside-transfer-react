@@ -42,11 +42,11 @@ export default function NavBar() {
 
       <div className="hidden sm:flex text-xl items-center justify-center justify-items-center gap-x-2">
 
-        <button><a href="#HowItWorks" className={"scroll-smooth"}>How it works</a></button>
+        <button><a href="/#HowItWorks" className={"scroll-smooth"}>How it works</a></button>
 
         <ItemLink href="/about" text="About"/>
 
-        <button><a href="#WhatWeOffer" className={"scroll-smooth"}>What we offer</a></button>
+        <button><a href="/#WhatWeOffer" className={"scroll-smooth"}>What we offer</a></button>
 
 
 

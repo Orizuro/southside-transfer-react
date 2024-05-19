@@ -134,8 +134,10 @@ const PaymentPage = () => {
         }
       );
       window.location.assign(data);
+    }else{
+      router.push("/sucess");
     }
-    // return router.push("/sucess");
+
 
 
     // const data = await fetch('/stripe/api', {

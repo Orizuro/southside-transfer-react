@@ -16,7 +16,7 @@ export default function Footer() {
                        href={"mailto:custumer@southsidetransfers.com"}>custumer@southsidetransfers.com</a>
                 </div>
                 <div className=" flex  items-center justify-center">
-                    <a className="" href="tel://+315914313808"> 914 313 808 </a>
+                    <a className="" href="tel://+351914313808">+351 914 313 808 </a>
                 </div>
             </nav>
             <aside>

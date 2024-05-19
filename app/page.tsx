@@ -171,8 +171,8 @@ export default function Home() {
 
           </div>
         </div>
-
-        <div className="flex items-center justify-center py-10">
+        <div className={"items-center justify-center"}>
+        <div className="grow items-center justify-center py-10 m-3">
           <div className=" lg:w-3/4  rounded-2xl h-auto grid-rows-3  bg-[#F2F4F4] shadow-2xl shadow-black/80 ">
 
             <div className="grid row-start-2 lg:grid-cols-10  lg:grid-rows-1 h-auto grid-rows-4">
@@ -207,9 +207,10 @@ export default function Home() {
               </div>
             </div>
             <div className='flex justify-center row-start-3 p-7'>
-              <div className=" text-2xl ">Expected time of travel: {time}</div>
+              <div className=" text-xl ">Expected time of travel: {time}</div>
             </div>
           </div>
+        </div>
         </div>
         <section id={"HowItWorks"}>
           <div className=" mt-10 lg:mt-20 lg:py-10 justify-center items-center flex m-2">
@@ -295,7 +296,7 @@ export default function Home() {
                    href={"mailto:custumer@southsidetransfers.com"}>custumer@southsidetransfers.com</a>
               </div>
               <div className=" flex text-lg items-center justify-center p-3">
-                <a className=" p-3 bg-[#DEDEDE] rounded-lg shadow-lg" href="tel://+315914313808"> 914 313 808 </a>
+                <a className=" p-3 bg-[#DEDEDE] rounded-lg shadow-lg" href="tel://+351914313808">+351 914 313 808 </a>
               </div>
 
             </div>
