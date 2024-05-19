@@ -15,7 +15,7 @@ import { TbInfoTriangleFilled } from "react-icons/tb";
 
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/high-res.css'
-import { tripInfo } from "@/app/module";
+import {costumerDetails, tripInfo} from "@/app/module";
 import No_ssr from "@/app/components/no_ssr";
 
 
@@ -105,8 +105,16 @@ const PaymentPage = () => {
 
 
   const onSubmit = (data: FormSchemaType) => {
-    alert(JSON.stringify(data))
-    // localStorage.setItem("costumerDetails", JSON.stringify(data))
+
+    let cD: costumerDetails;
+    cD = {
+      firstName: data.firstName,
+      lastName: data.lastName,
+      emailAddress: data.email,
+      Payment: data.payment,
+      PhoneNumber: data.phoneNumber,
+    }
+    localStorage.setItem("costumerDetails", JSON.stringify(cD))
     checkout(data);
   }
 
@@ -115,9 +123,9 @@ const PaymentPage = () => {
     console.log("On checkout");
 
     if (dataform.payment == "Pay online") {
-
+      console.log(dataTripInfo);
       const { data } = await axios.post(
-        "/api/",
+        "/api",
         dataTripInfo,
         {
           headers: {

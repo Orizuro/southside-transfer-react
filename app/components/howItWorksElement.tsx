@@ -27,7 +27,7 @@ export default function HowItWorks({ title, text, image, num, button }: Props) {
         </div >
         <p className=" text-center text-2xl font-extrabold"> {title} </p>
         <div className=" p-2 rounded-xl text-justify">
-          <p className="  text-lg font-medium " > {text} </p>
+          <p className="  lg:text-lg font-medium " > {text} </p>
           {button}
         </div>
       </div>

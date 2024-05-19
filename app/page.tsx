@@ -84,14 +84,11 @@ export default function Home() {
   function callback(response: any, status: google.maps.DistanceMatrixStatus) {
     // if (response == undefined)
     //   alert("Response undefined");
-
-    try {
-      console.log(response.rows[0].elements[0].duration.text);
+    if( response.rows[0].elements[0].status == "ZERO_RESULTS") {
+      console.log("Error");
+    }else{
       setDistance(response.rows[0].elements[0].distance.value);
       setTime(response.rows[0].elements[0].duration.text);
-
-    } catch (e) {
-      console.log("ERRO ENCONTRADO: " + e);
     }
   }
 
@@ -160,23 +157,23 @@ export default function Home() {
                 key="desc"
             />
         </Head>
-      <div className="w-full bg-image-test bg-cover bg-top">
+      <div className="w-full bg-image-test bg-cover bg-top ">
         <div className="flex justify-center p-5 lg:py-16   ">
-          <text className=" text-6xl lg:text-7xl text-bold text-left "> Where do you want to go ?</text>
+          <text className=" text-5xl lg:text-7xl text-bold text-left "> Where do you want to go ?</text>
         </div>
         <div className="flex justify-center items-center p-3 lg:py-10 ">
           <div className=" lg:w-3/4 ">
-            <h1 className="  text-2xl lg:text-center lg:text-3xl font-medium text-justify">Effortlessly plan your
+            <h1 className="  text-xl lg:text-center lg:text-3xl font-medium text-justify">Effortlessly plan your
               journeys and we will create a seamless and cost-effective transfer experience.</h1>
-            <h1 className="  text-2xl lg:text-center lg:text-3xl font-medium text-justify">We help you get anywhere you
+            <h1 className="  text-xl lg:text-center lg:text-3xl font-medium text-justify">We help you get anywhere you
               want in
               Algarve.</h1>
 
           </div>
         </div>
 
-        <div className="flex items-center justify-center lg:py-10 ">
-          <div className=" lg:w-3/4 w-4/5 rounded-2xl h-auto   grid-rows-3  bg-[#F2F4F4] shadow-2xl shadow-black/80">
+        <div className="flex items-center justify-center py-10">
+          <div className=" lg:w-3/4  rounded-2xl h-auto grid-rows-3  bg-[#F2F4F4] shadow-2xl shadow-black/80 ">
 
             <div className="grid row-start-2 lg:grid-cols-10  lg:grid-rows-1 h-auto grid-rows-4">
 
@@ -209,74 +206,80 @@ export default function Home() {
                 </button>
               </div>
             </div>
-            <div className='flex justify-center row-start-3 p-5'>
+            <div className='flex justify-center row-start-3 p-7'>
               <div className=" text-2xl ">Expected time of travel: {time}</div>
             </div>
           </div>
         </div>
-        <div className="flex justify-center items-center mt-10 lg:py-10">
-          <div className=" lg:w-8/12 rounded bg-[#F2F4F4] shadow-2xl shadow-black/80 p-5">
-            <h1 className=" text-5xl lg:text-center lg:text-6xl font-medium  ">How it works ? </h1>
+        <section id={"HowItWorks"}>
+          <div className=" mt-10 lg:mt-20 lg:py-10 justify-center items-center flex m-2">
+            <div
+                className="  lg:w-8/12 rounded bg-[#F2F4F4] shadow-2xl shadow-black/80 p-5  justify-center items-center w-full">
+              <h1 className=" text-4xl text-center lg:text-5xl font-medium  ">How it works ? </h1>
+            </div>
           </div>
-        </div>
-        <div className=" flex justify-center items-center">
-          <div className="carousel w-full lg:w-3/4  p-5 ">
-            <div className="carousel-item relative w-full lg:w-1/3  ">
-              <HowItWorks
-                  num="1"
-                  title="You book your ride"
-                  text="Simply complete the booking form, ensuring to include your flight details if heading from the airport.
+          <div className=" flex justify-center items-center">
+            <div className="carousel w-full lg:w-3/4  p-5 ">
+              <div className="carousel-item relative w-full lg:w-1/3  ">
+                <HowItWorks
+                    num="1"
+                    title="You book your ride"
+                    text="Simply complete the booking form, ensuring to include your flight details if heading from the airport.
                                 Select your pickup address/destination, and the price will be instantly displayed based on your chosen route. "
-                  image="/icons/car.png"
-              />
-            </div>
-            <div className="carousel-item relative w-full lg:w-1/3 ">
-              <HowItWorks
-                  num="2"
-                  title="Safe"
-                  text="Your designated driver will await you, holding a sign bearing your name. They'll escort you directly and safely to your destination without any additional stops. Payment can be made via card or cash directly to the driver."
-                  image="/icons/shield.png"/>
-            </div>
-            <div className="carousel-item relative w-full lg:w-1/3 ">
-              <HowItWorks
-                  num="3"
-                  title="Relax and enjoy your ride"
-                  text="Putting our customers first is our utmost priority. Rest assured, our drivers will manage every aspect with precision and care, allowing you to relax and leave your concerns behind."
-                  image="/icons/happy.png"
-              />
-            </div>
+                    image="/icons/car.png"
+                />
+              </div>
+              <div className="carousel-item relative w-full lg:w-1/3 ">
+                <HowItWorks
+                    num="2"
+                    title="Safe"
+                    text="Your designated driver will await you, holding a sign bearing your name. They'll escort you directly and safely to your destination without any additional stops. Payment can be made via card or cash directly to the driver."
+                    image="/icons/shield.png"/>
+              </div>
+              <div className="carousel-item relative w-full lg:w-1/3 ">
+                <HowItWorks
+                    num="3"
+                    title="Relax and enjoy your ride"
+                    text="Putting our customers first is our utmost priority. Rest assured, our drivers will manage every aspect with precision and care, allowing you to relax and leave your concerns behind."
+                    image="/icons/happy.png"
+                />
+              </div>
 
+            </div>
           </div>
-        </div>
-        <div className="flex justify-center items-center mt-20 lg:py-10">
-          <div className=" lg:w-8/12 rounded bg-[#F2F4F4] shadow-2xl shadow-black/80 p-5">
-            <h1 className=" text-5xl lg:text-center lg:text-6xl font-medium  ">What we offer? </h1>
+        </section>
+        <section id={"WhatWeOffer"}>
+          <div className=" lg:py-10 justify-center items-center flex  m-2">
+            <div
+                className="  lg:w-8/12 rounded bg-[#F2F4F4] shadow-2xl shadow-black/80 p-5  justify-center items-center w-full">
+              <h1 className=" text-4xl text-center lg:text-5xl font-medium  ">What we offer ? </h1>
+            </div>
           </div>
-        </div>
-        <div className=" flex items-center justify-center mt-5">
-          <div className="grid lg:grid-cols-2 lg:w-3/4 ">
-            <WhatWeOffer
-                title="Family-Friendly Services"
-                text="Enjoy free child seats and boosters for your family, spacious vehicles to accommodate all your luggage and strollers, and safe, comfortable travel for all ages."
-                image="/icons/car.png"
-            ></WhatWeOffer>
-            <WhatWeOffer
-                title="Airport Transfers"
-                text="Experience reliable and punctual transfers to and from Faro Airport with our meet and greet service. Travel comfortably and leave the logistics to us."
-                image="">
-            </WhatWeOffer>
-            <WhatWeOffer
-                title="Private Transfers"
-                text="Enjoy customized rides for individuals or groups to any destination in the Algarve. With free cancellation up to 24 hours in advance, transparent pricing, and comfortable, spacious vehicles, we ensure a stress-free journey."
-                image="">
-            </WhatWeOffer>
-            <WhatWeOffer
-                title="Golf Transfers"
-                text="Experience transportation to and from the Algarve's premier golf courses, with flexible scheduling tailored to your tee times. Our vehicles provide ample space to accommodate all your golf equipment, ensuring a seamless and enjoyable golfing experience."
-                image="">
-            </WhatWeOffer>
+          <div className=" flex items-center justify-center mt-5">
+            <div className="grid lg:grid-cols-2 lg:w-3/4 ">
+              <WhatWeOffer
+                  title="Family-Friendly Services"
+                  text="Enjoy free child seats and boosters for your family, spacious vehicles to accommodate all your luggage and strollers, and safe, comfortable travel for all ages."
+                  image="/icons/car.png"
+              ></WhatWeOffer>
+              <WhatWeOffer
+                  title="Airport Transfers"
+                  text="Experience reliable and punctual transfers to and from Faro Airport with our meet and greet service. Travel comfortably and leave the logistics to us."
+                  image="">
+              </WhatWeOffer>
+              <WhatWeOffer
+                  title="Private Transfers"
+                  text="Enjoy customized rides for individuals or groups to any destination in the Algarve. With free cancellation up to 24 hours in advance, transparent pricing, and comfortable, spacious vehicles, we ensure a stress-free journey."
+                  image="">
+              </WhatWeOffer>
+              <WhatWeOffer
+                  title="Golf Transfers"
+                  text="Experience transportation to and from the Algarve's premier golf courses, with flexible scheduling tailored to your tee times. Our vehicles provide ample space to accommodate all your golf equipment, ensuring a seamless and enjoyable golfing experience."
+                  image="">
+              </WhatWeOffer>
+            </div>
           </div>
-        </div>
+        </section>
         <div className=" flex justify-center items-center">
           <div className=" bg-whiteBg  py-5 mx-5 my-10 shadow-2xl rounded-xl  ">
             <div className=" text-xl font-semibold justify-center flex p-2 ">

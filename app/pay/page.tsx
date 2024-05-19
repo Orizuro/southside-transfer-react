@@ -85,9 +85,8 @@ const MapComponent: React.FC<MapComponentProps> = () => {
       return
     }
     var service = new google.maps.DistanceMatrixService();
-    console.log("ORI: " + origin)
-    console.log("DES: " + destination)
-    console.log("QNT: " + selectedQuatity)
+
+
 
     service.getDistanceMatrix({
       avoidTolls: true,
@@ -107,9 +106,10 @@ const MapComponent: React.FC<MapComponentProps> = () => {
   }
 
   function callback(response: any, status: google.maps.DistanceMatrixStatus) {
+    console.log(response.rows[0].elements[0].status);
+
     setDistance(response.rows[0].elements[0].distance.value);
     setTime(response.rows[0].elements[0].duration.text);
-    console.log(response.rows[0].elements[0].duration.text);
 
   }
 

@@ -27,3 +27,19 @@ interface costumerDetails {
   PhoneNumber: string
 }
 
+interface tripInfoPay {
+  travelTime: string
+  timeOfPickup: string
+  dateOfPickup: string
+  origin: string
+  destination: string
+  totalLuggage: number
+  infant: number
+  additionInfo: string
+  price: number
+  nPassenger: number
+  adult: number
+  olddata: string
+  child: number
+}
+

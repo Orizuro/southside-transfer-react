@@ -25,27 +25,30 @@ export default function NavBar() {
   flex gap-x-8 justify-between
   */ }
   return <nav className="  bg-black text-whiteBg">
-    <div className="sm:px-10 px-3 py-5 flex items-center justify-between  ">
+    <div className="sm:px-10 px-3 py-5 grid grid-cols-3 items-center ">
       {/* Where the icons goes*/}
 
-      <div className="flex items-center ">
+      <div className=" items-center justify-start flex   col-span-2 lg:col-end-2">
         <Link href="/">
-          <Image src={"logo.svg"}
+          <Image src={"logo.svg"} className={""}
             alt=""
-            width={56}
-            height={56}
+            width={40}
+            height={40}
           />
         </Link>
+        <div> Southside transfers </div>
       </div>
 
 
-      <div className="hidden sm:flex  gap-x-2">
+      <div className="hidden sm:flex text-xl items-center justify-center justify-items-center gap-x-2">
 
-        <ItemLink href="/how-it-works" text="How it works" />
+        <button><a href="#HowItWorks" className={"scroll-smooth"}>How it works</a></button>
 
-        <ItemLink href="/checkout" text="Pricing" />
+        <ItemLink href="/about" text="About"/>
 
-        <ItemLink href="/about" text="About" />
+        <button><a href="#WhatWeOffer" className={"scroll-smooth"}>What we offer</a></button>
+
+
 
       </div>
 
@@ -54,7 +57,6 @@ export default function NavBar() {
         To put the letters in the middle
         Else it would be in the right
       */}
-      <div></div>
 
       {
         // <div className="">
@@ -62,8 +64,8 @@ export default function NavBar() {
         // </div>
       }
 
-      <div className="sm:hidden ml-2">
-        <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+      <div className="sm:hidden ml-2 justify-end flex col-start-3 ">
+        <Bars3Icon className=" h-10" aria-hidden="true" />
       </div>
 
     </div>

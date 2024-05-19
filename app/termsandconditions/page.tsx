@@ -8,7 +8,7 @@ export default function TermsAndConditionsPage() {
             </div>
             <div className="px-10 text-justify">
                 <div className="py-2">
-                    Booking details are the client's responsibility. We cannot accept responsibility for booking
+                    Booking details are the clients responsibility. We cannot accept responsibility for booking
                     errors.
                 </div>
 

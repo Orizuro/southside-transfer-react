@@ -1,6 +1,7 @@
 import Image from 'next/image'
 
 export default function Thanks() {
+
   return (
     <>
       <div className='flex flex-col justify-center items-center'>

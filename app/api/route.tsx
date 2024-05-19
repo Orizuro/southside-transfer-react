@@ -1,16 +1,22 @@
 import Stripe from "stripe";
 import { NextResponse, NextRequest } from "next/server";
 
-export async function POST(request) {
-    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+
+export async function POST(request : NextRequest, res : NextResponse) {
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
     let data = await request.json();
     // let priceId = data.priceId
+    //let data = JSON.parse(dat);
+    //data = JSON.parse(data);
+    console.log(data);
+    console.log(data.adult.toString());
+    data.price = data.price.toFixed(2) * 100;
     const session = await stripe.checkout.sessions.create({
         line_items: [
             {
                 price_data: {
                     currency: "EUR",
-                    unit_amount: data.price * 100,
+                    unit_amount_decimal: data.price,
                     product_data: {
                         name: "Trip",
                         description:

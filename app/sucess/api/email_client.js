@@ -1,4 +1,4 @@
-const HTML_TEMPLATE = (firstname, lastname,origin,destination, day, time) => {
+const HTML_TEMPLATE = (firstname, lastname,origin,destination, day, time,payment,price,nPasseger) => {
     return `
     <!DOCTYPE html>
 <html lang="en">
@@ -32,12 +32,21 @@ const HTML_TEMPLATE = (firstname, lastname,origin,destination, day, time) => {
 </head>
 <body>
     <div class="container">
-        <h1>Hi ${firstname} ${lastname},</h1>
-        <p>Here is the confirmation of your trip from ${origin} to ${destination}.</p>
+        <h1>Hello ${firstname} ${lastname}</h1>
+        <p>Here is the confirmation of your trip from:</p>
+        <p>${origin} </p>
+        <p>To:</p>
+        <p>${destination}</p>
         <p>This trip is scheduled for day ${day} at ${time}.</p>
+        <p>Number of passengers: ${nPasseger}</p>
+        <p>Your choise of payment is: ${payment}</p>
+        <p>The price of your trip is: ${price} €</p>
+        <p>  The driver will be at Faro airport waiting for you in the arrivals hall near "Café Central" holding a sign with your name.</p>
+        <p> If you can't find your driver, please call the emergency number +351 914313808 </p>
         <p>If you have any questions, please feel free to contact us at the following number or email:</p>
-        <p>Phone: [Your Phone Number]<br>
-        Email: [Your Email Address]</p>
+       
+        <p>Phone: +351 914313808<br>
+        Email: custumer@southsidetransfers.com</p>
     </div>
 </body>
 </html>
