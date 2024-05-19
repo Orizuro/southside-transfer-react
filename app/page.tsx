@@ -8,6 +8,7 @@ import HowItWorks from "./components/howItWorksElement";
 import WhatWeOffer from "./components/whtaweoffer";
 import { tripInfo } from "@/app/module";
 import {Button} from "@nextui-org/react";
+import Head from "next/head";
 
 //<text className="text-7xl font-bold justify-center justify-items-center "> Where you want to go ?</text>
 //items-center
@@ -81,10 +82,17 @@ export default function Home() {
       callback)
   }
   function callback(response: any, status: google.maps.DistanceMatrixStatus) {
-    setDistance(response.rows[0].elements[0].distance.value);
-    setTime(response.rows[0].elements[0].duration.text);
-    console.log(response.rows[0].elements[0].duration.text);
+    // if (response == undefined)
+    //   alert("Response undefined");
 
+    try {
+      console.log(response.rows[0].elements[0].duration.text);
+      setDistance(response.rows[0].elements[0].distance.value);
+      setTime(response.rows[0].elements[0].duration.text);
+
+    } catch (e) {
+      console.log("ERRO ENCONTRADO: " + e);
+    }
   }
 
   const data: tripInfo = {
@@ -140,9 +148,18 @@ export default function Home() {
 
   }
 
-
   return (
     <div>
+        <Head>
+            <title>
+                Southsidetransfers - South Side Transfers
+            </title>
+            <meta
+                name="description"
+                content="Discover reliable transportation services in Algarve, Portugal. Our premium fleet offers seamless transfers from anywhere to explore the stunning Algarve region. Enjoy comfort, punctuality, and competitive rates with our professional drivers. Book now for an unforgettable journey through Algarve’s beautiful landscapes and attractions."
+                key="desc"
+            />
+        </Head>
       <div className="w-full bg-image-test bg-cover bg-top">
         <div className="flex justify-center p-5 lg:py-16   ">
           <text className=" text-6xl lg:text-7xl text-bold text-left "> Where do you want to go ?</text>

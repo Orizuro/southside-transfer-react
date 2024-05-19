@@ -64,7 +64,7 @@ const PaymentPage = () => {
     ]),
 
     phoneNumber: string([
-      minLength(1, "Please enter the pickup Date")
+      minLength(1, "Number is invalid")
     ]),
 
     payment: string([
@@ -107,19 +107,18 @@ const PaymentPage = () => {
   const onSubmit = (data: FormSchemaType) => {
     alert(JSON.stringify(data))
     // localStorage.setItem("costumerDetails", JSON.stringify(data))
-    // checkout(data);
+    checkout(data);
   }
 
   async function checkout(dataform: FormSchemaType) {
+
     console.log("On checkout");
 
-    if (dataform["payment"] == "Pay online") {
+    if (dataform.payment == "Pay online") {
 
       const { data } = await axios.post(
         "/api/",
-        {
-          priceId: dataTripInfo.price
-        },
+        dataTripInfo,
         {
           headers: {
             "Content-Type": "application/json",
@@ -128,7 +127,7 @@ const PaymentPage = () => {
       );
       window.location.assign(data);
     }
-    return router.push("/sucess");
+    // return router.push("/sucess");
 
 
     // const data = await fetch('/stripe/api', {
@@ -242,6 +241,8 @@ const PaymentPage = () => {
     })
   ];
 
+  const phoneInputClassName = "block w-full rounded-md border-0 px-14 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6";
+
   return (
     <>
       <div className=' mx-4 my-4 lg:mx-48 lg:my-16'>
@@ -268,7 +269,8 @@ const PaymentPage = () => {
                     <PhoneInput
                       // {...register("")}
                       inputProps={{
-                        className: 'block w-full rounded-md border-0 px-14 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6',
+                        // className: 'block w-full rounded-md border-0 px-14 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6',
+                        className: errors?.phoneNumber ? phoneInputClassName + " ring-error" : phoneInputClassName,
                         required: true,
                       }}
                       country={'pt'}
@@ -279,7 +281,8 @@ const PaymentPage = () => {
                     />
                   )}
                 />
-                {errors.phoneNumber &&
+                {
+                  errors.phoneNumber &&
                   <small className="text-error font-bold flex gap-2 py-1">
                     <TbInfoTriangleFilled className='text-lg' />
                     {errors.phoneNumber?.message}
