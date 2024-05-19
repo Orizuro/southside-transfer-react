@@ -288,12 +288,12 @@ const MapComponent: React.FC<MapComponentProps> = () => {
                     }
                 </div>
                 <div>
-                    <div className={"p-5"}>
+                    <div className={"px-5"}>
                         <div className='text-xl text-center '> Please specify the passenger so we can bring the proper
                             seats.
                         </div>
                     </div>
-                    <div className=' justify-center flex'>
+                    <div className=' justify-center flex py-5'>
                         <button
                             className='  text-gray-600 transition hover:opacity-75 px-4 ml-5 border rounded-lg shadow-xl'
                             onClick={() => {
@@ -304,10 +304,10 @@ const MapComponent: React.FC<MapComponentProps> = () => {
                     {(showPassagerError && passagerSum != data.nPassenger) &&
                         <div className='flex gap-2 py-4 place-items-center'>
                             <IoIosInformationCircleOutline className='text-lg'/>
-                            <p> Not all people are selected, there&apos;s still {data.nPassenger - passagerSum}</p>
+                            <p className=" text-[#C70039]"> Not all people are selected, there&apos;s still {data.nPassenger - passagerSum} to select</p>
                         </div>
                     }
-                    <div className='carousel w-full  gap-2 py-10  '>
+                    <div className='carousel w-full  gap-2 pb-10  '>
                         <div className='carousel-item pl-2 '>
                             <ProductQuantity
                                 productQuantity={adult}

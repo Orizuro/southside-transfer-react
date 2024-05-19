@@ -13,7 +13,7 @@ export default function WhatWeOffer({ title, text, image, button }: Props) {
             <div className=" shadow-2xl shadow-black/80 bg-whiteBg p-4 rounded-xl ">
                 <p className=" text-center text-2xl font-extrabold"> {title} </p>
                 <div className=" p-4 rounded-xl text-center">
-                    <p className="  text-lg font-medium "> {text} </p>
+                    <p className="  text-lg font-medium text-justify "> {text} </p>
                 </div>
             </div>
         </div>
