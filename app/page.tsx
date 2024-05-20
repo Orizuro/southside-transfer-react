@@ -172,25 +172,24 @@ export default function Home() {
 
           </div>
         </div>
-        <div className={"items-center justify-center"}>
-        <div className="grow items-center justify-center py-10 m-3">
+        <div className={"items-center justify-center "}>
+        <div className=" items-center justify-center py-10 m-3  lg:flex">
           <div className=" lg:w-3/4  rounded-2xl h-auto grid-rows-3  bg-[#F2F4F4] shadow-2xl shadow-black/80 ">
 
             <div className="grid row-start-2 lg:grid-cols-10  lg:grid-rows-1 h-auto grid-rows-4">
 
               <div className="flex items-center md:col-span-3 justify-center p-5  ">
-                <LocationSearchInput label={"From :"} placeHolder={"Type your address or location "}
-                                     onSelectAddress={(address: string) => {
-                                       setOrigin(address);
-                                     }
-                                     }
+                <LocationSearchInput
+                    label={"From :"}
+                    placeHolder={"Type your address or location "}
+                    onSelectAddress={(address: string) => {setOrigin(address);}}
                 />
               </div>
               <div className="flex items-center justify-center md:col-span-3 p-5 ">
-                <LocationSearchInput label={"To :"} placeHolder={"Type your address or location "}
-                                     onSelectAddress={(address: string) => {
-                                       setDestination(address);
-                                     }}
+                <LocationSearchInput
+                    label={"To :"}
+                    placeHolder={"Type your address or location "}
+                    onSelectAddress={(address: string) => {setDestination(address);}}
                 />
               </div>
               <div className="flex items-center justify-center md:col-span-2 p-5">
