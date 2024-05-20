@@ -293,7 +293,7 @@ export default function Home() {
               <div className="text-lg p-5"> Send a email or call us:</div>
               <div className=" text-lg items-center justify-center p-3">
                 <a className="p-3 bg-[#DEDEDE] rounded-lg shadow-lg"
-                   href={"mailto:custumer@southsidetransfers.com"}>custumer@southsidetransfers.com</a>
+                   href={"mailto:bookings@southsidetransfers.com"}>bookings@southsidetransfers.com</a>
               </div>
               <div className=" flex text-lg items-center justify-center p-3">
                 <a className=" p-3 bg-[#DEDEDE] rounded-lg shadow-lg" href="tel://+351914313808">+351 914 313 808 </a>

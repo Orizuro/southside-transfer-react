@@ -13,7 +13,7 @@ export default function Footer() {
                 <div className="text-lg"> Send a email or call us:</div>
                 <div className=" items-center justify-center">
                     <a className="  "
-                       href={"mailto:custumer@southsidetransfers.com"}>custumer@southsidetransfers.com</a>
+                       href={"mailto:bookings@southsidetransfers.com"}>bookings@southsidetransfers.com</a>
                 </div>
                 <div className=" flex  items-center justify-center">
                     <a className="" href="tel://+351914313808">+351 914 313 808 </a>
