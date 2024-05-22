@@ -226,66 +226,24 @@ const MapComponent: React.FC<MapComponentProps> = () => {
                     </div>
                 </div>
                 <div className='p-5 w-full'>
-                    <div className='text-lg justify-center flex'> Would you like a meet and great service?</div>
-                    <div className='grid grid-cols-2 justify-items-center py-5'>
-                        <div className="flex">
-                            <div>
-                                <label
-                                    className=" border-2 border-[#ECF0F1] flex items-center justify-between rounded-lg bg-white py-2 px-4 text-sm font-medium shadow-sm hover:border-gray-200 has-[:checked]:border-blue-500 has-[:checked]:ring-1 has-[:checked]:ring-blue-500 "
-                                    htmlFor="DeliveryStandard"
-                                >
-                                    <div>
-                                        <p className="text-gray-700">Yes</p>
-                                    </div>
-                                    <input className='sr-only'
-                                           type="radio"
-                                           id="DeliveryStandard"
-                                           value="DeliveryStandard"
-                                           checked={meetAndGreet}
-                                           onChange={() => setMeet(true)}
-                                    >
-                                    </input>
-                                </label>
-                            </div>
+                    <div className="form-group grid-rows-2 py-5">
+                        <div className=''>
+                            <label>Number of flight</label>
+                            <input
+                                {...register("flightNumber")}
+                                type="text" name="flightNumber"
+                                className="block w-full rounded-md border-0 px-14 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                         </div>
-                        <div className='flex '>
-                            <label
-                                className=" border-2 border-[#ECF0F1] flex items-center justify-between rounded-lg bg-white py-2 px-4 text-sm font-medium shadow-sm hover:border-gray-200 has-[:checked]:border-blue-500 has-[:checked]:ring-1 has-[:checked]:ring-blue-500 "
-                                htmlFor="option1"
-                            >
-                                <div>
-                                    <p className="text-gray-700">No</p>
-                                </div>
-                                <input className='sr-only'
-                                       type="radio"
-                                       id="option1"
-                                       value="option1"
-                                       checked={!meetAndGreet}
-                                       onChange={() => setMeet(false)}>
-                                </input>
-                            </label>
-                        </div>
-                    </div>
-                    {meetAndGreet && // if it's true return the actual JSX
-                        <div className="form-group grid-rows-2 py-5">
+                        <div>
                             <div className=''>
-                                <label>Number of flight</label>
+                                <label>Name to be displayed</label>
                                 <input
-                                    {...register("flightNumber")}
-                                    type="text" name="flightNumber"
+                                    {...register("displayedName")}
+                                    type="text" name="displayedName"
                                     className="block w-full rounded-md border-0 px-14 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                             </div>
-                            <div>
-                                <div className=''>
-                                    <label>Name to be displayed</label>
-                                    <input
-                                        {...register("displayedName")}
-                                        type="text" name="displayedName"
-                                        className="block w-full rounded-md border-0 px-14 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
-                                </div>
-                            </div>
                         </div>
-                    }
+                    </div>
                 </div>
                 <div>
                     <div className={"px-5"}>

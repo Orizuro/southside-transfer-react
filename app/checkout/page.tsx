@@ -372,9 +372,10 @@ const PaymentPage = () => {
 
             <div className="text-sm leading-6">
               <label htmlFor="candidates"
-                className="font-medium text-gray-900">
-                I agree with &quot;Terms and conditions&quot;
+                     className="font-medium text-gray-900">
+                I agree with <a href="/termsandconditions">&quot;Terms and Conditions&quot;</a>
               </label>
+
             </div>
           </div>
           <div className="mt-6 flex items-center justify-end gap-x-6">

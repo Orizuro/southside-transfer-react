@@ -3,11 +3,12 @@
 export default function TermsAndConditionsPage() {
     return (
         <>
-            <div className=" text-xl text-center p-5 font-semibold">
+            <div className=" text-2xl text-center pt-10 font-semibold ">
                 <h1>Terms And Conditions</h1>
             </div>
-            <div className="px-10 text-justify">
-                <div className="py-2">
+            <div className=" flex justify-center  ">
+            <div className="px-10 text-justify lg:w-1/2 text-lg py-10">
+                <div className="py-2 justify">
                     Booking details are the clients responsibility. We cannot accept responsibility for booking
                     errors.
                 </div>
@@ -58,6 +59,7 @@ export default function TermsAndConditionsPage() {
                     <div className="py-2">
                     If you need an extra stop (supermarket for shopping ) We will charge 15 euros for each 20 minutes.
                 </div>
+            </div>
             </div>
         </>
                             );

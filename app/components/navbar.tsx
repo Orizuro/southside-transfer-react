@@ -30,13 +30,16 @@ export default function NavBar() {
 
       <div className=" items-center justify-start flex   col-span-2 lg:col-end-2">
         <Link href="/">
+          <div className="flex items-center justify-center w-full lg:w-auto">
           <Image src={"logo.svg"} className={""}
-            alt=""
-            width={40}
-            height={40}
+                 alt=""
+                 width={40}
+                 height={40}
           />
+          <div> Southside Transfers</div>
+          </div>
         </Link>
-        <div> Southside transfers </div>
+
       </div>
 
 
