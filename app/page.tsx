@@ -151,14 +151,14 @@ export default function Home() {
         <title>
           Southsidetransfers - South Side Transfers
         </title>
-        <meta name="google-site-verification" content="ygCChdOyz-nRbR9ph_Rvfc_DOH0fkm94Six1lWFWkhU"/>
+        <link rel="canonical" href="https://www.southsidetransfers.com/"/>
         <meta
             name="description"
             content="Discover reliable transportation services in Algarve, Portugal. Our premium fleet offers seamless transfers from anywhere to explore the stunning Algarve region. Enjoy comfort, punctuality, and competitive rates with our professional drivers. Book now for an unforgettable journey through Algarve’s beautiful landscapes and attractions."
             key="desc"
         />
       </Head>
-      <div className="w-full bg-image-test bg-cover bg-top ">
+      <div rel={"preload"} className="w-full bg-image-test bg-cover bg-top ">
         <div className="flex justify-center p-5 lg:py-16   ">
           <text className=" text-5xl lg:text-7xl text-bold text-left "> Where do you want to go ?</text>
         </div>
