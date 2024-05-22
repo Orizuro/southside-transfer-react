@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import Image from "next/image";
 
 interface ProductQuantityProps {
   productQuantity: number;
@@ -6,10 +6,10 @@ interface ProductQuantityProps {
   age: string;
   max: number;
   title: string;
-total: number;
-  image?: string;
+  total: number;
+  image: string;
   scale: string;
-  
+
 }
 
 const ProductQuantity: React.FC<ProductQuantityProps> = ({ productQuantity, setProductQuantity, age, title, max, total, image, scale }) => {
@@ -31,7 +31,7 @@ const ProductQuantity: React.FC<ProductQuantityProps> = ({ productQuantity, setP
     <div>
       <div className=' p-3 bg-[#ECF0F1] items-center border rounded-2xl shadow-lg shadow-black/80'>
         <div className='  '>
-          <img src={image} className={style} />
+          <Image src={image} className={style} alt="Number selector of transfer price" />
         </div>
 
         <div className=' font-semibold '> {title}</div>

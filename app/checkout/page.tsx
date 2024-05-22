@@ -1,6 +1,6 @@
 "use client";
 
-import '.././styles.css'
+// import '.././styles.css'
 import { useCallback } from 'react';
 import React from 'react';
 import { useRouter } from 'next/navigation'
@@ -15,7 +15,7 @@ import { TbInfoTriangleFilled } from "react-icons/tb";
 
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/high-res.css'
-import {costumerDetails, tripInfo} from "@/app/module";
+import { costumerDetails, tripInfo } from "@/app/module";
 import No_ssr from "@/app/components/no_ssr";
 
 
@@ -134,7 +134,7 @@ const PaymentPage = () => {
         }
       );
       window.location.assign(data);
-    }else{
+    } else {
       router.push("/sucess");
     }
 
@@ -372,7 +372,7 @@ const PaymentPage = () => {
 
             <div className="text-sm leading-6">
               <label htmlFor="candidates"
-                     className="font-medium text-gray-900">
+                className="font-medium text-gray-900">
                 I agree with <a href="/termsandconditions">&quot;Terms and Conditions&quot;</a>
               </label>
 
