@@ -158,7 +158,7 @@ export default function Home() {
             key="desc"
         />
       </Head>
-      <div className="w-full bg-image-test bg-cover bg-top ">
+      <div rel={"preload"} className="w-full bg-image-test bg-cover bg-top ">
         <div className="flex justify-center p-5 lg:py-16   ">
           <text className=" text-5xl lg:text-7xl text-bold text-left "> Where do you want to go ?</text>
         </div>
