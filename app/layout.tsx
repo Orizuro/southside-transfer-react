@@ -20,7 +20,7 @@ export default function RootLayout({
 
 
   const secretKey = process.env.GOOGLE_SECRET_KEY;
-  const scriptText: string = "https://maps.googleapis.com/maps/api/js?key=" + secretKey + "&libraries=places"
+  const scriptText: string = "https://maps.googleapis.com/maps/api/js?key=" + secretKey + "&loading=async&libraries=places"
 
 
   return (
@@ -29,7 +29,7 @@ export default function RootLayout({
         <NavBar />
         {/*className="container mx-auto pt-4 min-h-screen"*/}
         <main >
-          <Script src={scriptText} strategy="beforeInteractive" />
+          <Script async={true} src={scriptText} strategy="beforeInteractive" />
           {children}
         </main>
         <Footer />

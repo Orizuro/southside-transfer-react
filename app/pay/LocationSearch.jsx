@@ -1,8 +1,6 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
-import { GoogleMap, DistanceMatrixService } from "@react-google-maps/api";
-
 class LocationSearchInput extends React.Component {
   constructor(props) {
     super(props);
@@ -34,53 +32,54 @@ class LocationSearchInput extends React.Component {
   render() {
 
     return (
-      <PlacesAutocomplete
-        value={this.state.address}
-        onChange={this.handleChange}
-        onSelect={this.handleSelect}
-        searchOptions={{ componentRestrictions: { country: "pt" } }}
-      >
-        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-          <div className=' w-full  '>
-            <label className="text-xl font-semibold "> {this.props.label} </label>
-            <div>
-              <input
-                {...getInputProps({
-                  placeholder: this.props.placeHolder,
-                  className: 'rounded-xl font-medium text-black w-full',
-                })}
-              />
+        <PlacesAutocomplete
+            value={this.state.address}
+            onChange={this.handleChange}
+            onSelect={this.handleSelect}
+            searchOptions={{ componentRestrictions: { country: 'pt' } }}
+        >
+          {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+              <div className='w-full'>
+                <label className="text-xl font-semibold">{this.props.label}</label>
+                <div>
+                  <input
+                      {...getInputProps({
+                        placeholder: this.props.placeHolder,
+                        className: 'rounded-xl font-medium text-black w-full',
+                      })}
+                  />
+                </div>
+                <div className='relative'>
+                  <div className='absolute w-full top-2 rounded-xl bg-whiteBg shadow-2xl shadow-black'>
+                    {loading && <div className='p-3'>Loading...</div>}
+                    {suggestions.map(suggestion => {
+                      const className = suggestion.active
+                          ? 'suggestion-item--active p-2 hover:bg-[#F8F9F9] rounded-xl'
+                          : 'suggestion-item p-2';
+                      const style = suggestion.active
+                          ? { backgroundColor: '#f2f3fa', cursor: 'pointer' }
+                          : { backgroundColor: '#ffffff', cursor: 'pointer' };
 
-            </div>
-            <div className='relative '>
-              <div className=' absolute w-full top-2  rounded-xl bg-whiteBg shadow-2xl shadow-black '>
-                {loading && <div className='p-3'>Loading...</div>}
-                {suggestions.map(suggestion => {
-                  const className = suggestion.active
-                    ? 'suggestion-item--active p-2 hover:bg-[#F8F9F9] rounded-xl'
-                    : 'suggestion-item p-2 ';
-                  // inline style for demonstration purpose
-                  const style = suggestion.active
-                    ? { backgroundColor: '#f2f3fa', cursor: 'pointer' }
-                    : { backgroundColor: '#ffffff', cursor: 'pointer' };
-                  return (
-                    <div className='p-2' key={suggestion.placeId}> {/* Add key prop here */}
-                      <div
-                        {...getSuggestionItemProps(suggestion, {
-                          className,
-                        })}
-                      >
-                        <span className=''>{suggestion.description}</span>
-                      </div>
-                    </div>
-                  );
-                })}
+                      // Destructure key from suggestionItemProps
+                      const { key, ...suggestionItemProps } = getSuggestionItemProps(suggestion, {
+                        className,
+                        style,
+                      });
+
+                      return (
+                          <div key={suggestion.placeId} className='p-2'>
+                            <div {...suggestionItemProps}>
+                              <span>{suggestion.description}</span>
+                            </div>
+                          </div>
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        )
-        }
-      </PlacesAutocomplete>
+          )}
+        </PlacesAutocomplete>
+
     );
   }
 }

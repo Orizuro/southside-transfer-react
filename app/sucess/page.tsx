@@ -1,7 +1,6 @@
 "use client";
-import { Button } from "@nextui-org/react";
 import axios from "axios";
-import { DetailedHTMLProps, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { tripInfo, costumerDetails } from "@/app/module";
 import { ThreeCircles } from 'react-loader-spinner';
 import { useRouter } from 'next/navigation'
@@ -17,7 +16,7 @@ export default function Sucess() {
   let infoData: tripInfo;
   let infoCustumer: costumerDetails;
 
-  const [emailStatus, setEmailStatus] = useState<StatusesOfEmail>(StatusesOfEmail.Success);
+  const [, setEmailStatus] = useState<StatusesOfEmail>(StatusesOfEmail.Success);
 
   if (typeof window !== 'undefined') {
     const item = localStorage.getItem("tripInfo")
@@ -66,7 +65,7 @@ export default function Sucess() {
       SendEmail(infoData, infoCustumer)
     };
     runOnPageLoad();
-  }, []); // Empty dependency array ensures it runs only once on mount
+  }, [SendEmail, infoCustumer, infoData]); // Empty dependency array ensures it runs only once on mount
 
 
   // Send the emails
