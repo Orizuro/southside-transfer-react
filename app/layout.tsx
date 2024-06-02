@@ -8,8 +8,8 @@ import Script from "next/script";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "South Side Transfers",
-  description: " [Description] ",
+  title: "Southside Transfers",
+  description: "Discover reliable transportation services in Algarve, Portugal. Our premium fleet offers seamless transfers from anywhere to explore the stunning Algarve region. Enjoy comfort, punctuality, and competitive rates with our professional drivers. Book now for an unforgettable journey through Algarve’s beautiful landscapes and attractions. ",
 };
 
 export default function RootLayout({

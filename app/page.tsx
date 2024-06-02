@@ -7,8 +7,9 @@ import Link from 'next/link';
 import HowItWorks from "./components/howItWorksElement";
 import WhatWeOffer from "./components/whtaweoffer";
 import { tripInfo } from "@/app/module";
-import {Button} from "@nextui-org/react";
 import Head from "next/head";
+
+// import bgImage from "../public/images/bg-image.webp";
 
 //<text className="text-7xl font-bold justify-center justify-items-center "> Where you want to go ?</text>
 //items-center
