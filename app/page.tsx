@@ -167,7 +167,7 @@ export default function Home() {
         <div className="flex justify-center items-center p-3 lg:py-10 ">
           <div className=" lg:w-3/4 ">
             <h1 className="  text-xl lg:text-center lg:text-3xl font-medium text-justify">Effortlessly plan your
-              journeys and we will create a seamless and cost-effective transfer experience.</h1>
+              journeys and we will create a seamless and cost-effective transfer experience in the southside of Portugal.</h1>
             <h1 className="  text-xl lg:text-center lg:text-3xl font-medium text-justify">We help you get anywhere you
               want in
               Algarve.</h1>
