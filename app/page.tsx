@@ -153,6 +153,7 @@ export default function Home() {
           Southsidetransfers - South Side Transfers
         </title>
         <link rel="canonical" href="https://www.southsidetransfers.com/"/>
+        <link rel="icon" href="/favicon.ico"/>
         <meta
             name="description"
             content="Discover reliable transportation services in Algarve, Portugal. Our premium fleet offers seamless transfers from anywhere to explore the stunning Algarve region. Enjoy comfort, punctuality, and competitive rates with our professional drivers. Book now for an unforgettable journey through Algarve’s beautiful landscapes and attractions."
