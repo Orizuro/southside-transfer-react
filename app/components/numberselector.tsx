@@ -31,7 +31,7 @@ const ProductQuantity: React.FC<ProductQuantityProps> = ({ productQuantity, setP
     <div>
       <div className=' p-3 bg-[#ECF0F1] items-center border rounded-2xl shadow-lg shadow-black/80'>
         <div className='  '>
-          <Image src={image} className={style} alt="Number selector of transfer price" />
+          <img src={image} className={style} alt="Number selector of transfer price" />
         </div>
 
         <div className=' font-semibold '> {title}</div>

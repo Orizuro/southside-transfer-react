@@ -66,7 +66,7 @@ const MapComponent: React.FC<MapComponentProps> = () => {
             Number,
         ),
         pickupDate: v.string([
-            v.minValue(today),
+            v.minValue(today + 1, " Select a date that is at least one day in advance"),
             minLength(1, "Please enter the pickup Time")
         ]),
 
@@ -260,12 +260,12 @@ const MapComponent: React.FC<MapComponentProps> = () => {
                         </button>
                     </div>
                     {(showPassagerError && passagerSum != data.nPassenger) &&
-                        <div className='flex gap-2 py-4 place-items-center'>
+                        <div className='flex gap-2 py-4 place-items-center justify-center'>
                             <IoIosInformationCircleOutline className='text-lg'/>
                             <p className=" text-[#C70039]"> Not all people are selected, there&apos;s still {data.nPassenger - passagerSum} to select</p>
                         </div>
                     }
-                    <div className='carousel w-full  gap-2 pb-10  '>
+                    <div className='carousel w-full  gap-2 pb-10 justify-center '>
                         <div className='carousel-item pl-2 '>
                             <ProductQuantity
                                 productQuantity={adult}

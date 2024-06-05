@@ -210,15 +210,17 @@ const PaymentPage = () => {
 
   type RadioProps = {
     value: string
+    disabled: boolean
   }
 
-  const RadioInput = ({ value }: RadioProps) => (
+  const RadioInput = ({ value, disabled}: RadioProps) => (
     <>
       <input
         {...register("payment")}
         className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
         type="radio"
         value={value}
+        disabled={disabled}
       // aria-invalid={errors["Payment"] ? "true" : "false"}
       />
     </>
@@ -342,19 +344,19 @@ const PaymentPage = () => {
             <fieldset>
               <div className="mt-6 space-y-6">
                 <div className="flex items-center gap-x-3">
-                  <RadioInput value="Pay to the driver" />
+                  <RadioInput value="Pay to the driver" disabled={false} />
                   <label
                     htmlFor="driver"
                     className="block text-sm font-medium leading-6 text-gray-900">
                     Pay to the driver
                   </label>
                 </div>
-                <div className="flex items-center gap-x-3">
-                  <RadioInput value="Pay online" />
+                <div className="flex items-center gap-x-3 brightness-200 ">
+                  <RadioInput  value="Pay online" disabled={true}/>
                   <label
                     htmlFor="online"
                     className="block text-sm font-medium leading-6 text-gray-900">
-                    Pay online
+                    Pay online - Currently not available
                   </label>
                 </div>
               </div>
