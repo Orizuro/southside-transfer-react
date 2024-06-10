@@ -17,7 +17,7 @@
     "@mypos-ltd/mypos": "^0.0.7",
     "@next/env": "^14.2.3",
     "@nextui-org/navbar": "^2.0.27",
-    "@nextui-org/react": "^2.2.9",
+    "@nextui-org/react": "^2.4.1",
     "@react-google-maps/api": "^2.19.3",
     "@types/nodemailer": "^6.4.14",
     "dotenv": "^16.4.5",

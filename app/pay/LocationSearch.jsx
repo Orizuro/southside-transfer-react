@@ -49,7 +49,7 @@ class LocationSearchInput extends React.Component {
                       })}
                   />
                 </div>
-                <div className='relative'>
+                <div className='relative z-50'>
                   <div className='absolute w-full top-2 rounded-xl bg-whiteBg shadow-2xl shadow-black'>
                     {loading && <div className='p-3'>Loading...</div>}
                     {suggestions.map(suggestion => {

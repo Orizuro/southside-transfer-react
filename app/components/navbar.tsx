@@ -25,52 +25,27 @@ export default function NavBar() {
   flex gap-x-8 justify-between
   */ }
   return <nav className="  bg-black text-whiteBg">
-    <div className="sm:px-10 px-3 py-5 grid grid-cols-3 items-center ">
-      {/* Where the icons goes*/}
-
-      <div className=" items-center justify-start flex   col-span-2 lg:col-end-2">
+    <div className="lg:px-10 px-3 py-5 flex flex-col lg:flex-row  lg:justify-between ">
+      {/* Wrapper div for the logo */}
+      <div className=" flex items-center lg:order-1 ">
         <Link href="/">
-          <div className="flex items-center justify-center w-full lg:w-auto">
-          <Image src={"logo.svg"} className={""}
-                 alt=""
-                 width={40}
-                 height={40}
-          />
-          <div> Southside Transfers</div>
+          <div className=" flex items-center">
+            <Image src="logo.svg" alt="Logo" width={40} height={40}/>
+            <div>Southside Transfers</div>
           </div>
         </Link>
-
       </div>
 
-
-      <div className="hidden sm:flex text-xl items-center justify-center justify-items-center gap-x-2">
-
-        <button><a href="/#HowItWorks" className={"scroll-smooth"}>How it works</a></button>
-
-        <ItemLink href="/about" text="About"/>
-
-        <button><a href="/#WhatWeOffer" className={"scroll-smooth"}>What we offer</a></button>
-
-
-
+      {/* Wrapper div for the menu items */}
+      <div className="lg:absolute lg:left-1/2 lg:transform lg:-translate-x-1/2 lg:order-2 mt-4 lg:mt-0  ">
+        <div className="flex text-sm md:text-base lg:text-xl">
+          <ItemLink href="/#HowItWorks" text="How it works"/>
+          <ItemLink href="/about" text="About Us"/>
+          <ItemLink href="/#WhatWeOffer" text="What we offer"/>
+        </div>
       </div>
-
-
-      {/*
-        To put the letters in the middle
-        Else it would be in the right
-      */}
-
-      {
-        // <div className="">
-        //   <CtnButton />
-        // </div>
-      }
-
-      <div className="sm:hidden ml-2 justify-end flex col-start-3 ">
-        <Bars3Icon className=" h-10" aria-hidden="true" />
-      </div>
-
     </div>
-  </nav >
+
+
+  </nav>
 }

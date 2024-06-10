@@ -20,9 +20,9 @@ export default function HowItWorks({ title, text, image, num, button, alt }: Pro
         <div className="image-container flex justify-center  my-10">
           <Image src={image} width={130} height={130} alt={alt} />
         </div >
-        <p className=" text-center text-2xl font-extrabold"> {title} </p>
+        <p className=" text-center text-2xl font-semibold"> {title} </p>
         <div className=" p-2 rounded-xl text-justify">
-          <p className="  lg:text-lg font-medium " > {text} </p>
+          <p className="  lg:text-lg font-normal " > {text} </p>
           {button}
         </div>
       </div>

@@ -8,7 +8,13 @@ import HowItWorks from "./components/howItWorksElement";
 import WhatWeOffer from "./components/whtaweoffer";
 import { tripInfo } from "@/app/module";
 import Head from "next/head";
-
+import styled from "styled-components";
+import {
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem
+} from "@nextui-org/dropdown";import { Button } from '@nextui-org/react';
 // import bgImage from "../public/images/bg-image.webp";
 
 //<text className="text-7xl font-bold justify-center justify-items-center "> Where you want to go ?</text>
@@ -161,69 +167,78 @@ export default function Home() {
         />
       </Head>
       <div rel={"preload"} className="w-full bg-image-test bg-cover bg-top ">
-        <div className="flex justify-center p-5 lg:py-16   ">
-          <text className=" text-5xl lg:text-7xl text-bold text-left "> Where do you want to go ?</text>
+        <div className="flex p-3"/>
+        <div className="flex justify-center  p-3    ">
+          <text className=" text-5xl font-semibold max-w-screen-md "> Where do you want to go ?</text>
         </div>
-        <div className="flex justify-center items-center p-3 lg:py-10 ">
-          <div className=" lg:w-3/4 ">
-            <h1 className="  text-xl lg:text-center lg:text-3xl font-medium text-justify">Effortlessly plan your
-              journeys and we will create a seamless and cost-effective transfer experience in the southside of Portugal.</h1>
-            <h1 className="  text-xl lg:text-center lg:text-3xl font-medium text-justify">We help you get anywhere you
+
+        <div className="flex justify-center items-center p-6 ">
+          <div className="max-w-screen-md 2xl:max-w-screen-xl xl:max-w-screen-lg  ">
+            <h1 className="  text-xl font-medium text-justify">Effortlessly plan your
+              journeys and we will create a seamless and cost-effective transfer experience in the southside of
+              Portugal.</h1>
+            <h1 className="  text-xl font-medium text-justify">We help you get anywhere you
               want in
               Algarve.</h1>
 
           </div>
         </div>
-        <div className={"items-center justify-center "}>
-        <div className=" items-center justify-center py-10 m-3  lg:flex">
-          <div className=" lg:w-3/4  rounded-2xl h-auto grid-rows-3  bg-[#F2F4F4] shadow-2xl shadow-black/80 ">
+        <div className="flex p-3"/>
+        <div className={"items-center justify-center"}>
+          <div className=" items-center justify-center p-3 md:flex">
+            <div className="  2xl:w-3/4 rounded-xl h-auto grid-rows-3  bg-[#F2F4F4] shadow-2xl shadow-black/80 ">
 
-            <div className="grid row-start-2 lg:grid-cols-10  lg:grid-rows-1 h-auto grid-rows-4">
+              <div className="grid row-start-2 md:grid-cols-10  lg:grid-rows-1 h-auto ">
 
-              <div className="flex items-center md:col-span-3 justify-center p-5  ">
-                <LocationSearchInput
-                    label={"From :"}
-                    placeHolder={"Type your address or location "}
-                    onSelectAddress={(address: string) => {setOrigin(address);}}
-                />
-              </div>
-              <div className="flex items-center justify-center md:col-span-3 p-5 ">
-                <LocationSearchInput
-                    label={"To :"}
-                    placeHolder={"Type your address or location "}
-                    onSelectAddress={(address: string) => {setDestination(address);}}
-                />
-              </div>
-              <div className="flex items-center justify-center md:col-span-2 p-5">
-                <OptionsWithNumbers maxPassengers={16} labelText='Quantity:'></OptionsWithNumbers>
+                <div className="flex items-center md:col-span-5 justify-center p-3 lg:col-span-3  ">
+                  <LocationSearchInput
+                      label={"From :"}
+                      placeHolder={"Type your address or location "}
+                      onSelectAddress={(address: string) => {
+                        setOrigin(address);
+                      }}
+                  />
+                </div>
+                <div className="flex items-center justify-center md:col-span-5 p-3 lg:col-span-3 ">
+                  <LocationSearchInput
+                      label={"To :"}
+                      placeHolder={"Type your address or location "}
+                      onSelectAddress={(address: string) => {
+                        setDestination(address);
+                      }}
+                  />
+                </div>
+                <div className="flex items-center justify-center md:col-span-4 p-3 lg:col-span-2 ">
+                  <OptionsWithNumbers maxPassengers={16} labelText='Quantity:'></OptionsWithNumbers>
+                </div>
+                <div className='flex justify-center items-center p-3 md:col-span-4  lg:col-span-10 lg:order-5 '>
+                  <div className=" text-xl ">Expected time of travel: {time}</div>
+                </div>
+                <div className="flex items-center justify-center md:col-span-2  lg:col-span-2 p-3">
+                  <button
+                      onClick={submit}
+                      className='font-medium bg-blueLight hover:bg-blueLight/60 rounded-xl p-3 '
+                  >
+                    Next {"->"}
+                  </button>
+                </div>
               </div>
 
-
-              <div className="flex items-center justify-center md:col-span-2">
-                <button
-                    onClick={submit}
-                    className='font-medium bg-blueLight hover:bg-blueLight/60 rounded-2xl p-3 '
-                >
-                  Next {"->"}
-                </button>
-              </div>
-            </div>
-            <div className='flex justify-center row-start-3 p-7'>
-              <div className=" text-xl ">Expected time of travel: {time}</div>
             </div>
           </div>
         </div>
-        </div>
+        <div className="flex p-6 "/>
         <section id={"HowItWorks"}>
-          <div className=" mt-10 lg:mt-20 lg:py-10 justify-center items-center flex m-2">
-            <div
-                className="  lg:w-8/12 rounded bg-[#F2F4F4] shadow-2xl shadow-black/80 p-5  justify-center items-center w-full">
-              <h1 className=" text-4xl text-center lg:text-5xl font-medium  ">How it works ? </h1>
+          <div className="  justify-center items-center flex  p-3  ">
+            <div className="  max-w-screen-md rounded-xl bg-[#F2F4F4] shadow-2xl shadow-black/80 p-3  justify-center items-center w-full">
+              <h1 className=" text-4xl text-center font-semibold  ">How it works ? </h1>
             </div>
           </div>
+
+
           <div className=" flex justify-center items-center">
-            <div className="carousel w-full lg:w-3/4  p-5 ">
-              <div className="carousel-item relative w-full lg:w-1/3  ">
+            <div className="carousel md:max-w-screen-lg lg:max-w-screen-xl xl:max-w-screen-2xl p-3 ">
+              <div className="carousel-item relative max-w-full md:max-w-md lg:w-1/3 hover:">
                 <HowItWorks
                     num="1"
                     title="You book your ride"
@@ -233,7 +248,7 @@ export default function Home() {
                     alt="car icon"
                 />
               </div>
-              <div className="carousel-item relative w-full lg:w-1/3 ">
+              <div className="carousel-item relative  max-w-full md:max-w-md  lg:w-1/3 ">
                 <HowItWorks
                     num="2"
                     title="Safe"
@@ -241,7 +256,7 @@ export default function Home() {
                     image="/icons/shield.png"
                     alt="shield icon"/>
               </div>
-              <div className="carousel-item relative w-full lg:w-1/3 ">
+              <div className="carousel-item relative  max-w-full md:max-w-md lg:w-1/3 ">
                 <HowItWorks
                     num="3"
                     title="Relax and enjoy your ride"
@@ -253,15 +268,16 @@ export default function Home() {
             </div>
           </div>
         </section>
+        <div className="flex p-3"/>
         <section id={"WhatWeOffer"}>
-          <div className=" lg:py-10 justify-center items-center flex  m-2">
-            <div
-                className="  lg:w-8/12 rounded bg-[#F2F4F4] shadow-2xl shadow-black/80 p-5  justify-center items-center w-full">
-              <h1 className=" text-4xl text-center lg:text-5xl font-medium  ">What we offer ? </h1>
+          <div className="justify-center items-center flex  p-3">
+            <div className=" max-w-screen-md rounded-xl bg-[#F2F4F4] shadow-2xl shadow-black/80 p-3  justify-center items-center w-full">
+              <h1 className="text-4xl text-center font-semibold  ">What we offer ? </h1>
             </div>
           </div>
-          <div className=" flex items-center justify-center mt-5">
-            <div className="grid lg:grid-cols-2 lg:w-3/4 ">
+
+          <div className=" flex items-center justify-center p-3">
+            <div className="grid md:grid-cols-2 max-w-screen-xl   ">
               <WhatWeOffer
                   title="Family-Friendly Services"
                   text="Enjoy free child seats and boosters for your family, spacious vehicles to accommodate all your luggage and strollers, and safe, comfortable travel for all ages."
@@ -285,27 +301,31 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <div className=" flex justify-center items-center">
-          <div className=" bg-whiteBg  py-5 mx-5 my-10 shadow-2xl rounded-xl  ">
-            <div className=" text-xl font-semibold justify-center flex p-2 ">
-              If you need any help contact us
-            </div>
-            <div className="  flex justify-center  ">
-              We will be happy to help you in any question.
-            </div>
-            <div className="items-center justify-center gap-10 ">
-              <div className="text-lg p-5"> Send a email or call us:</div>
-              <div className=" text-lg items-center justify-center p-3">
-                <a className="p-3 bg-[#DEDEDE] rounded-lg shadow-lg"
-                   href={"mailto:bookings@southsidetransfers.com"}>bookings@southsidetransfers.com</a>
-              </div>
-              <div className=" flex text-lg items-center justify-center p-3">
-                <a className=" p-3 bg-[#DEDEDE] rounded-lg shadow-lg" href="tel://+351914313808">+351 914 313 808 </a>
-              </div>
+        <div className="flex p-3"/>
 
+        <section id={"ContactUs"}>
+          <div className=" flex justify-center items-center p-3 ">
+            <div className=" bg-whiteBg shadow-2xl rounded-xl  ">
+              <div className=" text-xl font-semibold justify-center text-center p-3 ">
+                If you need any help contact us
+              </div>
+              <div className=" flex justify-center p-3 text-center  ">
+                We will be happy to help you in any question, send us a email or call us.
+              </div>
+              <div className="items-center justify-center  ">
+                <div className=" text-lg items-center justify-center p-3 flex">
+                  <a className="p-3 bg-[#DEDEDE] rounded-xl shadow-lg"
+                     href={"mailto:bookings@southsidetransfers.com"}>bookings@southsidetransfers.com</a>
+                </div>
+                <div className=" flex text-lg items-center justify-center p-3">
+                  <a className=" p-3 bg-[#DEDEDE] rounded-xl shadow-lg" href="tel://+351914313808">+351 914 313 808 </a>
+                </div>
+
+              </div>
             </div>
           </div>
-        </div>
+        </section>
+        <div className="flex p-3"/>
       </div>
 
     </div>
