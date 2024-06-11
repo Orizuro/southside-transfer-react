@@ -8,13 +8,13 @@ interface ProductQuantityProps {
   title: string;
   total: number;
   image: string;
-  scale: string;
+  style: string;
 
 }
 
-const ProductQuantity: React.FC<ProductQuantityProps> = ({ productQuantity, setProductQuantity, age, title, max, total, image, scale }) => {
+const ProductQuantity: React.FC<ProductQuantityProps> = ({ productQuantity, setProductQuantity, age, title, max, total, image, style }) => {
 
-  let style = "p-5 scale-" + scale
+
   const decreaseQuantity = () => {
     if (productQuantity > 0) {
       setProductQuantity((prevQuantity) => prevQuantity - 1);

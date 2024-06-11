@@ -50,9 +50,6 @@ const MapComponent: React.FC<MapComponentProps> = () => {
 
     useEffect(() => {
         setPassagerSum(adult + child + infant);
-
-        if (data.nPassenger == 0) redirect("/");
-
     }, [adult, child, infant, data.nPassenger]);
 
     const [dateTime, setDateTime] = useState("");
@@ -97,10 +94,8 @@ const MapComponent: React.FC<MapComponentProps> = () => {
     for (var i = 0; i <= 16; i++)
         luggageOptions.push(<option key={i}>{i}</option>);
 
-    //TODO make sure that the passagetSum == data.nPassenger before passing to the next page
     const onSubmit = (newData: FormSchemaType) => {
         if (passagerSum < data.nPassenger) return null;
-
         data.additionInfo = newData.additionalInformation;
         data.dateOfPickup = newData.pickupDate;
         data.timeOfPickup = newData.pickupTime;
@@ -157,7 +152,7 @@ const MapComponent: React.FC<MapComponentProps> = () => {
                             // onChange={props.onChange}
                         />
 
-                        {props.error && (<p>{props.error.message?.toString()}</p>)}
+                        {props.error && (<div className={"text-sm p-2 text-[#C70039]"}>{props.error.message?.toString()}</div>)}
 
                     </div>
                 </div>
@@ -232,7 +227,10 @@ const MapComponent: React.FC<MapComponentProps> = () => {
                             <input
                                 {...register("flightNumber")}
                                 type="text" name="flightNumber"
-                                className="block w-full rounded-md border-0 px-14 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                placeholder={"Example: TAP103"}
+                                className="block w-full rounded-md border-0  text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+
+                            />
                         </div>
                         <div>
                             <div className=''>
@@ -240,7 +238,7 @@ const MapComponent: React.FC<MapComponentProps> = () => {
                                 <input
                                     {...register("displayedName")}
                                     type="text" name="displayedName"
-                                    className="block w-full rounded-md border-0 px-14 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                    className="block w-full rounded-md border-0  text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                             </div>
                         </div>
                     </div>
@@ -253,19 +251,22 @@ const MapComponent: React.FC<MapComponentProps> = () => {
                     </div>
                     <div className=' justify-center flex py-5'>
                         <button
+                            type={"button"}
                             className='  text-gray-600 transition hover:opacity-75 px-4 ml-5 border rounded-lg shadow-xl'
                             onClick={() => {
-                                setAdultN(data.nPassenger), setChildN(0), setInfantN(0)
+                                setAdultN(data.nPassenger);
+                                setChildN(0);
+                                setInfantN(0);
                             }}> All adults
                         </button>
                     </div>
                     {(showPassagerError && passagerSum != data.nPassenger) &&
                         <div className='flex gap-2 py-4 place-items-center justify-center'>
-                            <IoIosInformationCircleOutline className='text-lg'/>
-                            <p className=" text-[#C70039]"> Not all people are selected, there&apos;s still {data.nPassenger - passagerSum} to select</p>
+                            <IoIosInformationCircleOutline className=' text-lg'/>
+                            <p className=" text-[#C70039] text-sm "> Not all people are selected, there&apos;s still {data.nPassenger - passagerSum} to select</p>
                         </div>
                     }
-                    <div className='carousel w-full  gap-2 pb-10 justify-center '>
+                    <div className='carousel w-full  gap-2 pb-10 justify-start sm:justify-center scale '>
                         <div className='carousel-item pl-2 '>
                             <ProductQuantity
                                 productQuantity={adult}
@@ -274,7 +275,7 @@ const MapComponent: React.FC<MapComponentProps> = () => {
                                 title={'Adults'} max={data.nPassenger}
                                 total={passagerSum}
                                 image="/icons/man.png"
-                                scale={'100'}>
+                                style={'p-5 scale-110'}>
                             </ProductQuantity>
                         </div>
                         <div className='carousel-item'>
@@ -286,7 +287,7 @@ const MapComponent: React.FC<MapComponentProps> = () => {
                                 max={data.nPassenger}
                                 total={passagerSum}
                                 image="/icons/child.png"
-                                scale={'75'}>
+                                style={'p-5 scale-90'}>
                             </ProductQuantity>
                         </div>
                         <div className='carousel-item pr-2'>
@@ -298,7 +299,7 @@ const MapComponent: React.FC<MapComponentProps> = () => {
                                 max={data.nPassenger}
                                 total={passagerSum}
                                 image="/icons/infante.png"
-                                scale={'75'}>
+                                style={'p-5 scale-75'}>
                             </ProductQuantity>
                         </div>
                     </div>
