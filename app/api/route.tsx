@@ -8,8 +8,6 @@ export async function POST(request : NextRequest, res : NextResponse) {
     // let priceId = data.priceId
     //let data = JSON.parse(dat);
     //data = JSON.parse(data);
-    console.log(data);
-    console.log(data.adult.toString());
     data.price = data.price.toFixed(2) * 100;
     const session = await stripe.checkout.sessions.create({
         line_items: [

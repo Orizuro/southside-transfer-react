@@ -45,20 +45,20 @@ class LocationSearchInput extends React.Component {
                   <input
                       {...getInputProps({
                         placeholder: this.props.placeHolder,
-                        className: 'rounded-xl font-medium text-black w-full',
+                        className: ' rounded-lg p-3 font-medium text-black w-full',
                       })}
                   />
                 </div>
                 <div className='relative z-50'>
-                  <div className='absolute w-full top-2 rounded-xl bg-whiteBg shadow-2xl shadow-black'>
+                  <div className='absolute w-full top-2 rounded-lg  bg-gray-300  shadow-2xl shadow-black'>
                     {loading && <div className='p-3'>Loading...</div>}
                     {suggestions.map(suggestion => {
                       const className = suggestion.active
-                          ? 'suggestion-item--active p-2 hover:bg-[#F8F9F9] rounded-xl'
-                          : 'suggestion-item p-2';
+                          ? 'suggestion-item--active p-2 hover:bg-[#F8F9F9]'
+                          : 'suggestion-item p-2 ';
                       const style = suggestion.active
                           ? { backgroundColor: '#f2f3fa', cursor: 'pointer' }
-                          : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                          : { backgroundColor: '#f2f3fa', cursor: 'pointer' };
 
                       // Destructure key from suggestionItemProps
                       const { key, ...suggestionItemProps } = getSuggestionItemProps(suggestion, {

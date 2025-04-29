@@ -7,19 +7,39 @@ import Link from 'next/link';
 import HowItWorks from "./components/howItWorksElement";
 import WhatWeOffer from "./components/whtaweoffer";
 import { tripInfo } from "@/app/module";
-import Head from "next/head";
 import styled from "styled-components";
 import {
   Dropdown,
   DropdownTrigger,
   DropdownMenu,
   DropdownItem
-} from "@nextui-org/dropdown";import { Button } from '@nextui-org/react';
+} from "@nextui-org/dropdown";
+import { Button } from '@nextui-org/react';
+import {MailIcon} from "@nextui-org/shared-icons";
+import {PhoneIcon} from "@heroicons/react/16/solid";
 // import bgImage from "../public/images/bg-image.webp";
 
 //<text className="text-7xl font-bold justify-center justify-items-center "> Where you want to go ?</text>
 //items-center
 export default function Home() {
+
+  useEffect(() => {
+    // Load Google Maps script with places library
+    const script = document.createElement('script');
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_SECRET_KEY}&libraries=places`;
+    script.async = true;
+    script.onload = () => {
+      console.log('Google Maps API loaded');
+    };
+    document.head.appendChild(script);
+
+    return () => {
+      // Cleanup script if component unmounts
+      document.head.removeChild(script);
+    };
+  }, []);
+
+
   const [origin, setOrigin] = useState<string>('');
   const [destination, setDestination] = useState<string>('');
   const [nPassenger, setSelectedQuantity] = useState(0);
@@ -153,182 +173,178 @@ export default function Home() {
   }
 
   return (
-    <div>
-      <Head>
-        <title>
-          Southsidetransfers - South Side Transfers
-        </title>
-        <link rel="canonical" href="https://www.southsidetransfers.com/"/>
-        <link rel="icon" href="/favicon.ico"/>
-        <meta
-            name="description"
-            content="Discover reliable transportation services in Algarve, Portugal. Our premium fleet offers seamless transfers from anywhere to explore the stunning Algarve region. Enjoy comfort, punctuality, and competitive rates with our professional drivers. Book now for an unforgettable journey through Algarve’s beautiful landscapes and attractions."
-            key="desc"
-        />
-      </Head>
-      <div rel={"preload"} className="w-full bg-image-test bg-cover bg-top ">
-        <div className="flex p-3"/>
-        <div className="flex justify-center  p-3    ">
-          <text className=" text-5xl font-semibold max-w-screen-md "> Where do you want to go ?</text>
+
+    <div className="bg-primary-light">
+
+      {/* Booking Form */}
+      <div className="w-full bg-image-test bg-center lg:bg-cover pt-16 p-8">
+        <div className="container mx-auto max-w-4xl ">
+          <h1 className="text-5xl font-semibold text-center mb-6">
+            Faro Airport Transfers
+          </h1>
+          <p className="text-xl font-medium mb-2 text-justify">
+            Book reliable and affordable airport transfers from Faro Airport to any destination in the Algarve.
+            Enjoy private, door-to-door transport to resorts, hotels, villas, and golf courses across the region.
+          </p>
+          <p className="text-xl font-medium text-center">
+
+          </p>
         </div>
 
-        <div className="flex justify-center items-center p-6 ">
-          <div className="max-w-screen-md 2xl:max-w-screen-xl xl:max-w-screen-lg  ">
-            <h1 className="  text-xl font-medium text-justify">Effortlessly plan your
-              journeys and we will create a seamless and cost-effective transfer experience in the southside of
-              Portugal.</h1>
-            <h1 className="  text-xl font-medium text-justify">We help you get anywhere you
-              want in
-              Algarve.</h1>
+        {/* Booking Form */}
+        <div className="relative flex flex-col items-center justify-center  pb-16 pt-32 ">
 
-          </div>
-        </div>
-        <div className="flex p-3"/>
-        <div className={"items-center justify-center"}>
-          <div className=" items-center justify-center p-3 md:flex">
-            <div className="  2xl:w-3/4 rounded-xl h-auto grid-rows-3  bg-[#F2F4F4] shadow-2xl shadow-black/80 ">
-
-              <div className="grid row-start-2 md:grid-cols-10  lg:grid-rows-1 h-auto ">
-
-                <div className="flex items-center md:col-span-5 justify-center p-3 lg:col-span-3  ">
-                  <LocationSearchInput
-                      label={"From :"}
-                      placeHolder={"Type your address or location "}
-                      onSelectAddress={(address: string) => {
-                        setOrigin(address);
-                      }}
-                  />
-                </div>
-                <div className="flex items-center justify-center md:col-span-5 p-3 lg:col-span-3 ">
-                  <LocationSearchInput
-                      label={"To :"}
-                      placeHolder={"Type your address or location "}
-                      onSelectAddress={(address: string) => {
-                        setDestination(address);
-                      }}
-                  />
-                </div>
-                <div className="flex items-center justify-center md:col-span-4 p-3 lg:col-span-2 ">
-                  <OptionsWithNumbers maxPassengers={16} labelText='Quantity:'></OptionsWithNumbers>
-                </div>
-                <div className='flex justify-center items-center p-3 md:col-span-4  lg:col-span-10 lg:order-5 '>
-                  <div className=" text-xl ">Expected time of travel: {time}</div>
-                </div>
-                <div className="flex items-center justify-center md:col-span-2  lg:col-span-2 p-3">
-                  <button
-                      onClick={submit}
-                      className='font-medium bg-blueLight hover:bg-blueLight/60 rounded-xl p-3 '
-                  >
-                    Next {"->"}
-                  </button>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-        <div className="flex p-6 "/>
-        <section id={"HowItWorks"}>
-          <div className="  justify-center items-center flex  p-3  ">
-            <div className="  max-w-screen-md rounded-xl bg-[#F2F4F4] shadow-2xl shadow-black/80 p-3  justify-center items-center w-full">
-              <h1 className=" text-4xl text-center font-semibold  ">How it works ? </h1>
-            </div>
-          </div>
-
-
-          <div className=" flex justify-center items-center">
-            <div className="carousel md:max-w-screen-lg lg:max-w-screen-xl xl:max-w-screen-2xl p-3 ">
-              <div className="carousel-item relative max-w-full md:max-w-md lg:w-1/3 hover:">
-                <HowItWorks
-                    num="1"
-                    title="You book your ride"
-                    text="Simply complete the booking form, ensuring to include your flight details if heading from the airport.
-                                Select your pickup address/destination, and the price will be instantly displayed based on your chosen route. "
-                    image="/icons/car.png"
-                    alt="car icon"
+          <div className="w-full max-w-5xl bg-gray-300 p-8 rounded-2xl shadow-lg">
+            <h2 className="text-4xl font-bold text-black mb-8 text-center">Booking</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 text-black">
+              {/* Departure Date and Time */}
+              <div className="lg:col-span-2">
+                <label className="block mb-2 font-medium ">Departure date and time</label>
+                <input
+                    type="datetime-local"
+                    className="w-full p-3 rounded-lg text-black"
                 />
               </div>
-              <div className="carousel-item relative  max-w-full md:max-w-md  lg:w-1/3 ">
-                <HowItWorks
-                    num="2"
-                    title="Safe"
-                    text="Your designated driver will await you, holding a sign bearing your name. They'll escort you directly and safely to your destination without any additional stops. Payment can be made via card or cash directly to the driver."
-                    image="/icons/shield.png"
-                    alt="shield icon"/>
-              </div>
-              <div className="carousel-item relative  max-w-full md:max-w-md lg:w-1/3 ">
-                <HowItWorks
-                    num="3"
-                    title="Relax and enjoy your ride"
-                    text="Putting our customers first is our utmost priority. Rest assured, our drivers will manage every aspect with precision and care, allowing you to relax and leave your concerns behind."
-                    image="/icons/happy.png"
-                    alt="happy face icon"/>
+
+              {/* Pickup */}
+              <div className="lg:col-span-2">
+                <label className="block mb-2 font-medium">Pick up location</label>
+                <LocationSearchInput
+                    label=""
+                    placeHolder="Select pickup location"
+                    onSelectAddress={(address: string) => setOrigin(address)} onAfterSelect={undefined}                />
               </div>
 
-            </div>
-          </div>
-        </section>
-        <div className="flex p-3"/>
-        <section id={"WhatWeOffer"}>
-          <div className="justify-center items-center flex  p-3">
-            <div className=" max-w-screen-md rounded-xl bg-[#F2F4F4] shadow-2xl shadow-black/80 p-3  justify-center items-center w-full">
-              <h1 className="text-4xl text-center font-semibold  ">What we offer ? </h1>
-            </div>
-          </div>
-
-          <div className=" flex items-center justify-center p-3">
-            <div className="grid md:grid-cols-2 max-w-screen-xl   ">
-              <WhatWeOffer
-                  title="Family-Friendly Services"
-                  text="Enjoy free child seats and boosters for your family, spacious vehicles to accommodate all your luggage and strollers, and safe, comfortable travel for all ages."
-                  image="/icons/car.png"
-              ></WhatWeOffer>
-              <WhatWeOffer
-                  title="Airport Transfers"
-                  text="Experience reliable and punctual transfers to and from Faro Airport with our meet and greet service. Travel comfortably and leave the logistics to us."
-                  image="">
-              </WhatWeOffer>
-              <WhatWeOffer
-                  title="Private Transfers"
-                  text="Enjoy customized rides for individuals or groups to any destination in the Algarve. With free cancellation up to 24 hours in advance, transparent pricing, and comfortable, spacious vehicles, we ensure a stress-free journey."
-                  image="">
-              </WhatWeOffer>
-              <WhatWeOffer
-                  title="Golf Transfers"
-                  text="Experience transportation to and from the Algarve's premier golf courses, with flexible scheduling tailored to your tee times. Our vehicles provide ample space to accommodate all your golf equipment, ensuring a seamless and enjoyable golfing experience."
-                  image="">
-              </WhatWeOffer>
-            </div>
-          </div>
-        </section>
-        <div className="flex p-3"/>
-
-        <section id={"ContactUs"}>
-          <div className=" flex justify-center items-center p-3 ">
-            <div className=" bg-whiteBg shadow-2xl rounded-xl  ">
-              <div className=" text-xl font-semibold justify-center text-center p-3 ">
-                If you need any help contact us
+              {/* Drop-off */}
+              <div className="lg:col-span-2">
+                <label className="block mb-2 font-medium">Drop off location</label>
+                <LocationSearchInput
+                    label=""
+                    placeHolder="Select drop-off location"
+                    onSelectAddress={(address: string) => setDestination(address)} onAfterSelect={undefined}                />
               </div>
-              <div className=" flex justify-center p-3 text-center  ">
-                We will be happy to help you in any question, send us a email or call us.
+
+              {/* How many people */}
+              <div className="lg:col-span-2">
+                <label className="block mb-2 font-medium">How many people?</label>
+                <select
+                    className="w-full p-3 rounded-lg text-black"
+                    value={nPassenger}
+                    onChange={e => setSelectedQuantity(parseInt(e.target.value))}
+                >
+                  <option value={0}>--</option>
+                  {Array.from({ length: 16 }, (_, i) => (
+                      <option key={i + 1} value={i + 1}>{i + 1}</option>
+                  ))}
+                </select>
               </div>
-              <div className="items-center justify-center  ">
-                <div className=" text-lg items-center justify-center p-3 flex">
-                  <a className="p-3 bg-[#DEDEDE] rounded-xl shadow-lg"
-                     href={"mailto:bookings@southsidetransfers.com"}>bookings@southsidetransfers.com</a>
+
+              {/* Return / One Way */}
+              <div className="lg:col-span-2 flex items-end justify-center p-4">
+                <div className="flex gap-6">
+                  <label className="flex items-center gap-2">
+                    <input
+                        type="radio"
+                        name="tripType"
+                        className="appearance-none w-5 h-5 border-2 border-white rounded-sm checked:bg-primary-light checked:border-primary-light"
+                    />
+                    Return
+                  </label>
+                  <label className="flex items-center gap-2">
+                    <input
+                        type="radio"
+                        name="tripType"
+                        className="appearance-none w-5 h-5 border-2 border-white rounded-sm checked:bg-primary-light checked:border-primary-light"
+                    />
+                    One way
+                  </label>
                 </div>
-                <div className=" flex text-lg items-center justify-center p-3">
-                  <a className=" p-3 bg-[#DEDEDE] rounded-xl shadow-lg" href="tel://+351914313808">+351 914 313 808 </a>
-                </div>
-
               </div>
+
+              {/* Submit Button */}
+              <div className="lg:col-span-2 flex items-end">
+                <button
+                    onClick={submit}
+                    className="w-full bg-blue hover:bg-primary   bg-primary-light utext-black font-bold py-3 rounded-lg border-primary border-2"
+                >
+                  FIND A TRANSFER
+                </button>
+              </div>
+
             </div>
           </div>
-        </section>
-        <div className="flex p-3"/>
+        </div>
       </div>
+      <div className=" p-8">
+        {/* How It Works Section */}
+        <section id="HowItWorks" className="container mx-auto max-w-5xl mb-16 ">
+          <h2 className="text-4xl font-bold mb-4 text-center">How it works ?</h2>
 
+          <div className="grid md:grid-cols-3 gap-6">
+            <div>
+              <HowItWorks
+                num="1"
+                title="You book your ride"
+                text="Simply complete the booking form, ensuring to include your flight details if heading from the airport. Select your pickup address/destination, and the price will be instantly displayed based on your chosen route."
+                image="/icons/car.png"
+                alt="car icon"
+              />
+            </div>
+            <div>
+              <HowItWorks
+                num="2"
+                title="Safe"
+                text="Your designated driver will await you, holding a sign bearing your name. They'll escort you directly and safely to your destination without any additional stops. Payment can be made via card or cash directly to the driver."
+                image="/icons/shield.png"
+                alt="shield icon"
+              />
+            </div>
+            <div>
+              <HowItWorks
+                num="3"
+                title="Relax and enjoy your ride"
+                text="Putting our customers first is our utmost priority. Rest assured, our drivers will manage every aspect with precision and care, allowing you to relax and leave your concerns behind."
+                image="/icons/happy.png"
+                alt="happy face icon"
+              />
+            </div>
+          </div>
+        </section>
+        {/* What We Offer Section */}
+        <section id="WhatWeOffer" className="container mx-auto max-w-5xl mb-16">
+            <WhatWeOffer/>
+        </section>
+
+        {/* Contact Us Section */}
+        <section id="ContactUs" className="bg-gray-100 py-12 rounded-2xl">
+          <div className="container mx-auto max-w-4xl px-4 grid grid-cols-1 md:grid-cols-2 gap-8 ">
+            {/* Email */}
+            <div className="flex items-start gap-4 ">
+              <div className="bg-white p-3 rounded-full shadow ">
+                <MailIcon className="h-6 w-6 text-blue-600" />
+              </div>
+              <div>
+                <h3 className="text-sm text-gray-500 uppercase font-medium">Email Us</h3>
+                <p className="lg:text-lg font-semibold text-gray-800">bookings@southsidetransfers.com</p>
+              </div>
+            </div>
+
+            {/* Phone */}
+            <div className="flex items-start gap-4">
+              <div className="bg-white p-3 rounded-full shadow">
+                <PhoneIcon className="h-6 w-6 text-green-600" />
+              </div>
+              <div>
+                <h3 className="text-sm text-gray-500 uppercase font-medium">Call Us</h3>
+                <p className="text-lg font-semibold text-gray-800">+351 914 313 808</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
+
+
   )
 
 }
